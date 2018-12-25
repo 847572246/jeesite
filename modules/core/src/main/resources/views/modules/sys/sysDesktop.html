@@ -10,6 +10,7 @@
 					<span class="info-box-text">CPU 使用率</span>
 					<span class="info-box-number">100<small>%</small></span>
 				</div>
+				
 			</div>
 		</div>
 		<div class="col-md-3 col-sm-6 col-xs-12">
@@ -77,6 +78,15 @@
 								<div id="myChart" style="height:230px;width:99%"></div>
 								<script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
 								<script>
+								 $.ajax({
+								url:'http://localhost:8080/web/a/school/schoolDate/schooldata/list',
+								type:'post',
+								async:false,
+								success:function(data){
+								console.log(data+"asdqefeaw");
+								}
+								});
+							 
 									var option = {
 									    title : {
 									        text: '2017-5'
@@ -121,7 +131,7 @@
 									            type:'line',
 									            smooth:true,
 									            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-									            data:[10, 12, 21, 54, 260, 830, 1500]
+									            data:[1000, 12, 21, 54, 260, 830, 1500]
 									        },
 									        {
 									            name:'预购',
@@ -227,7 +237,4 @@ $(window).resize(function(){
 	var windowHeight  = $(window).height();
 	$('.content').css('min-height', windowHeight - footerHeight)
 }).resize();
-function score(){
-	
-}
 </script>
