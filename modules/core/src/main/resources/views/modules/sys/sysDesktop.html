@@ -74,18 +74,19 @@
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-8">
-							<div class="chart">
-								<div id="myChart" style="height:230px;width:99%"></div>
+							<div class="chart" style='overflow: initial;'>
+								<div id="myChart" style="height:400px;width:100%"></div>
 								<script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
 								<script>
+								
+								
 								 $.ajax({
 								url:'http://localhost:8080/web/a/school/schoolDate/schooldata/list',
 								type:'post',
 								async:false,
-								success:function(data){
-								console.log(data+"asdqefeaw");
-								}
-								});
+								success:function(ch){
+								console.log(ch);
+								
 							 
 									var option = {
 									    title : {
@@ -95,7 +96,8 @@
 									        trigger: 'axis'
 									    },
 									    legend: {
-									        data:['意向','预购','成交']
+									        data:['语文','数学','英语','化学','物理','生物','历史','地理','政治'],
+									       bottom:0
 									    },
 									    toolbox: {
 									        show : true,
@@ -111,13 +113,13 @@
 									    grid : {
 									    	top: '49',
 									    	right: '20',
-									    	bottom: '30'
+									    	bottom: '60'
 									    },
 									    xAxis : [
 									        {
 									            type : 'category',
 									            boundaryGap : false,
-									            data : ['周一','周二','周三','周四','周五','周六','周日']
+									            data : ch[0]
 									        }
 									    ],
 									    yAxis : [
@@ -127,31 +129,70 @@
 									    ],
 									    series : [
 									        {
-									            name:'成交',
+									            name:'语文',
 									            type:'line',
-									            smooth:true,
+									            smooth:false,
 									            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-									            data:[1000, 12, 21, 54, 260, 830, 1500]
+									            data:ch[1]
+									            
 									        },
 									        {
-									            name:'预购',
+									            name:'数学',
 									            type:'line',
-									            smooth:true,
+									            smooth:false,
 									            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-									            data:[30, 182, 434, 791, 390, 30, 10]
+									            data:ch[2]
 									        },
 									        {
-									            name:'意向',
+									            name:'英语',
 									            type:'line',
-									            smooth:true,
+									            smooth:false,
 									            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-									            data:[1320, 1132, 601, 234, 120, 90, 1200]
+									            data:ch[3]
+									        },{
+									            name:'化学',
+									            type:'line',
+									            smooth:false,
+									            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+									            data:ch[4]
+									        },{
+									            name:'物理',
+									            type:'line',
+									            smooth:false,
+									            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+									            data:ch[5]
+									        },{
+									            name:'生物',
+									            type:'line',
+									            smooth:false,
+									            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+									            data:ch[6]
+									        },{
+									            name:'历史',
+									            type:'line',
+									            smooth:false,
+									            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+									            data:ch[7]
+									        },{
+									            name:'地理',
+									            type:'line',
+									            smooth:false,
+									            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+									            data:ch[8]
+									        },{
+									            name:'政治',
+									            type:'line',
+									            smooth:false,
+									            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+									            data:ch[9]
 									        }
 									     ]
 									};
 									// 基于准备好的dom，初始化echarts实例
 							        var myChart = echarts.init(document.getElementById('myChart'));
 							        myChart.setOption(option);
+								}
+									});
 								</script>
 							</div>
 						</div>
