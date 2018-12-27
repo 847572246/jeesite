@@ -52,6 +52,12 @@
 			<div class="box box-widget">
 				<div class="box-header with-border">
 					<h3 class="box-title">月度报告</h3>
+					
+					<select class="school_year">
+  						
+					</select>
+					 
+					
 					<div class="box-tools pull-right">
 						<button type="button" class="btn btn-box-tool" data-widget="collapse">
 							<i class="fa fa-minus"></i>
@@ -71,12 +77,31 @@
 						</button>
 					</div>
 				</div>
+				
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-8">
 							<div class="chart" style='overflow: initial;'>
-								<div id="myChart" style="height:400px;width:100%"></div>
+								<div id="myChart" style="height:400px;width:100%">
+								</div>
+								
 								<script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
+								<script>
+								var str="";
+								$.ajax({
+									url:'http://localhost:8080/web/a/school/schoolDate/school_year',
+									type:'post',
+									async:false,
+									success:function(sy){
+									console.log(sy);
+									for(var i=0;i<sy.length;i++){
+									str+='<option value ="'+sy[i]+'">'+sy[i]+'</option>';
+									}
+									
+									$(".school_year").html(str);
+									}
+								});
+								</script>
 								<script>
 								
 								
@@ -99,6 +124,7 @@
 									        data:['语文','数学','英语','化学','物理','生物','历史','地理','政治'],
 									       bottom:0
 									    },
+									    
 									    toolbox: {
 									        show : true,
 									        feature : {
