@@ -7,18 +7,19 @@
 			<div class="info-box">
 				<span class="info-box-icon bg-aqua"><i class="fa fa-cog"></i></span>
 				<div class="info-box-content">
-					<span class="info-box-text">CPU 使用率</span>
-					<span class="info-box-number">100<small>%</small></span>
+					<span class="info-box-text">CPU 使用率</span> <span
+						class="info-box-number">100<small>%</small></span>
 				</div>
-				
+
 			</div>
 		</div>
 		<div class="col-md-3 col-sm-6 col-xs-12">
 			<div class="info-box">
-				<span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+				<span class="info-box-icon bg-red"><i
+					class="fa fa-google-plus"></i></span>
 				<div class="info-box-content">
-					<span class="info-box-text">关注数</span>
-					<span class="info-box-number">41,410</span>
+					<span class="info-box-text">关注数</span> <span
+						class="info-box-number">41,410</span>
 				</div>
 			</div>
 		</div>
@@ -28,10 +29,11 @@
 
 		<div class="col-md-3 col-sm-6 col-xs-12">
 			<div class="info-box">
-				<span class="info-box-icon bg-green"><i class="fa fa-internet-explorer"></i></span>
+				<span class="info-box-icon bg-green"><i
+					class="fa fa-internet-explorer"></i></span>
 				<div class="info-box-content">
-					<span class="info-box-text">因特网</span>
-					<span class="info-box-number">760</span>
+					<span class="info-box-text">因特网</span> <span
+						class="info-box-number">760</span>
 				</div>
 			</div>
 		</div>
@@ -40,8 +42,8 @@
 				<span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
 
 				<div class="info-box-content">
-					<span class="info-box-text">新用户</span>
-					<span class="info-box-number">2,000</span>
+					<span class="info-box-text">新用户</span> <span
+						class="info-box-number">2,000</span>
 				</div>
 			</div>
 		</div>
@@ -52,19 +54,22 @@
 			<div class="box box-widget">
 				<div class="box-header with-border">
 					<h3 class="box-title">月度报告</h3>
+
 					
-					<select class="school_year">
-  						
-					</select>
-					 
+						<select class="school_year">
+						</select>
 					
+
 					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="collapse">
+						<button type="button" class="btn btn-box-tool"
+							data-widget="collapse">
 							<i class="fa fa-minus"></i>
 						</button>
 						<div class="btn-group">
-							<button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-								<i class="fa fa-wrench"></i></button>
+							<button type="button" class="btn btn-box-tool dropdown-toggle"
+								data-toggle="dropdown">
+								<i class="fa fa-wrench"></i>
+							</button>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="#">导出Excel</a></li>
 								<li><a href="#">导出Word</a></li>
@@ -72,21 +77,37 @@
 								<li><a href="#">基本设置</a></li>
 							</ul>
 						</div>
-						<button type="button" class="btn btn-box-tool" data-widget="remove">
+						<button type="button" class="btn btn-box-tool"
+							data-widget="remove">
 							<i class="fa fa-times"></i>
 						</button>
 					</div>
 				</div>
-				
+
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-8">
 							<div class="chart" style='overflow: initial;'>
-								<div id="myChart" style="height:400px;width:100%">
-								</div>
-								
-								<script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
+								<div id="myChart" style="height: 400px; width: 100%"></div>
+
+								<script
+									src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
 								<script>
+								
+								$(function(){
+									$.ajax({
+										url:'http://localhost:8080/web/a/school/schoolDate/userid',
+										type:'post',
+										async:false,
+										success:function(uid){
+										console.log(uid);
+										alert(uid);
+										}
+									});
+									$('.school_year').change(function(){
+										var p1=$(this).children('option:selected').val();
+										school(p1);
+									});
 								var str="";
 								$.ajax({
 									url:'http://localhost:8080/web/a/school/schoolDate/school_year',
@@ -97,25 +118,29 @@
 									for(var i=0;i<sy.length;i++){
 									str+='<option value ="'+sy[i]+'">'+sy[i]+'</option>';
 									}
-									
 									$(".school_year").html(str);
+									school(sy[1]);
 									}
 								});
+								});
+									
 								</script>
 								<script>
 								
-								
+									function school(p){
+									    
 								 $.ajax({
 								url:'http://localhost:8080/web/a/school/schoolDate/schooldata/list',
 								type:'post',
 								async:false,
+								data: {schyear: p},
 								success:function(ch){
 								console.log(ch);
 								
 							 
 									var option = {
 									    title : {
-									        text: '2017-5'
+									        text: ''
 									    },
 									    tooltip : {
 									        trigger: 'axis'
@@ -219,6 +244,7 @@
 							        myChart.setOption(option);
 								}
 									});
+								}
 								</script>
 							</div>
 						</div>
@@ -227,31 +253,32 @@
 								<strong>完成目标</strong>
 							</p>
 							<div class="progress-group">
-								<span class="progress-text">将产品添加到购物车</span>
-								<span class="progress-number"><b>160</b>/200</span>
+								<span class="progress-text">将产品添加到购物车</span> <span
+									class="progress-number"><b>160</b>/200</span>
 								<div class="progress sm">
 									<div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
 								</div>
 							</div>
 							<div class="progress-group">
-								<span class="progress-text">完成购买率</span>
-								<span class="progress-number"><b>310</b>/400</span>
+								<span class="progress-text">完成购买率</span> <span
+									class="progress-number"><b>310</b>/400</span>
 								<div class="progress sm">
 									<div class="progress-bar progress-bar-red" style="width: 80%"></div>
 								</div>
 							</div>
 							<div class="progress-group">
-								<span class="progress-text">产品访问量</span>
-								<span class="progress-number"><b>480</b>/800</span>
+								<span class="progress-text">产品访问量</span> <span
+									class="progress-number"><b>480</b>/800</span>
 								<div class="progress sm">
 									<div class="progress-bar progress-bar-green" style="width: 80%"></div>
 								</div>
 							</div>
 							<div class="progress-group">
-								<span class="progress-text">查询访问量</span>
-								<span class="progress-number"><b>250</b>/500</span>
+								<span class="progress-text">查询访问量</span> <span
+									class="progress-number"><b>250</b>/500</span>
 								<div class="progress sm">
-									<div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+									<div class="progress-bar progress-bar-yellow"
+										style="width: 80%"></div>
 								</div>
 							</div>
 						</div>
@@ -261,28 +288,32 @@
 					<div class="row">
 						<div class="col-sm-3 col-xs-6">
 							<div class="description-block border-right">
-								<span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
+								<span class="description-percentage text-green"><i
+									class="fa fa-caret-up"></i> 17%</span>
 								<h5 class="description-header">￥35,210.43</h5>
 								<span class="description-text">总营收</span>
 							</div>
 						</div>
 						<div class="col-sm-3 col-xs-6">
 							<div class="description-block border-right">
-								<span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
+								<span class="description-percentage text-yellow"><i
+									class="fa fa-caret-left"></i> 0%</span>
 								<h5 class="description-header">￥10,390.90</h5>
 								<span class="description-text">总成本</span>
 							</div>
 						</div>
 						<div class="col-sm-3 col-xs-6">
 							<div class="description-block border-right">
-								<span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
+								<span class="description-percentage text-green"><i
+									class="fa fa-caret-up"></i> 20%</span>
 								<h5 class="description-header">￥24,813.53</h5>
 								<span class="description-text">总利润</span>
 							</div>
 						</div>
 						<div class="col-sm-3 col-xs-6">
 							<div class="description-block">
-								<span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
+								<span class="description-percentage text-red"><i
+									class="fa fa-caret-down"></i> 18%</span>
 								<h5 class="description-header">1200</h5>
 								<span class="description-text">目标完成</span>
 							</div>
@@ -294,8 +325,10 @@
 	</div>
 </div>
 <footer class="main-footer m0">
-	<div class="pull-right hidden-xs">当前版本： ${@Global.getConfig('productVersion')}</div>
-	&copy; ${@DateUtils.getYear()} ${@Global.getConfig('productName')} - Powered By <a href="http://jeesite.com">JeeSite</a>
+	<div class="pull-right hidden-xs">当前版本：
+		${@Global.getConfig('productVersion')}</div>
+	&copy; ${@DateUtils.getYear()} ${@Global.getConfig('productName')} -
+	Powered By <a href="http://jeesite.com">JeeSite</a>
 </footer>
 <% } %>
 <script>
