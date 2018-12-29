@@ -189,8 +189,8 @@ public class CasAuthorizingRealm extends BaseAuthorizingRealm  {
 		
 		// 更新登录IP、时间、会话ID等
 		User user = UserUtils.get(loginInfo.getId());
-		getUserService().updateUserLoginInfo(user);
-		
+	getUserService().updateUserLoginInfo(user);
+
 		// 记录用户登录日志
 		LogUtils.saveLog(user, ServletUtils.getRequest(), "系统登录", Log.TYPE_LOGIN_LOGOUT);
 	}

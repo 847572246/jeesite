@@ -93,7 +93,7 @@
 								<script
 									src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
 								<script>
-								
+								var user;
 								$(function(){
 									$.ajax({
 										url:'http://localhost:8080/web/a/school/schoolDate/userid',
@@ -101,39 +101,44 @@
 										async:false,
 										success:function(uid){
 										console.log(uid);
-										alert(uid);
+										schyear(uid);
+										school(uid);
+										user=uid;
 										}
 									});
 									$('.school_year').change(function(){
 										var p1=$(this).children('option:selected').val();
-										school(p1);
+										school(p1,user);
 									});
+								function schyear(uid){
 								var str="";
 								$.ajax({
 									url:'http://localhost:8080/web/a/school/schoolDate/school_year',
 									type:'post',
 									async:false,
+									data: {usercode:uid},
 									success:function(sy){
-									console.log(sy);
+									console.log(sy+"sy");
 									for(var i=0;i<sy.length;i++){
 									str+='<option value ="'+sy[i]+'">'+sy[i]+'</option>';
 									}
 									$(".school_year").html(str);
-									school(sy[1]);
+									school(sy[0],uid);
 									}
 								});
+								}
 								});
-									
+								
 								</script>
 								<script>
 								
-									function school(p){
+									function school(p,uid){
 									    
 								 $.ajax({
 								url:'http://localhost:8080/web/a/school/schoolDate/schooldata/list',
 								type:'post',
 								async:false,
-								data: {schyear: p},
+								data: {schyear: p,usercode:uid},
 								success:function(ch){
 								console.log(ch);
 								
