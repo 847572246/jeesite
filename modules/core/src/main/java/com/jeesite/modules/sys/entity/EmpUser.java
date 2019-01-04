@@ -88,6 +88,7 @@ public class EmpUser extends User {
 		@ExcelField(title="办公电话", attrName="phone", align=Align.CENTER, sort=70),
 		@ExcelField(title="员工编码", attrName="employee.empCode", align=Align.CENTER, sort=80),
 		@ExcelField(title="员工姓名", attrName="employee.empName", align=Align.CENTER, sort=95),
+		/*@ExcelField(title="错题id", attrName="wrong_id", align=Align.CENTER, sort=85),*/
 		@ExcelField(title="拥有角色编号", attrName="userRoleString", align=Align.LEFT, sort=800, type=ExcelField.Type.IMPORT),
 		@ExcelField(title="最后登录日期", attrName="lastLoginDate", align=Align.CENTER, sort=900, type=ExcelField.Type.EXPORT, dataFormat="yyyy-MM-dd HH:mm"),
 	})
