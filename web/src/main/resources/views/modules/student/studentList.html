@@ -1,0 +1,99 @@
+<% layout('/layouts/default.html', {title: 'student管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> ${text('student管理')}
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+				<% if(hasPermi('student:student:edit')){ %>
+					<a href="${ctx}/student/student/form" class="btn btn-default btnTool" title="${text('新增student')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${student}" action="${ctx}/student/student/listData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+				<div class="form-group">
+					<label class="control-label">${text('school')}：</label>
+					<div class="control-inline">
+						<#form:input path="school" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('name')}：</label>
+					<div class="control-inline">
+						<#form:input path="name" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('sex')}：</label>
+					<div class="control-inline">
+						<#form:input path="sex" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('birth')}：</label>
+					<div class="control-inline">
+						<#form:input path="birth" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="grade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('文科or理科')}：</label>
+					<div class="control-inline">
+						<#form:input path="artsci" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('phone')}：</label>
+					<div class="control-inline">
+						<#form:input path="phone" maxlength="20" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+					<button type="reset" class="btn btn-default btn-sm">${text('重置')}</button>
+				</div>
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'${text('school')}', name:'school', index:'a.school', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/student/student/form?id='+row.id+'" class="btnList" data-title="${text('编辑student')}">'+(val||row.id)+'</a>';
+		}},
+		{header:'${text('name')}', name:'name', index:'a.name', width:150, align:"left"},
+		{header:'${text('sex')}', name:'sex', index:'a.sex', width:150, align:"left"},
+		{header:'${text('birth')}', name:'birth', index:'a.birth', width:150, align:"left"},
+		{header:'${text('grade')}', name:'grade', index:'a.grade', width:150, align:"left"},
+		{header:'${text('文科or理科')}', name:'artsci', index:'a.artsci', width:150, align:"left"},
+		{header:'${text('phone')}', name:'phone', index:'a.phone', width:150, align:"center"},
+		{header:'${text('操作')}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+			<% if(hasPermi('student:student:edit')){ %>
+				actions.push('<a href="${ctx}/student/student/form?id='+row.id+'" class="btnList" title="${text('编辑student')}"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="${ctx}/student/student/delete?id='+row.id+'" class="btnList" title="${text('删除student')}" data-confirm="${text('确认要删除该student吗？')}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			<% } %>
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>

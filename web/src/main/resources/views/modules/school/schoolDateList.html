@@ -1,0 +1,179 @@
+<% layout('/layouts/default.html', {title: 'school_date管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> ${text('school_date管理')}
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+				<% if(hasPermi('school:schoolDate:edit')){ %>
+					<a href="${ctx}/school/schoolDate/form" class="btn btn-default btnTool" title="${text('新增school_date')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${schoolDate}" action="${ctx}/school/schoolDate/listData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+				<div class="form-group">
+					<label class="control-label">${text('remarks')}：</label>
+					<div class="control-inline">
+						<#form:input path="remarks" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('status')}：</label>
+					<div class="control-inline width-120">
+						<#form:select path="status" dictType="sys_search_status" blankOption="true" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('math_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="mathGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('english_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="englishGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('chemical_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="chemicalGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('physical_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="physicalGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('biological_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="biologicalGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('history_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="historyGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('geographic_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="geographicGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('political_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="politicalGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('stuid')}：</label>
+					<div class="control-inline">
+						<#form:input path="stuid" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('chinese_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="chineseGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('chemical_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="chemicalGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('physical_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="physicalGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('biological_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="biologicalGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('history_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="historyGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('geographic_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="geographicGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('political_grade')}：</label>
+					<div class="control-inline">
+						<#form:input path="politicalGrade" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+					<button type="reset" class="btn btn-default btn-sm">${text('重置')}</button>
+				</div>
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'${text('create_date')}', name:'createDate', index:'a.create_date', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/school/schoolDate/form?id='+row.id+'" class="btnList" data-title="${text('编辑school_date')}">'+(val||row.id)+'</a>';
+		}},
+		{header:'${text('remarks')}', name:'remarks', index:'a.remarks', width:150, align:"left"},
+		{header:'${text('status')}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel(${@DictUtils.getDictListJson('sys_search_status')}, val, '${text('未知')}', true);
+		}},
+		{header:'${text('math_grade')}', name:'mathGrade', index:'a.math_grade', width:150, align:"center"},
+		{header:'${text('english_grade')}', name:'englishGrade', index:'a.english_grade', width:150, align:"center"},
+		{header:'${text('chemical_grade')}', name:'chemicalGrade', index:'a.chemical_grade', width:150, align:"center"},
+		{header:'${text('physical_grade')}', name:'physicalGrade', index:'a.physical_grade', width:150, align:"center"},
+		{header:'${text('biological_grade')}', name:'biologicalGrade', index:'a.biological_grade', width:150, align:"center"},
+		{header:'${text('history_grade')}', name:'historyGrade', index:'a.history_grade', width:150, align:"center"},
+		{header:'${text('geographic_grade')}', name:'geographicGrade', index:'a.geographic_grade', width:150, align:"center"},
+		{header:'${text('political_grade')}', name:'politicalGrade', index:'a.political_grade', width:150, align:"center"},
+		{header:'${text('stuid')}', name:'stuid', index:'a.stuid', width:150, align:"left"},
+		{header:'${text('chinese_grade')}', name:'chineseGrade', index:'a.chinese_grade', width:150, align:"center"},
+		{header:'${text('chemical_grade')}', name:'chemicalGrade', index:'a.chemical_grade', width:150, align:"center"},
+		{header:'${text('physical_grade')}', name:'physicalGrade', index:'a.physical_grade', width:150, align:"center"},
+		{header:'${text('biological_grade')}', name:'biologicalGrade', index:'a.biological_grade', width:150, align:"center"},
+		{header:'${text('history_grade')}', name:'historyGrade', index:'a.history_grade', width:150, align:"center"},
+		{header:'${text('geographic_grade')}', name:'geographicGrade', index:'a.geographic_grade', width:150, align:"center"},
+		{header:'${text('political_grade')}', name:'politicalGrade', index:'a.political_grade', width:150, align:"center"},
+		{header:'${text('操作')}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+			<% if(hasPermi('school:schoolDate:edit')){ %>
+				actions.push('<a href="${ctx}/school/schoolDate/form?id='+row.id+'" class="btnList" title="${text('编辑school_date')}"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="${ctx}/school/schoolDate/delete?id='+row.id+'" class="btnList" title="${text('删除school_date')}" data-confirm="${text('确认要删除该school_date吗？')}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			<% } %>
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>

@@ -1,0 +1,254 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>jQuery在线答题考试系统下载</title>
+
+		<link href="${ctxStatic}/common/main.css?${_version}" rel="stylesheet" type="text/css" />
+		<link href="${ctxStatic}/common/iconfont.css?${_version}" rel="stylesheet" type="text/css" />
+		<link href="${ctxStatic}/common/test.css?${_version}" rel="stylesheet" type="text/css" />
+		<script src="${ctxStatic}/common/jquery.min.js?${_version}" type="text/javascript"></script>
+		<style>
+			.hasBeenAnswer {
+				background: #5d9cec;
+				color: #fff;
+			}
+			h3.tesTitle{color: #00B895;}
+	        .test-form-box{max-height: 660px;overflow: auto;}
+			.assignment{margin: 30px 0 60px;text-align: center;}
+			.assignment .btn{background: #00B895;width: 120px;font-size: 18px;border-color: #00B895;}
+			#testForm .testCon:nth-child(odd){background: #eee;}
+		</style>
+
+	</head>
+
+	<body>
+	<font id="gongsi"></font>
+		<div class="main">
+			<!--nr start-->
+			<div class="test_main">
+			
+				<div class="nr_left">
+					<div class="test">
+						<form action="" method="post">
+							<div class="test_title">
+								<p class="test_time" id="time">
+									<i class="icon iconfont">&#xe6fb;</i><b class="alt-1">00:01:00</b>
+								</p>
+								<font id="f1" style=""><input id="jiaojuan" type="button" name="test_jiaojuan" value="交卷" onclick="daan()"></font>&nbsp;
+								<font><input type="button" value="重新考试" onclick="location.reload()"></font>&nbsp;
+								<font><input type="button" value="返回上一级" onclick=location.href="course.html"></font>&nbsp;
+							</div>
+
+							<div class="test_content">
+								<div class="test_content_title">
+									<h2 class="text11">单选题</h2>
+									<p>
+										<span>共</span><i class="content_lit">5</i><span>题，</span><span>合计</span><i class="content_fs">30</i><span>分</span>
+									</p>
+								</div>
+							</div>
+							<div class="test_content_nr">
+
+								<ul class="danxuan">
+		<!-----------------------------1------------------------------>
+
+<!-- -----------------------------------------------------	 -->
+ </li>
+</ul>
+</div>
+<!-- </li>
+</ul>
+</div> -->
+<div class="test_content">
+	<div class="test_content_title">
+		<h2>多选题</h2>
+		<p>
+			<span>共</span><i class="content_lit">2</i><span>题，</span><span>合计</span><i class="content_fs">20</i><span>分</span>
+		</p>
+	</div>
+</div>
+
+<div class="test_content_nr">
+	<ul class="duoxuan">
+		
+		<!---------------------------------------------------------->
+
+
+								</ul>
+							</div>
+
+						</form>
+					</div>
+
+				</div>
+				<div class="nr_right">
+					<div class="nr_rt_main">
+						<div class="rt_nr1">
+							<div class="rt_nr1_title">
+								<h1>
+							<i class="icon iconfont">&#xe692;</i>答题卡
+						</h1>
+								<p class="test_time">
+									<i class="icon iconfont">&#xe6fb;</i><b class="alt-1">00:01:00</b>
+								</p>
+							</div>
+
+							<div class="rt_content">
+								<div class="rt_content_tt">
+									<h2>单选题</h2>
+									<p>
+										<span>共</span><i class="content_lit">5</i><span>题</span>
+									</p>
+								</div>
+								<div class="rt_content_nr answerSheet">
+									<ul>
+									
+										<li>
+											<a href="#qu_0_1">1</a>
+										</li>
+										<li>
+											<a href="#qu_0_2">2</a>
+										</li>
+										<li>
+											<a href="#qu_0_3">3</a>
+										</li>
+										<li>
+											<a href="#qu_0_4">4</a>
+										</li>
+										<li>
+											<a href="#qu_0_5">5</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="rt_content">
+								<div class="rt_content_tt">
+									<h2>多选题</h2>
+									<p>
+										<span>共</span><i class="content_lit">2</i><span>题</span>
+									</p>
+								</div>
+								<div class="rt_content_nr answerSheet">
+									<ul>
+
+										<li>
+											<a href="#qu_1_1">1</a>
+										</li>
+
+										<li>
+											<a href="#qu_1_2">2</a>
+										</li>
+
+										
+
+									</ul>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!--nr end-->
+			<div class="foot"></div>
+		</div>
+		
+		<!-- <script src="${ctxStatic}/common/jquery-1.11.3.min.js?${_version}"></script> -->
+		<script src="${ctxStatic}/common/jquery.easy-pie-chart.js?${_version}"></script>
+		<!--时间js-->
+		<script src="${ctxStatic}/common/jquery.countdown.js?${_version}"></script>
+		<script src="${ctxStatic}/common/daan.js?${_version}"></script>
+		<script src="${ctxStatic}/common/danxuan.js?${_version}"></script>
+		<script src="${ctxStatic}/common/duoxuan.js?${_version}"></script>
+		<script type="text/javascript" src="${ctxStatic}/common/myLayer.js?${_version}"></script>
+		<script>
+		
+			var i=60;
+			var flag=1;
+			var danans="";
+			var duoans=[];
+			var dangrade=0;
+			var duograde=0;
+			var finalgrade=0; 
+			window.jQuery(function($) {
+				"use strict";
+
+				$('time').countDown({
+					with_separators: false
+				});
+				$('.alt-1').countDown({
+					css_class: 'countdown-alt-1'
+				});
+				$('.alt-2').countDown({
+					css_class: 'countdown-alt-2'
+				});
+				
+				
+			});
+			
+	function time1(){
+		
+		
+		if(i>0){
+			console.log('剩余'+i);
+			i--;
+		}else{
+			daan();
+			clearInterval(timeId);
+		}
+		
+		}
+		var timeId=setInterval(time1,1000);
+//		---------------------------------------------------
+
+//页面加载后执行
+$(function() {
+		//调用
+		dan();
+		console.log(flag);
+		if(flag==-1)
+		duo();
+		$('li.option label').click(function() {
+			/* debugger; */
+			var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id'); // 得到题目ID
+			var cardLi = $('a[href=#' + examId + ']'); // 根据题目ID找到对应答题卡
+			// 设置已答题
+			if(!cardLi.hasClass('hasBeenAnswer')) {
+				cardLi.addClass('hasBeenAnswer');
+			}
+
+				});
+			});
+			
+/* --------------------提示框--------------------- */	
+    function openWindow() {
+      new MyLayer({
+        top:"20%",
+        left:"20%",
+        width:"60%",
+        height:"60%",
+        title:"考试结束",
+        content:"你的成绩为：",
+        content1:finalgrade,
+        content2:"单选题成绩为："+dangrade,
+        content3:"多选题成绩为："+duograde,
+      }).openLayer();
+    }
+
+
+</script>
+
+		<div style="text-align:center;margin:50px 0;font:normal 14px/24px 'MicroSoft YaHei';">
+			<p>适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。</p>
+			<p>来源：
+				<a href="http://sc.chinaz.com/" target="_blank">站长素材</a>
+			</p>
+		</div>
+	</body>
+
+</html>

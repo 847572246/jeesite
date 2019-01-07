@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.school.dao.SchoolDateDao">
+	
+	<!-- 查询数据
+	<select id="findList" resultType="SchoolDate">
+		SELECT ${sqlMap.column.toSql()}
+		FROM ${sqlMap.table.toSql()}
+		<where>
+			${sqlMap.where.toSql()}
+		</where>
+		ORDER BY ${sqlMap.order.toSql()}
+	</select> -->
+	<select id="chinese" resultType="string">
+	SELECT chinese_score
+	FROM school_date 
+	WHERE status=0 and school_year=#{schyear} and user_code=#{usercode}
+	</select>
+	<select id="math" resultType="string">
+	SELECT math_score
+	FROM school_date 
+	WHERE status=0 and school_year=#{schyear} and user_code=#{usercode}
+	</select>
+	<select id="english" resultType="string">
+	SELECT english_score
+	FROM school_date 
+	WHERE status=0 and school_year=#{schyear} and user_code=#{usercode}
+	</select>
+	<select id="chemical" resultType="string">
+	SELECT chemical_score
+	FROM school_date 
+	WHERE status=0 and school_year=#{schyear} and user_code=#{usercode}
+	</select>
+	<select id="physical" resultType="string">
+	SELECT physical_score
+	FROM school_date 
+	WHERE status=0 and school_year=#{schyear} and user_code=#{usercode}
+	</select>
+	<select id="biological" resultType="string">
+	SELECT biological_score
+	FROM school_date 
+	WHERE status=0 and school_year=#{schyear} and user_code=#{usercode}
+	</select>
+	<select id="history" resultType="string">
+	SELECT history_score
+	FROM school_date 
+	WHERE status=0 and school_year=#{schyear} and user_code=#{usercode}
+	</select>
+	<select id="geographic" resultType="string">
+	SELECT geographic_score
+	FROM school_date 
+	WHERE status=0 and school_year=#{schyear} and user_code=#{usercode}
+	</select>
+	<select id="political" resultType="string">
+	SELECT political_score
+	FROM school_date 
+	WHERE status=0 and school_year=#{schyear} and user_code=#{usercode}
+	</select>
+	<select id="examname" resultType="string">
+	SELECT exam_name
+	FROM school_date 
+	WHERE status=0 and school_year=#{schyear} and user_code=#{usercode}
+	</select>
+	<select id="schoolyear" resultType="string">
+	SELECT school_year
+	FROM school_date 
+	WHERE status=0 and user_code=#{usercode}
+	ORDER BY order_flag
+	</select>
+</mapper>
