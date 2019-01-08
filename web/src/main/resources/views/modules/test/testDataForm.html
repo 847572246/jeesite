@@ -23,14 +23,12 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
+					<div class="col-xs-6">
 						<div class="form-group">
-							<label class="control-label col-sm-2" title="">
+							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('多行文本')}：<i class="fa icon-question hide"></i></label>
-							<div class="col-sm-10">
-								<#form:textarea path="testTextarea" rows="4" maxlength="200" class="form-control"/>
+							<div class="col-sm-8">
+								<#form:input path="testTextarea" maxlength="200" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -41,7 +39,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('下拉框')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:select path="testSelect" dictType="sys_menu_type" blankOption="true" class="form-control" />
+								<#form:input path="testSelect" maxlength="10" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -50,7 +48,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('下拉多选')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:select path="testSelectMultiple" dictType="sys_menu_type" multiple="true" blankOption="true" class="form-control" />
+								<#form:input path="testSelectMultiple" maxlength="200" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -61,7 +59,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('单选框')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:radio path="testRadio" dictType="sys_menu_type" class="form-control" />
+								<#form:input path="testRadio" maxlength="10" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -70,7 +68,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('复选框')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:checkbox path="testCheckbox" dictType="sys_menu_type" class="form-control" />
+								<#form:input path="testCheckbox" maxlength="200" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -81,8 +79,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('日期选择')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="testDate" readonly="true" maxlength="20" class="form-control Wdate"
-									dataFormat="date" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:true});"/>
+								<#form:input path="testDate" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -91,8 +88,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('日期时间')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="testDatetime" readonly="true" maxlength="20" class="form-control Wdate"
-									dataFormat="datetime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',isShowClear:false});"/>
+								<#form:input path="testDatetime" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -103,10 +99,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('用户选择')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:treeselect id="testUser" title="${text('用户选择')}"
-									path="testUser.userCode" labelPath="testUser.userName"
-									url="${ctx}/sys/office/treeData?isLoadUser=true"
-									class="" allowClear="true"/>
+								<#form:input path="testUserCode" maxlength="64" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -115,10 +108,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('机构选择')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:treeselect id="testOffice" title="${text('机构选择')}"
-									path="testOffice.officeCode" labelPath="testOffice.officeName"
-									url="${ctx}/sys/office/treeData"
-									class="" allowClear="true"/>
+								<#form:input path="testOfficeCode" maxlength="64" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -129,10 +119,16 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('区域选择')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:treeselect id="testAreaCode" title="${text('区域选择')}"
-									path="testAreaCode" labelPath="testAreaName"
-									url="${ctx}/sys/area/treeData"
-									class="" allowClear="true"/>
+								<#form:input path="testAreaCode" maxlength="64" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('区域名称')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="testAreaName" maxlength="100" class="form-control"/>
 							</div>
 						</div>
 					</div>
