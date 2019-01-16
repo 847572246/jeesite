@@ -17,10 +17,22 @@
 		where status=0
 		order by rand() limit 5
 	</select>
+
 	<select id="getmultiple" resultType="Multiple">
 		select * 
 		from multiple_selection
 		where status=0
 		order by rand() limit 5
+	</select>
+	
+	<select id="findsingle" resultType="Single">
+		select * 
+		from single_selection 
+		where status=0 and id=#{id}
+	</select>
+		<select id="findmultiple" resultType="Multiple">
+		select * 
+		from multiple_selection 
+		where status=0 and id=#{id}
 	</select>
 </mapper>

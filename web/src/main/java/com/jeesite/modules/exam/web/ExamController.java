@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
 import com.jeesite.common.web.BaseController;
+import com.jeesite.modules.createword.service.CreateWordService;
 import com.jeesite.modules.exam.entity.Multiple;
 import com.jeesite.modules.exam.entity.Single;
 import com.jeesite.modules.exam.service.ExamService;
@@ -85,6 +86,7 @@ public class ExamController extends BaseController {
 		List<Single> single=examService.getsingle();
 		return single;
 	}
+	
 	/**
 	 * 
 	 * @return
@@ -95,6 +97,21 @@ public class ExamController extends BaseController {
 		List<Multiple> multiple=examService.getmultiple();
 		return multiple;
 	}
+	
+	@RequestMapping(value = "findsingle")
+	@ResponseBody
+	public Single findsingle(String id) {
+		Single single=examService.findsingle(id);
+		return single;
+	}
+	@RequestMapping(value = "findmultiple")
+	@ResponseBody
+	public Multiple findmultiple(String id) {
+		Multiple multiple=examService.findmultiple(id);
+		return multiple;
+	}
+	
+	
 	/**
 	 * 查询列表数据
 	 */

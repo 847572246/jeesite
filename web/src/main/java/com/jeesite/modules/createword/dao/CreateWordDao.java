@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2013-Now http://jeesite.com All rights reserved.
  */
-package com.jeesite.modules.exam.dao;
+package com.jeesite.modules.createword.dao;
 
 import java.util.List;
 
@@ -16,9 +16,7 @@ import com.jeesite.modules.exam.entity.Single;
  * @version 2019-01-02
  */
 @MyBatisDao
-public interface ExamDao extends CrudDao<Single>{
-	public List<Single> getsingle();
-	public List<Multiple> getmultiple();
-	public Single findsingle(String id);
-	public Multiple findmultiple(String id);
+public interface CreateWordDao{
+	public Single findsingle();
+	public Multiple findmultiple();
 }

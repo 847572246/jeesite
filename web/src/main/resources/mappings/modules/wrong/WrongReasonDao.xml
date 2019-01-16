@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.wrong.dao.WrongReasonDao">
+	
+	<!-- 查询数据
+	<select id="findList" resultType="WrongReason">
+		SELECT ${sqlMap.column.toSql()}
+		FROM ${sqlMap.table.toSql()}
+		<where>
+			${sqlMap.where.toSql()}
+		</where>
+		ORDER BY ${sqlMap.order.toSql()}
+	</select> -->
+	<select id="getwrongid" resultType="String">
+		SELECT wrong_id
+		FROM js_sys_user
+		WHERE user_code=#{user}
+	</select>
+	<select id="getwrong" resultType="Single">
+		SELECT *
+		FROM single_selection
+		WHERE reason like CONCAT('%',#{wrongid},'%')
+		order by rand() limit 1
+	</select>
+</mapper>

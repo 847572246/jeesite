@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+		
+		<script src="${ctxStatic}/common/jquery.min.js?${_version}" type="text/javascript"></script>
+		
+</head>
+<script type="text/javascript">
+
+		var str="";
+		$.ajax({
+			url:'http://localhost:8080/web/a/wrong/wrongReason/wrongid',
+			type:'post',
+			async:false,
+			success:function(data){
+				console.log("agargargarsgrgzrgh")
+				console.log(data);
+			}
+			});
+		
+</script>
+<body>
+<ul class="danxuan">
+</ul>
+</body>
+</html>

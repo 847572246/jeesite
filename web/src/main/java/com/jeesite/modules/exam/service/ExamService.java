@@ -22,7 +22,12 @@ import com.jeesite.modules.exam.dao.ExamDao;
 @Service
 @Transactional(readOnly=true)
 public class ExamService extends CrudService<ExamDao, Single> {
-	
+	public Multiple findmultiple(String id) {
+		return dao.findmultiple(id);
+	}
+	public Single findsingle(String id) {
+		return dao.findsingle(id);
+	}
 	/**
 	 * 获取单条数据
 	 * @param single
