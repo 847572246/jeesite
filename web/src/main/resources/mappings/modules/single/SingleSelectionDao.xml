@@ -20,6 +20,6 @@
 	<select id="findsingle" resultType="SingleSelection">
 		select * 
 		from single_selection 
-		where
+		where status=0 and id=#{id}
 	</select>
 </mapper>

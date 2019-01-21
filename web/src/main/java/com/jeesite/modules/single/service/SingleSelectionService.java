@@ -86,7 +86,6 @@ public class SingleSelectionService extends CrudService<SingleSelectionDao, Sing
 		super.delete(singleSelection);
 	}
 	public SingleSelection findsingle(String id) {
-		System.out.println(id+"哒哒哒哒哒哒多");
 		return dao.findsingle(id);
 	}
 	

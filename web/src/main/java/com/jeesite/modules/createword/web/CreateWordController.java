@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,32 +53,28 @@ public class CreateWordController extends BaseController {
 
 	@Autowired
 	private CreateWordService createwordService;
+	@Autowired
 	private SingleSelectionController singleselectioncontroller;
+	@Autowired
 	private MultipleSelectionController multipleSelectionController;
 
 @RequestMapping(value = "create")
 @ResponseBody
 	public void exportSimpleWord() {
-		String[] qid= {"1085352781168775168","1085353136787034112","1085353276662878208","1082173345942388736","1085352629917978624","1085354419958845440","1085354551022456832"};
-		//SingleSelectionController singleController=new SingleSelectionController();
-		//MultipleSelectionController multipleController=new MultipleSelectionController();
-		List<SingleSelection> list = singleselectioncontroller.findsingle(qid);
-		List<MultipleSelection> list1 = multipleSelectionController.findmultiple(qid);
+		String[] id= {"1085352781168775168","1085353136787034112","1085353276662878208","1082173345942388736","1085352629917978624","1085354419958845440","1085354551022456832"};
+		List<SingleSelection> list = singleselectioncontroller.findsingle(id);
+		List<MultipleSelection> list1 = multipleSelectionController.findmultiple(id);
+		list.removeAll(Collections.singleton(null));
+		list1.removeAll(Collections.singleton(null));
 		Map<String, Object> root = new HashMap<String, Object>();
 		root.put("single", list);
 		root.put("multiple", list1);
-		FreeMarkertUtil.analysisTemplate("C:/create/", "test.ftl", "C:/create/use.doc" + Math.random() * 10000 + ".doc",
+		FreeMarkertUtil.analysisTemplate("C:/create/", "exam.ftl", "C:/create/use.doc" + Math.random() * 10000 + ".doc",
 				root);
 	} 
-	
-	/*public static  List<SingleSelection> initUserList(String[] id) {
-		SingleSelectionController singleController=new SingleSelectionController();
-		return singleController.findsingle(id);
-	}*/
-/*	public static  List<MultipleSelection> inUserList(String[] id) {
-		MultipleSelectionController multipleController=new MultipleSelectionController();
-		return multipleController.findmultiple(id);
-	}*/
+	public  List<MultipleSelection> inUserList(String[] id) {
+		return multipleSelectionController.findmultiple(id);
+	}
 	
 
 	

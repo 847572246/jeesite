@@ -50,7 +50,6 @@ public class MultipleSelectionController extends BaseController {
 		for (int i = 0; i < id.length; i++) {
 			list.add(multipleSelectionService.findmultiple(id[i]));
 		}
-		
 		return list;
 	}
 	/**

@@ -47,6 +47,7 @@ public class SingleSelectionController extends BaseController {
 		return singleSelectionService.get(id, isNewRecord);
 	}
 	
+	 
 	/**
 	 * 
 	 * @param id
@@ -55,17 +56,25 @@ public class SingleSelectionController extends BaseController {
 	@RequestMapping(value = "findsingle")
 	@ResponseBody
 	public List<SingleSelection> findsingle(String[] id) {
-		//System.out.println(id+"啛啛喳喳错错错");
 		List<SingleSelection> list=new ArrayList<SingleSelection>();
-		/*for (int i = 0; i < id.length; i++) {
-			System.out.println(id[i]+"而服务而敢惹"+i);
-		}*/
 		for (int i = 0; i < id.length; i++) {
 			list.add(singleSelectionService.findsingle(id[i]));
 		}
-		
 		return list;
 	}
+	/* *//**
+	 * 
+	 * @param qid
+	 * @return
+	 *//*
+	@RequestMapping(value = "findsingle")
+	@ResponseBody
+	public List<SingleSelection> findsingle(String qid) {
+		List<SingleSelection> list=singleSelectionService.findsingle(qid);
+		System.out.println(list+"啊啊发生的广告");
+		return 	list;
+		
+	}*/
 	/**
 	 * 
 	 * @return
@@ -74,6 +83,10 @@ public class SingleSelectionController extends BaseController {
 	@ResponseBody
 	public List<SingleSelection> getsingle() {
 		List<SingleSelection> single=singleSelectionService.getsingle();
+		for (int i = 0; i < single.size(); i++) {
+			System.out.println(single.get(i));
+		}
+		
 		return single;
 	}
 	
