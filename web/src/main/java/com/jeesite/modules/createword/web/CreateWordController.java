@@ -30,12 +30,15 @@ import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
 import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.createword.service.CreateWordService;
-import com.jeesite.modules.exam.entity.Multiple;
-import com.jeesite.modules.exam.entity.Single;
 import com.jeesite.modules.exam.service.ExamService;
 import com.jeesite.modules.exam.web.ExamController;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
+import com.jeesite.modules.multiple.entity.MultipleSelection;
+import com.jeesite.modules.multiple.service.MultipleSelectionService;
+import com.jeesite.modules.multiple.web.MultipleSelectionController;
+import com.jeesite.modules.single.entity.SingleSelection;
+import com.jeesite.modules.single.service.SingleSelectionService;
+import com.jeesite.modules.single.web.SingleSelectionController;
+
 
 /**
  * 代码生成表Controller
@@ -49,37 +52,32 @@ public class CreateWordController extends BaseController {
 
 	@Autowired
 	private CreateWordService createwordService;
+	private SingleSelectionController singleselectioncontroller;
+	private MultipleSelectionController multipleSelectionController;
 
-	@RequiresPermissions("createword:create:view")
-	@RequestMapping(value = "create")
-	public void exportSimpleWord(String[] qid) {
-		List<Single> list = CreateWordController.initUserList(qid);
-		List<Multiple> list1 = CreateWordController.inUserList(qid);
+@RequestMapping(value = "create")
+@ResponseBody
+	public void exportSimpleWord() {
+		String[] qid= {"1085352781168775168","1085353136787034112","1085353276662878208","1082173345942388736","1085352629917978624","1085354419958845440","1085354551022456832"};
+		//SingleSelectionController singleController=new SingleSelectionController();
+		//MultipleSelectionController multipleController=new MultipleSelectionController();
+		List<SingleSelection> list = singleselectioncontroller.findsingle(qid);
+		List<MultipleSelection> list1 = multipleSelectionController.findmultiple(qid);
 		Map<String, Object> root = new HashMap<String, Object>();
 		root.put("single", list);
 		root.put("multiple", list1);
 		FreeMarkertUtil.analysisTemplate("C:/create/", "test.ftl", "C:/create/use.doc" + Math.random() * 10000 + ".doc",
 				root);
-	}
+	} 
 	
-	public static List<Single> initUserList(String[] id) {
-		ExamController examcontroller = new ExamController();
-		
-		List<Single> list = new ArrayList<Single>();
-		for (int i = 0; i < id.length; i++) {
-			list.add(examcontroller.findsingle(id[i]));
-		}
-		
-		return list;
-	}
-	public static List<Multiple> inUserList(String[] id) {
-		ExamController examcontroller = new ExamController();
-		List<Multiple> list = new ArrayList<Multiple>();
-		for (int i = 0; i < id.length; i++) {
-			list.add(examcontroller.findmultiple(id[i]));
-		}
-		return list;
-	}
+	/*public static  List<SingleSelection> initUserList(String[] id) {
+		SingleSelectionController singleController=new SingleSelectionController();
+		return singleController.findsingle(id);
+	}*/
+/*	public static  List<MultipleSelection> inUserList(String[] id) {
+		MultipleSelectionController multipleController=new MultipleSelectionController();
+		return multipleController.findmultiple(id);
+	}*/
 	
 
 	
@@ -92,7 +90,7 @@ public class CreateWordController extends BaseController {
 	 */
 	@RequiresPermissions("createword:create:view")
 	@RequestMapping(value = { "list", "" })
-	public String list(Single single, Model model) {
+	public String list(SingleSelection single, Model model) {
 		model.addAttribute("single", single);
 		return "modules/exam/singleList";
 	}
@@ -106,37 +104,18 @@ public class CreateWordController extends BaseController {
 	 */
 	@RequiresPermissions("createword:create:view")
 	@RequestMapping(value = { "listmultiple", "" })
-	public String listmultiple(Single multiple, Model model) {
+	public String listmultiple(SingleSelection multiple, Model model) {
 		model.addAttribute("multiple", multiple);
 		return "modules/exam/multipleList";
 	}
 
 	/* @RequiresPermissions("exam:single:view") */
 	@RequestMapping(value = { "start", "" })
-	public String start(Single single, Model model) {
+	public String start(SingleSelection single, Model model) {
 		model.addAttribute("single", single);
 		return "modules/exam/ti";
 	}
-	/**
-	 * 
-	 * @return
-	 */
-	/*
-	 * @RequestMapping(value = "getsingle")
-	 * 
-	 * @ResponseBody public List<Single> getsingle() { List<Single>
-	 * single=examService.getsingle(); return single; }
-	 */
-	/**
-	 * 
-	 * @return
-	 */
-	/*
-	 * @RequestMapping(value = "getmultiple")
-	 * 
-	 * @ResponseBody public List<Multiple> getmultiple() { List<Multiple>
-	 * multiple=examService.getmultiple(); return multiple; }
-	 */
+	
 	/**
 	 * 查询列表数据
 	 */
@@ -155,7 +134,7 @@ public class CreateWordController extends BaseController {
 	 */
 	/* @RequiresPermissions("exam:single:view") */
 	@RequestMapping(value = "form")
-	public String form(Single single, Model model) {
+	public String form(SingleSelection single, Model model) {
 		model.addAttribute("single", single);
 		return "modules/exam/singleForm";
 	}

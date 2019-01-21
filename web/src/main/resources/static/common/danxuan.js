@@ -5,7 +5,7 @@ function dan(){
 		var suiji="";
 		var random="";
 		$.ajax({
-			url:'http://localhost:8080/web/a/exam/examdata/getsingle',
+			url:'http://localhost:8080/jeesite-demo/a/single/singleSelection/getsingle',
 			type:'post',
 			async:false,
 			success:function(data){

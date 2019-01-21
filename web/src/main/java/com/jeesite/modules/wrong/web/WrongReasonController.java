@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
 import com.jeesite.common.web.BaseController;
+import com.jeesite.modules.single.entity.SingleSelection;
 import com.jeesite.modules.sys.utils.UserUtils;
 import com.jeesite.modules.wrong.entity.WrongReason;
 import com.jeesite.modules.wrong.service.WrongReasonService;
-import com.jeesite.modules.exam.entity.Single;
 
 
 /**
@@ -49,8 +49,8 @@ public class WrongReasonController extends BaseController {
 	}
 	@PostMapping(value = "wrongid")
 	@ResponseBody
-	public List<Single> getwrongid() {
-		List<Single> list = new ArrayList<Single>();
+	public List<SingleSelection> getwrongid() {
+		List<SingleSelection> list = new ArrayList<SingleSelection>();
 		String user =   UserUtils.getUser().getUserCode();
 		String wrongid=wrongReasonService.getwrongid(user);
 		String[] sp=wrongid.split(",");

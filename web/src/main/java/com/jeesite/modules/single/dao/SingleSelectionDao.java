@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2013-Now http://jeesite.com All rights reserved.
  */
-package com.jeesite.modules.createword.dao;
+package com.jeesite.modules.single.dao;
 
 import java.util.List;
 
@@ -11,12 +11,12 @@ import com.jeesite.modules.multiple.entity.MultipleSelection;
 import com.jeesite.modules.single.entity.SingleSelection;
 
 /**
- * 代码生成表DAO接口
+ * single_selectionDAO接口
  * @author xt
- * @version 2019-01-02
+ * @version 2019-01-18
  */
 @MyBatisDao
-public interface CreateWordDao{
-	public SingleSelection findsingle();
-	public MultipleSelection findmultiple();
+public interface SingleSelectionDao extends CrudDao<SingleSelection> {
+	public List<SingleSelection> getsingle();
+	public SingleSelection findsingle(String id);
 }

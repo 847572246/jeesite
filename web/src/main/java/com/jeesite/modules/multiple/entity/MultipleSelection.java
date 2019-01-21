@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2013-Now http://jeesite.com All rights reserved.
  */
-package com.jeesite.modules.exam.entity;
+package com.jeesite.modules.multiple.entity;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -11,11 +11,11 @@ import com.jeesite.common.mybatis.annotation.Table;
 import com.jeesite.common.mybatis.mapper.query.QueryType;
 
 /**
- * 代码生成表Entity
+ * multiple_selectionEntity
  * @author xt
- * @version 2019-01-02
+ * @version 2019-01-17
  */
-@Table(name="single_selection", alias="a", columns={
+@Table(name="multiple_selection", alias="a", columns={
 		@Column(name="id", attrName="id", label="id", isPK=true),
 		@Column(name="title", attrName="title", label="title", queryType=QueryType.LIKE),
 		@Column(name="a", attrName="a", label="a"),
@@ -25,24 +25,24 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="answer", attrName="answer", label="answer"),
 		@Column(includeEntity=DataEntity.class),
 		@Column(name="reason", attrName="reason", label="reason"),
-	}, orderBy="a.id DESC"
+	}, orderBy="a.update_date DESC"
 )
-public class Single extends DataEntity<Single> {
+public class MultipleSelection extends DataEntity<MultipleSelection> {
 	
-	private static final double serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private String title;		// title
 	private String a;		// a
 	private String b;		// b
 	private String c;		// c
 	private String d;		// d
 	private String answer;		// answer
-	private String reason;	
+	private String reason;		// reason
 	
-	public Single() {
+	public MultipleSelection() {
 		this(null);
 	}
 
-	public Single(String id){
+	public MultipleSelection(String id){
 		super(id);
 	}
 	
@@ -91,7 +91,7 @@ public class Single extends DataEntity<Single> {
 		this.d = d;
 	}
 	
-	@Length(min=0, max=1, message="answer长度不能超过 1 个字符")
+	@Length(min=0, max=4, message="answer长度不能超过 4 个字符")
 	public String getAnswer() {
 		return answer;
 	}
@@ -99,7 +99,8 @@ public class Single extends DataEntity<Single> {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-
+	
+	@Length(min=0, max=255, message="reason长度不能超过 255 个字符")
 	public String getReason() {
 		return reason;
 	}

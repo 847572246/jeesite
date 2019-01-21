@@ -12,8 +12,6 @@ import com.jeesite.common.entity.Page;
 import com.jeesite.common.service.CrudService;
 import com.jeesite.modules.createword.dao.CreateWordDao;
 import com.jeesite.modules.exam.dao.ExamDao;
-import com.jeesite.modules.exam.entity.Multiple;
-import com.jeesite.modules.exam.entity.Single;
 
 /**
  * 代码生成表Service

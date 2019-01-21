@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.jeesite.common.dao.CrudDao;
 import com.jeesite.common.mybatis.annotation.MyBatisDao;
-import com.jeesite.modules.exam.entity.Single;
+import com.jeesite.modules.single.entity.SingleSelection;
 import com.jeesite.modules.wrong.entity.WrongReason;
 
 /**
@@ -18,5 +18,5 @@ import com.jeesite.modules.wrong.entity.WrongReason;
 @MyBatisDao
 public interface WrongReasonDao extends CrudDao<WrongReason> {
 	public String getwrongid(String user);
-	public List<Single> getwrong(String wrong);
+	public List<SingleSelection> getwrong(String wrong);
 }

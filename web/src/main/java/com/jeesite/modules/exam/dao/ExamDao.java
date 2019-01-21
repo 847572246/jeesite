@@ -7,8 +7,8 @@ import java.util.List;
 
 import com.jeesite.common.dao.CrudDao;
 import com.jeesite.common.mybatis.annotation.MyBatisDao;
-import com.jeesite.modules.exam.entity.Multiple;
-import com.jeesite.modules.exam.entity.Single;
+import com.jeesite.modules.multiple.entity.MultipleSelection;
+import com.jeesite.modules.single.entity.SingleSelection;
 
 /**
  * 代码生成表DAO接口
@@ -16,9 +16,9 @@ import com.jeesite.modules.exam.entity.Single;
  * @version 2019-01-02
  */
 @MyBatisDao
-public interface ExamDao extends CrudDao<Single>{
-	public List<Single> getsingle();
-	public List<Multiple> getmultiple();
-	public Single findsingle(String id);
-	public Multiple findmultiple(String id);
+public interface ExamDao extends CrudDao<SingleSelection>{
+	public List<SingleSelection> getsingle();
+	public List<MultipleSelection> getmultiple();
+	public MultipleSelection findmultiple(String id);
+	public SingleSelection findsingle(String id);
 }

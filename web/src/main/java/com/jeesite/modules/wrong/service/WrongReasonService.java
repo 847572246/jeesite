@@ -12,7 +12,7 @@ import com.jeesite.common.entity.Page;
 import com.jeesite.common.service.CrudService;
 import com.jeesite.modules.wrong.entity.WrongReason;
 import com.jeesite.modules.wrong.dao.WrongReasonDao;
-import com.jeesite.modules.exam.entity.Single;
+import com.jeesite.modules.single.entity.SingleSelection;
 
 /**
  * wrong_reasonService
@@ -25,7 +25,7 @@ public class WrongReasonService extends CrudService<WrongReasonDao, WrongReason>
 	public String getwrongid(String user) {
 		return dao.getwrongid(user);
 	}
-	public List<Single> getwrong(String wrong){
+	public List<SingleSelection> getwrong(String wrong){
 		return dao.getwrong(wrong);
 	}
 	/**

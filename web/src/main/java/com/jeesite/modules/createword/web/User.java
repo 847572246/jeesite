@@ -1,4 +1,4 @@
-package com.jeesite.modules.createword.web;
+/*package com.jeesite.modules.createword.web;
 
 public class User{
 	private String userName;   
@@ -23,3 +23,4 @@ public class User{
 		this.age = i;
 	}
 }
+*/

@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jeesite.common.entity.Page;
 import com.jeesite.common.service.CrudService;
-import com.jeesite.modules.exam.entity.Multiple;
-import com.jeesite.modules.exam.entity.Single;
+import com.jeesite.modules.multiple.entity.MultipleSelection;
+import com.jeesite.modules.single.entity.SingleSelection;
 import com.jeesite.modules.exam.dao.ExamDao;
 
 /**
@@ -21,21 +21,15 @@ import com.jeesite.modules.exam.dao.ExamDao;
  */
 @Service
 @Transactional(readOnly=true)
-public class ExamService extends CrudService<ExamDao, Single> {
-	public Multiple findmultiple(String id) {
-		return dao.findmultiple(id);
-	}
-	public Single findsingle(String id) {
-		return dao.findsingle(id);
-	}
+public class ExamService extends CrudService<ExamDao, SingleSelection> {
+	
 	/**
 	 * 获取单条数据
-	 * @param single
+	 * @param id
 	 * @return
 	 */
-	@Override
-	public Single get(Single single) {
-		return super.get(single);
+	public SingleSelection get(SingleSelection id) {
+		return super.get(id);
 	}
 	
 	/**
@@ -45,7 +39,7 @@ public class ExamService extends CrudService<ExamDao, Single> {
 	 * @return
 	 */
 	@Override
-	public Page<Single> findPage(Single single) {
+	public Page<SingleSelection> findPage(SingleSelection single) {
 		return super.findPage(single);
 	}
 	
@@ -55,7 +49,7 @@ public class ExamService extends CrudService<ExamDao, Single> {
 	 */
 	@Override
 	@Transactional(readOnly=false)
-	public void save(Single single) {
+	public void save(SingleSelection single) {
 		super.save(single);
 	}
 	
@@ -65,7 +59,7 @@ public class ExamService extends CrudService<ExamDao, Single> {
 	 */
 	@Override
 	@Transactional(readOnly=false)
-	public void updateStatus(Single single) {
+	public void updateStatus(SingleSelection single) {
 		super.updateStatus(single);
 	}
 	
@@ -75,16 +69,16 @@ public class ExamService extends CrudService<ExamDao, Single> {
 	 */
 	@Override
 	@Transactional(readOnly=false)
-	public void delete(Single single) {
+	public void delete(SingleSelection single) {
 		super.delete(single);
 	}
 
 	@Transactional(readOnly=false)
-	public List<Single> getsingle() {
+	public List<SingleSelection> getsingle() {
 		return dao.getsingle();
 	}
 	@Transactional(readOnly=false)
-	public List<Multiple> getmultiple() {
+	public List<MultipleSelection> getmultiple() {
 		return dao.getmultiple();
 	}
 	

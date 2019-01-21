@@ -5,7 +5,7 @@
 			var suiji="";
 			var random="";
 			$.ajax({
-				url:'http://localhost:8080/web/a/exam/examdata/getmultiple',
+				url:'http://localhost:8080/jeesite-demo/a/multiple/multipleSelection/getmultiple',
 				type:'post',
 				async:false,
 				success:function(data){

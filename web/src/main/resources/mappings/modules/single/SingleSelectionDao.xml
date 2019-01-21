@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.single.dao.SingleSelectionDao">
+	
+	<!-- 查询数据
+	<select id="findList" resultType="SingleSelection">
+		SELECT ${sqlMap.column.toSql()}
+		FROM ${sqlMap.table.toSql()}
+		<where>
+			${sqlMap.where.toSql()}
+		</where>
+		ORDER BY ${sqlMap.order.toSql()}
+	</select> -->
+	<select id="getsingle" resultType="SingleSelection">
+		select * 
+		from single_selection 
+		where status=0
+		order by rand() limit 5
+	</select>
+	<select id="findsingle" resultType="SingleSelection">
+		select * 
+		from single_selection 
+		where
+	</select>
+</mapper>

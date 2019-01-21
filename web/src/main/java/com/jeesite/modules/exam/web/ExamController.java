@@ -22,9 +22,9 @@ import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
 import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.createword.service.CreateWordService;
-import com.jeesite.modules.exam.entity.Multiple;
-import com.jeesite.modules.exam.entity.Single;
 import com.jeesite.modules.exam.service.ExamService;
+import com.jeesite.modules.multiple.entity.MultipleSelection;
+import com.jeesite.modules.single.entity.SingleSelection;
 
 /**
  * 代码生成表Controller
@@ -42,7 +42,7 @@ public class ExamController extends BaseController {
 	 * 获取数据
 	 */
 	@ModelAttribute
-	public Single get(String id, boolean isNewRecord) {
+	public SingleSelection get(String id, boolean isNewRecord) {
 		return examService.get(id, isNewRecord);
 	}
 	
@@ -54,7 +54,7 @@ public class ExamController extends BaseController {
 	 */
 	@RequiresPermissions("exam:single:view")
 	@RequestMapping(value = {"list", ""})
-	public String list(Single single, Model model) {
+	public String list(SingleSelection single, Model model) {
 		model.addAttribute("single", single);
 		return "modules/exam/singleList";
 	}
@@ -66,50 +66,18 @@ public class ExamController extends BaseController {
 	 */
 	@RequiresPermissions("exam:single:view")
 	@RequestMapping(value = {"listmultiple", ""})
-	public String listmultiple(Single multiple, Model model) {
+	public String listmultiple(SingleSelection multiple, Model model) {
 		model.addAttribute("multiple", multiple);
 		return "modules/exam/multipleList";
 	}
 	/*@RequiresPermissions("exam:single:view")*/
 	@RequestMapping(value = {"start", ""})
-	public String start(Single single, Model model) {
-		model.addAttribute("single", single);
+	public String start(SingleSelection single, Model model) {
+		
 		return "modules/exam/ti";
 	}
-	/**
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "getsingle")
-	@ResponseBody
-	public List<Single> getsingle() {
-		List<Single> single=examService.getsingle();
-		return single;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "getmultiple")
-	@ResponseBody
-	public List<Multiple> getmultiple() {
-		List<Multiple> multiple=examService.getmultiple();
-		return multiple;
-	}
-	
-	@RequestMapping(value = "findsingle")
-	@ResponseBody
-	public Single findsingle(String id) {
-		Single single=examService.findsingle(id);
-		return single;
-	}
-	@RequestMapping(value = "findmultiple")
-	@ResponseBody
-	public Multiple findmultiple(String id) {
-		Multiple multiple=examService.findmultiple(id);
-		return multiple;
-	}
+
+
 	
 	
 	/**
@@ -118,9 +86,9 @@ public class ExamController extends BaseController {
 	@RequiresPermissions("exam:single:view")
 	@RequestMapping(value = "listData")
 	@ResponseBody
-	public Page<Single> listData(Single single, HttpServletRequest request, HttpServletResponse response) {
+	public Page<SingleSelection> listData(SingleSelection single, HttpServletRequest request, HttpServletResponse response) {
 		single.setPage(new Page<>(request, response));
-		Page<Single> page = examService.findPage(single); 
+		Page<SingleSelection> page = examService.findPage(single); 
 		return page;
 	}
 
@@ -129,7 +97,7 @@ public class ExamController extends BaseController {
 	 */
 	/*@RequiresPermissions("exam:single:view")*/
 	@RequestMapping(value = "form")
-	public String form(Single single, Model model) {
+	public String form(SingleSelection single, Model model) {
 		model.addAttribute("single", single);
 		return "modules/exam/singleForm";
 	}
@@ -140,7 +108,7 @@ public class ExamController extends BaseController {
 	@RequiresPermissions("exam:single:edit")
 	@PostMapping(value = "save")
 	@ResponseBody
-	public String save(@Validated Single single) {
+	public String save(@Validated SingleSelection single) {
 		examService.save(single);
 		return renderResult(Global.TRUE, text("保存代码生成表成功！"));
 	}
@@ -151,7 +119,7 @@ public class ExamController extends BaseController {
 	@RequiresPermissions("exam:single:edit")
 	@RequestMapping(value = "delete")
 	@ResponseBody
-	public String delete(Single single) {
+	public String delete(SingleSelection single) {
 		examService.delete(single);
 		return renderResult(Global.TRUE, text("删除代码生成表成功！"));
 	}

@@ -8,11 +8,13 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-
+@Component
 public class FreeMarkertUtil {   
     
     public static void analysisTemplate(String templatePath,String templateName, String fileName, Map<?, ?> root) {   

@@ -20,7 +20,7 @@ demoMode: false
 
 server:
 
-  port: 3306
+  port: 8080
   servlet:
     context-path: /jeesite-demo
   tomcat:

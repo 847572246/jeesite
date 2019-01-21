@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2013-Now http://jeesite.com All rights reserved.
  */
-package com.jeesite.modules.exam.entity;
+package com.jeesite.modules.single.entity;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -11,11 +11,11 @@ import com.jeesite.common.mybatis.annotation.Table;
 import com.jeesite.common.mybatis.mapper.query.QueryType;
 
 /**
- * 代码生成表Entity
+ * single_selectionEntity
  * @author xt
- * @version 2019-01-02
+ * @version 2019-01-18
  */
-@Table(name="multiple_selection", alias="a", columns={
+@Table(name="single_selection", alias="a", columns={
 		@Column(name="id", attrName="id", label="id", isPK=true),
 		@Column(name="title", attrName="title", label="title", queryType=QueryType.LIKE),
 		@Column(name="a", attrName="a", label="a"),
@@ -23,24 +23,26 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="c", attrName="c", label="c"),
 		@Column(name="d", attrName="d", label="d"),
 		@Column(name="answer", attrName="answer", label="answer"),
+		@Column(name="reason", attrName="reason", label="reason"),
 		@Column(includeEntity=DataEntity.class),
-	}, orderBy="a.id DESC"
+	}, orderBy="a.update_date DESC"
 )
-public class Multiple extends DataEntity<Multiple> {
+public class SingleSelection extends DataEntity<SingleSelection> {
 	
-	private static final double serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private String title;		// title
 	private String a;		// a
 	private String b;		// b
 	private String c;		// c
 	private String d;		// d
 	private String answer;		// answer
+	private String reason;		// reason
 	
-	public Multiple() {
+	public SingleSelection() {
 		this(null);
 	}
 
-	public Multiple(String id){
+	public SingleSelection(String id){
 		super(id);
 	}
 	
@@ -89,13 +91,22 @@ public class Multiple extends DataEntity<Multiple> {
 		this.d = d;
 	}
 	
-	@Length(min=0, max=4, message="answer长度不能超过 4 个字符")
+	@Length(min=0, max=1, message="answer长度不能超过 1 个字符")
 	public String getAnswer() {
 		return answer;
 	}
 
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+	
+	@Length(min=0, max=255, message="reason长度不能超过 255 个字符")
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 	
 }
