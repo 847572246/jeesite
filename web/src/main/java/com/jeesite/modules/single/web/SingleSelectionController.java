@@ -62,19 +62,6 @@ public class SingleSelectionController extends BaseController {
 		}
 		return list;
 	}
-	/* *//**
-	 * 
-	 * @param qid
-	 * @return
-	 *//*
-	@RequestMapping(value = "findsingle")
-	@ResponseBody
-	public List<SingleSelection> findsingle(String qid) {
-		List<SingleSelection> list=singleSelectionService.findsingle(qid);
-		System.out.println(list+"啊啊发生的广告");
-		return 	list;
-		
-	}*/
 	/**
 	 * 
 	 * @return

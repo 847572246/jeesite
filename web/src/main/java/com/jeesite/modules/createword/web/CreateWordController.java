@@ -40,7 +40,6 @@ import com.jeesite.modules.single.entity.SingleSelection;
 import com.jeesite.modules.single.service.SingleSelectionService;
 import com.jeesite.modules.single.web.SingleSelectionController;
 
-
 /**
  * 代码生成表Controller
  * 
@@ -58,10 +57,11 @@ public class CreateWordController extends BaseController {
 	@Autowired
 	private MultipleSelectionController multipleSelectionController;
 
-@RequestMapping(value = "create")
-@ResponseBody
+	@RequestMapping(value = "create")
+	@ResponseBody
 	public void exportSimpleWord() {
-		String[] id= {"1085352781168775168","1085353136787034112","1085353276662878208","1082173345942388736","1085352629917978624","1085354419958845440","1085354551022456832"};
+		String[] id = { "1085352781168775168", "1085353136787034112", "1085353276662878208", "1082173345942388736",
+				"1085352629917978624", "1085354419958845440", "1085354551022456832" };
 		List<SingleSelection> list = singleselectioncontroller.findsingle(id);
 		List<MultipleSelection> list1 = multipleSelectionController.findmultiple(id);
 		list.removeAll(Collections.singleton(null));
@@ -71,13 +71,25 @@ public class CreateWordController extends BaseController {
 		root.put("multiple", list1);
 		FreeMarkertUtil.analysisTemplate("C:/create/", "exam.ftl", "C:/create/use.doc" + Math.random() * 10000 + ".doc",
 				root);
-	} 
-	public  List<MultipleSelection> inUserList(String[] id) {
+	}
+
+	public List<MultipleSelection> inUserList(String[] id) {
 		return multipleSelectionController.findmultiple(id);
 	}
-	
+	/**
+	 * 
+	 * @param multiple
+	 * @param model
+	 * @return
+	 */
+	@RequiresPermissions("createword:create:view")
+	@RequestMapping(value = { "createword", "" })
+	public String listmultiple(MultipleSelection multiple, Model model,SingleSelection single) {
+		model.addAttribute("multiple", multiple);
+		model.addAttribute("single", single);
+		return "modules/createword/create";
+	}
 
-	
 	/**
 	 * 单选题列表
 	 * 
@@ -89,7 +101,7 @@ public class CreateWordController extends BaseController {
 	@RequestMapping(value = { "list", "" })
 	public String list(SingleSelection single, Model model) {
 		model.addAttribute("single", single);
-		return "modules/exam/singleList";
+		return "modules/single/singleSelectionList";
 	}
 
 	/**
@@ -99,20 +111,14 @@ public class CreateWordController extends BaseController {
 	 * @param model
 	 * @return
 	 */
-	@RequiresPermissions("createword:create:view")
-	@RequestMapping(value = { "listmultiple", "" })
-	public String listmultiple(SingleSelection multiple, Model model) {
+
+	@RequiresPermissions("createword:create:view") 
+	@RequestMapping(value = { "start", "" })
+	public String start(MultipleSelection multiple, Model model) {
 		model.addAttribute("multiple", multiple);
-		return "modules/exam/multipleList";
+		return "modules/multiple/multipleSelectionList";
 	}
 
-	/* @RequiresPermissions("exam:single:view") */
-	@RequestMapping(value = { "start", "" })
-	public String start(SingleSelection single, Model model) {
-		model.addAttribute("single", single);
-		return "modules/exam/ti";
-	}
-	
 	/**
 	 * 查询列表数据
 	 */
@@ -136,5 +142,4 @@ public class CreateWordController extends BaseController {
 		return "modules/exam/singleForm";
 	}
 
-	
 }
