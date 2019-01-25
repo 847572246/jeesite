@@ -14,7 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @author ThinkGem
  * @version 2018-10-13
  */
-@SpringBootApplication
+@SpringBootApplication	
 @ComponentScan(basePackages = "com.jeesite.modules")
 public class Application extends SpringBootServletInitializer {
 	

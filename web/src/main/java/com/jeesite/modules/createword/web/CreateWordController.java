@@ -57,6 +57,26 @@ public class CreateWordController extends BaseController {
 	@Autowired
 	private MultipleSelectionController multipleSelectionController;
 
+	
+	/**
+	 * 查询列表
+	 */
+	@RequiresPermissions("createword:create:view")
+	@RequestMapping(value = {"single", ""})
+	public String listsingle(SingleSelection singleSelection, Model model) {
+		model.addAttribute("singleSelection", singleSelection);
+		return "modules/createword/createWordList2";
+	}
+	/**
+	 * 查询列表
+	 */
+	@RequiresPermissions("createword:create:view")
+	@RequestMapping(value = {"multiple", ""})
+	public String listmultiple(MultipleSelection multipleSelection, Model model) {
+		model.addAttribute("multipleSelection", multipleSelection);
+		return "modules/createword/createWordList3";
+	}
+	
 	@RequestMapping(value = "create")
 	@ResponseBody
 	public void exportSimpleWord() {
@@ -87,7 +107,7 @@ public class CreateWordController extends BaseController {
 	public String listmultiple(MultipleSelection multiple, Model model,SingleSelection single) {
 		model.addAttribute("multiple", multiple);
 		model.addAttribute("single", single);
-		return "modules/createword/create";
+		return "modules/createword/createWordList";
 	}
 
 	/**
@@ -96,7 +116,7 @@ public class CreateWordController extends BaseController {
 	 * @param single
 	 * @param model
 	 * @return
-	 */
+	 *//*
 	@RequiresPermissions("createword:create:view")
 	@RequestMapping(value = { "list", "" })
 	public String list(SingleSelection single, Model model) {
@@ -104,13 +124,13 @@ public class CreateWordController extends BaseController {
 		return "modules/single/singleSelectionList";
 	}
 
-	/**
+	*//**
 	 * 多选题列表
 	 * 
 	 * @param multiple
 	 * @param model
 	 * @return
-	 */
+	 *//*
 
 	@RequiresPermissions("createword:create:view") 
 	@RequestMapping(value = { "start", "" })
@@ -118,7 +138,7 @@ public class CreateWordController extends BaseController {
 		model.addAttribute("multiple", multiple);
 		return "modules/multiple/multipleSelectionList";
 	}
-
+*/
 	/**
 	 * 查询列表数据
 	 */
