@@ -79,11 +79,9 @@ public class CreateWordController extends BaseController {
 	
 	@RequestMapping(value = "create")
 	@ResponseBody
-	public void exportSimpleWord() {
-		String[] id = { "1085352781168775168", "1085353136787034112", "1085353276662878208", "1082173345942388736",
-				"1085352629917978624", "1085354419958845440", "1085354551022456832" };
-		List<SingleSelection> list = singleselectioncontroller.findsingle(id);
-		List<MultipleSelection> list1 = multipleSelectionController.findmultiple(id);
+	public String exportSimpleWord(String[] ids) {
+		List<SingleSelection> list = singleselectioncontroller.findsingle(ids);
+		List<MultipleSelection> list1 = multipleSelectionController.findmultiple(ids);
 		list.removeAll(Collections.singleton(null));
 		list1.removeAll(Collections.singleton(null));
 		Map<String, Object> root = new HashMap<String, Object>();
@@ -91,6 +89,7 @@ public class CreateWordController extends BaseController {
 		root.put("multiple", list1);
 		FreeMarkertUtil.analysisTemplate("C:/create/", "exam.ftl", "C:/create/use.doc" + Math.random() * 10000 + ".doc",
 				root);
+		return "生成成功";
 	}
 
 	public List<MultipleSelection> inUserList(String[] id) {

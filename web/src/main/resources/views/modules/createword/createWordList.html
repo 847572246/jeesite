@@ -7,20 +7,33 @@
 <script>        
 function static_num() 
 {            
-    document.getElementById("btnOperate").onclick = function () {                
-        var arr = new Array();
-        //var items =$(this).contents().find("#examid");
-        //var items=window.frames["content1"].document.getElementById("examid");
-		//var items = document.getElementsByClassName("examid")
-		//var items=$("#examid",document.frames('content1').document)
-		//var items=iframe.$("examid");
-        for (i = 0; i < items.length; i++) {                    
-            if (items[i].checked) {                        
-                arr.push(items[i].value);                    
-            }                
-        }                 
-        alert("选择的个数为：" + arr.length);   
-        alert(items);
+    document.getElementById("btnOperate").onclick = function () {
+    	var ids = new Array;
+    	var str="";
+        $(window.frames["content1"].document)
+        .find("input[name='sinid']:checked").each(function () {
+            ids.push($(this).val());
+        }); 
+        $(window.frames["content2"].document)
+        .find("input[name='mulid']:checked").each(function () {
+            ids.push($(this).val());
+        });
+        $.ajax({
+			url:'http://localhost:8080/jeesite-demo/a/createword/create/create',
+			type:'post',
+			async:false,			
+			data: {ids:ids},
+			traditional: true,
+			/* success:function(ids){
+				alert("cfgxchcghcghcgh");
+				console.log("agersghtsh");
+			} */
+			
+			success: function (data) { //返回json结果				 
+				alert(data);
+			} 			
+		});
+        return;
     };        
 };    
 </script>
@@ -30,12 +43,12 @@ function static_num()
 		src="http://localhost:8080/jeesite-demo/a/createword/create/single"
 		frameborder="0" style="height: 600px" height="100%" width="100%">
 	</iframe>
-	<iframe border="0" id="content2"
+	<iframe border="0" id="content2" name="content2"
 		src="http://localhost:8080/jeesite-demo/a/createword/create/multiple"
 		frameborder="0" style="height: 600px" height="100%" width="100%">
 	</iframe>
 	<div>
-		<input id="btnOperate" type="button" value="选择" onclick="static_num()" />
+		<input id="btnOperate" type="button" value="生成" onclick="static_num()" />
 	</div>
 </body>
 </html>
