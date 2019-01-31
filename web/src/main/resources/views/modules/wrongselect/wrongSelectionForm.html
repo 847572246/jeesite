@@ -1,0 +1,199 @@
+<% layout('/layouts/default.html', {title: '错题库管理', libs: ['validate']}){ %>
+<link rel="stylesheet" type="text/css" href="${ctxStatic}/common/demo.css?${_version}">
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header with-border">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> ${text(wrongSelection.isNewRecord ? '新增错题库' : '编辑错题库')}
+			</div>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			</div>
+		</div>
+		<#form:form id="inputForm" model="${wrongSelection}" action="${ctx}/wrongselect/wrongSelection/save" method="post" class="form-horizontal">
+			<div class="box-body">
+				<div class="form-unit">${text('基本信息')}</div>
+				<#form:hidden path="id"/>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								${text('错题题型选择')}：</label>
+							<div class="col-sm-8">
+								<input class="magic-radio" type="radio" name="radiobutton"
+									checked="checked" id="r1" value="option1" onclick="test(this)">
+								<label for="r1">单选</label>
+							<input class="magic-radio" type="radio" name="radiobutton"
+									id="r2" value="option1" onclick="test(this)">
+									<label for="r2">多选</label>
+								<!-- <input id="r2" name="radiobutton" type="radio"
+									onclick="test(this)" /> <span>多选</span> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required ">*</span> ${text('用户昵称')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="userName" maxlength="100" class="form-control required"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('用户编码')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="userCode" maxlength="100" class="form-control"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group" id="singletitle">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('单选错题题目')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="wrongSelect" maxlength="255" class="form-control" onfocus="singlelist()"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group" id="single">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('单选题号')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8" >
+								<#form:input path="wrongIdSin" maxlength="255" class="form-control" onfocus="singlelist()"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+				<div class="col-xs-6">
+						<div class="form-group" id="multipletitle" style="display:none">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('多选错题题目')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="wrongSelect" maxlength="255" class="form-control" onfocus="multiplelist()"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group" id="multiple" style="display:none">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('多选题号')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="wrongIdMul" maxlength="255" class="form-control"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('错误原因')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="wrongReason" maxlength="255" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('错误原因号')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="wrongReasonId" maxlength="255" class="form-control"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-sm-2" title="">
+								<span class="required hide">*</span> ${text('remarks')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-10">
+								<#form:textarea path="remarks" rows="4" maxlength="255" class="form-control"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('错误次数')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="flag" maxlength="2" value="2" class="form-control digits"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer">
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+						<% if (hasPermi('wrongselect:wrongSelection:edit')){ %>
+							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp;
+						<% } %>
+						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> ${text('关 闭')}</button>
+					</div>
+				</div>
+			</div>
+		</#form:form>
+	</div>
+</div>
+<iframe border="0" id="content1" name="content1"
+		src="http://localhost:8080/jeesite-demo/a/createword/create/single"
+		frameborder="0" style="height: 400px ;display:none " height="60%" width="65%">
+	</iframe>
+	<iframe border="0" id="content2" name="content2"
+		src="http://localhost:8080/jeesite-demo/a/createword/create/multiple"
+		frameborder="0" style="height: 400px ;display:none " height="60%" width="65%">
+</iframe>
+
+<% } %>
+<script>
+$("#inputForm").validate({
+	submitHandler: function(form){
+		js.ajaxSubmitForm($(form), function(data){
+			js.showMessage(data.message);
+			if(data.result == Global.TRUE){
+				js.closeCurrentTabPage(function(contentWindow){
+					contentWindow.page();
+				});
+			}
+		}, "json");
+    }
+});
+</script>
+</script>
+ <script type="text/javascript">
+        function test(obj) {
+            if (obj.id == "r1") {
+                document.getElementById("singletitle").style.display = "block";
+                document.getElementById("single").style.display = "block";
+                document.getElementById("multipletitle").style.display = "none";               
+                document.getElementById("multiple").style.display = "none";
+            }
+            else {
+                document.getElementById("singletitle").style.display = "none";
+                document.getElementById("single").style.display = "none";
+                document.getElementById("multipletitle").style.display = "block";
+                document.getElementById("multiple").style.display = "block";
+            }
+        }
+        function singlelist(){    	
+        document.getElementById("content1").style.display = "block";
+        document.getElementById("content2").style.display = "none";
+        } 
+        function multiplelist(){
+        document.getElementById("content1").style.display = "none";
+        document.getElementById("content2").style.display = "block";
+        } 
+    </script>

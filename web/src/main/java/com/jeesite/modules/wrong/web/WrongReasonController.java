@@ -56,8 +56,7 @@ public class WrongReasonController extends BaseController {
 		String[] sp=wrongid.split(",");
 		for (int i = 0; i < sp.length; i++) {
 			list.addAll(wrongReasonService.getwrong(sp[i]));
-		}
-		
+		}		
 		return list;
 	}
 	/*@PostMapping(value = "wrong")
