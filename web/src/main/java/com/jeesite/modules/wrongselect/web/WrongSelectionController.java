@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
 import com.jeesite.common.web.BaseController;
+import com.jeesite.modules.multiple.entity.MultipleSelection;
+import com.jeesite.modules.single.entity.SingleSelection;
+import com.jeesite.modules.sys.entity.EmpUser;
+import com.jeesite.modules.sys.entity.Post;
+import com.jeesite.modules.wrong.entity.WrongReason;
 import com.jeesite.modules.wrongselect.entity.WrongSelection;
 import com.jeesite.modules.wrongselect.service.WrongSelectionService;
 
@@ -52,6 +57,49 @@ public class WrongSelectionController extends BaseController {
 		return "modules/wrongselect/wrongSelectionList";
 	}
 	
+	/**
+	 * 查询错误原因列表
+	 */
+	@RequiresPermissions("wrongselect:wrongSelection:view")
+	@RequestMapping(value = {"wrongreason", ""})
+	public String list(WrongReason wrongReason, Model model) {
+		model.addAttribute("wrongReason", wrongReason);
+		return "modules/wrongselect/wrongReasonList";
+	}
+	
+	/**
+	 * 查询单选题列表
+	 */
+	@RequiresPermissions("wrongselect:wrongSelection:view")
+	@RequestMapping(value = {"single", ""})
+	public String listsingle(SingleSelection singleSelection, Model model) {
+		model.addAttribute("singleSelection", singleSelection);
+		return "modules/wrongselect/createWordList2";
+	}
+	/**
+	 * 查询多选题列表
+	 */
+	@RequiresPermissions("wrongselect:wrongSelection:view")
+	@RequestMapping(value = {"multiple", ""})
+	public String listmultiple(MultipleSelection multipleSelection, Model model) {
+		model.addAttribute("multipleSelection", multipleSelection);
+		return "modules/wrongselect/createWordList3";
+	}
+	/**
+	 * 
+	 * @param empUser
+	 * @param model
+	 * @return
+	 */
+	@RequiresPermissions("wrongselect:wrongSelection:view")
+	@RequestMapping(value = "listuser")
+	public String list(EmpUser empUser, Model model) {
+		// 获取岗位列表
+		Post post = new Post();
+		//model.addAttribute("postList", postService.findList(post));
+		return "modules/wrongselect/empUserList";
+	}
+
 	/**
 	 * 查询列表数据
 	 */

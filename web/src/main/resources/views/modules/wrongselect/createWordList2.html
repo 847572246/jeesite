@@ -1,0 +1,122 @@
+<% layout('/layouts/default.html', {title: '单项选择题管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> ${text('单项选择题管理')}
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}">
+				<i class="fa fa-filter"></i> ${text('查询')}</a>
+				<% if(hasPermi('single:singleSelection:edit')){ %>
+					<a href="${ctx}/single/singleSelection/form" class="btn btn-default btnTool" title="${text('新增单项选择题')}">
+					<i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${singleSelection}" action="${ctx}/single/singleSelection/listData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+				<div class="form-group">
+					<label class="control-label">${text('title')}：</label>
+					<div class="control-inline">
+						<#form:input path="title" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('a')}：</label>
+					<div class="control-inline">
+						<#form:input path="a" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('b')}：</label>
+					<div class="control-inline">
+						<#form:input path="b" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('c')}：</label>
+					<div class="control-inline">
+						<#form:input path="c" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('d')}：</label>
+					<div class="control-inline">
+						<#form:input path="d" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('answer')}：</label>
+					<div class="control-inline">
+						<#form:input path="answer" maxlength="1" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('reason')}：</label>
+					<div class="control-inline">
+						<#form:input path="reason" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('remarks')}：</label>
+					<div class="control-inline">
+						<#form:input path="remarks" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('status')}：</label>
+					<div class="control-inline width-120">
+						<#form:select path="status" dictType="sys_search_status" blankOption="true" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+					<button type="reset" class="btn btn-default btn-sm">${text('重置')}</button>
+				</div>
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'${text('title')}', name:'title', index:'a.title', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/single/singleSelection/form?id='+row.id+'" class="btnList/" data-title="${text('编辑单项选择题')}">'+(val||row.id)+'</a>';
+		}},
+		{header:'${text('a')}', name:'a', index:'a.a', width:150, align:"left"},
+		{header:'${text('b')}', name:'b', index:'a.b', width:150, align:"left"},
+		{header:'${text('c')}', name:'c', index:'a.c', width:150, align:"left"},
+		{header:'${text('d')}', name:'d', index:'a.d', width:150, align:"left"},
+		{header:'${text('answer')}', name:'answer', index:'a.answer', width:150, align:"left"},
+		{header:'${text('reason')}', name:'reason', index:'a.reason', width:150, align:"left"},
+		{header:'${text('create_date')}', name:'createDate', index:'a.create_date', width:150, align:"center"},
+		{header:'${text('remarks')}', name:'remarks', index:'a.remarks', width:150, align:"left"},
+		{header:'${text('status')}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel(${@DictUtils.getDictListJson('sys_search_status')}, val, '${text('未知')}', true);
+		}},
+		{header:'${text('操作')}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+			<% if(hasPermi('single:singleSelection:edit')){ %>
+				return '<button type="button" value="'+row+'" onclick="select(\''+row.title+'\',\''+row.id+'\')">选择</button>';
+			<% } %>
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+function select(e,id){
+	window.parent.document.getElementById("sintitle").value=e;
+	window.parent.document.getElementById("sinid").value=id;
+}
+</script>
+

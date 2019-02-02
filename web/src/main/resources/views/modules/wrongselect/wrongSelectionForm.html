@@ -38,7 +38,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> ${text('用户昵称')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="userName" maxlength="100" class="form-control required"/>
+								<#form:input path="userName" id="username" maxlength="100" class="form-control required" onclick="user()"/>
 							</div>
 						</div>
 					</div>
@@ -47,7 +47,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('用户编码')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="userCode" maxlength="100" class="form-control"/>
+								<#form:input path="userCode" id="userid" maxlength="100" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -58,7 +58,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('单选错题题目')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="wrongSelect" maxlength="255" class="form-control" onfocus="singlelist()"/>
+								<#form:input path="wrongSelect" id="sintitle" maxlength="255" class="form-control" onclick="singlelist()"/>
 							</div>
 						</div>
 					</div>
@@ -67,7 +67,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('单选题号')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8" >
-								<#form:input path="wrongIdSin" maxlength="255" class="form-control" onfocus="singlelist()"/>
+								<#form:input path="wrongIdSin" id="sinid" maxlength="255" class="form-control" onclick="singlelist()"/>
 							</div>
 						</div>
 					</div>
@@ -78,7 +78,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('多选错题题目')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="wrongSelect" maxlength="255" class="form-control" onfocus="multiplelist()"/>
+								<#form:input path="wrongSelect" id="multitle" maxlength="255" class="form-control" onclick="multiplelist()"/>
 							</div>
 						</div>
 					</div>
@@ -87,7 +87,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('多选题号')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="wrongIdMul" maxlength="255" class="form-control"/>
+								<#form:input path="wrongIdMul" id="mulid" maxlength="255" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -98,7 +98,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('错误原因')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="wrongReason" maxlength="255" class="form-control"/>
+								<#form:input path="wrongReason" id="wrongreason" maxlength="255" class="form-control" onclick="wrongrea()"/>
 							</div>
 						</div>
 					</div>
@@ -107,7 +107,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('错误原因号')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="wrongReasonId" maxlength="255" class="form-control"/>
+								<#form:input path="wrongReasonId" id="wrongid" maxlength="255" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -149,14 +149,21 @@
 	</div>
 </div>
 <iframe border="0" id="content1" name="content1"
-		src="http://localhost:8080/jeesite-demo/a/createword/create/single"
-		frameborder="0" style="height: 400px ;display:none " height="60%" width="65%">
-	</iframe>
-	<iframe border="0" id="content2" name="content2"
-		src="http://localhost:8080/jeesite-demo/a/createword/create/multiple"
+		src="http://localhost:8080/jeesite-demo/a/wrongselect/wrongSelection/single"
 		frameborder="0" style="height: 400px ;display:none " height="60%" width="65%">
 </iframe>
-
+<iframe border="0" id="content2" name="content2"
+		src="http://localhost:8080/jeesite-demo/a/wrongselect/wrongSelection/multiple"
+		frameborder="0" style="height: 400px ;display:none " height="60%" width="65%">
+</iframe>
+<iframe border="0" id="content3" name="content3"
+		src="http://localhost:8080/jeesite-demo/a/wrongselect/wrongSelection/wrongreason"
+		frameborder="0" style="height: 400px  ;display:none  " height="60%" width="65%">
+</iframe>
+<iframe border="0" id="content4" name="content4"
+		src="http://localhost:8080/jeesite-demo/a/wrongselect/wrongSelection/listuser"
+		frameborder="0" style="height: 400px  ;display:none  " height="60%" width="65%">
+</iframe>
 <% } %>
 <script>
 $("#inputForm").validate({
@@ -180,20 +187,44 @@ $("#inputForm").validate({
                 document.getElementById("single").style.display = "block";
                 document.getElementById("multipletitle").style.display = "none";               
                 document.getElementById("multiple").style.display = "none";
+                document.getElementById("content1").style.display = "none";
+                document.getElementById("content2").style.display = "none";
+                document.getElementById("content3").style.display = "none";
+                document.getElementById("content4").style.display = "none";
             }
             else {
                 document.getElementById("singletitle").style.display = "none";
                 document.getElementById("single").style.display = "none";
                 document.getElementById("multipletitle").style.display = "block";
                 document.getElementById("multiple").style.display = "block";
+                document.getElementById("content1").style.display = "none";
+                document.getElementById("content2").style.display = "none";
+                document.getElementById("content3").style.display = "none";
+                document.getElementById("content4").style.display = "none";
             }
         }
         function singlelist(){    	
         document.getElementById("content1").style.display = "block";
         document.getElementById("content2").style.display = "none";
+        document.getElementById("content3").style.display = "none";
+        document.getElementById("content4").style.display = "none";
         } 
         function multiplelist(){
         document.getElementById("content1").style.display = "none";
         document.getElementById("content2").style.display = "block";
+        document.getElementById("content3").style.display = "none";
+        document.getElementById("content4").style.display = "none";
         } 
+        function wrongrea(){
+        	document.getElementById("content3").style.display = "block";
+        	document.getElementById("content1").style.display = "none";
+            document.getElementById("content2").style.display = "none";
+            document.getElementById("content4").style.display = "none";
+        }
+        function user(){
+        	document.getElementById("content4").style.display = "block";
+        	document.getElementById("content1").style.display = "none";
+            document.getElementById("content2").style.display = "none";
+            document.getElementById("content3").style.display = "none";
+        }
     </script>
