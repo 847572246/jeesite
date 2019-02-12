@@ -25,6 +25,7 @@ import com.jeesite.common.entity.Page;
 import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.single.entity.SingleSelection;
 import com.jeesite.modules.single.service.SingleSelectionService;
+import com.jeesite.modules.wrong.entity.WrongReason;
 
 /**
  * single_selectionController
@@ -108,7 +109,17 @@ public class SingleSelectionController extends BaseController {
 		model.addAttribute("singleSelection", singleSelection);
 		return "modules/single/singleSelectionForm";
 	}
-
+	
+	/**
+	 * 查询错误原因列表
+	 */
+	@RequiresPermissions("single:singleSelection:edit")
+	@RequestMapping(value = {"wrongreason", ""})
+	public String list(WrongReason wrongReason, Model model) {
+		model.addAttribute("wrongReason", wrongReason);
+		return "modules/single/wrongReasonList";
+	}
+	
 	/**
 	 * 保存单项选择题
 	 */

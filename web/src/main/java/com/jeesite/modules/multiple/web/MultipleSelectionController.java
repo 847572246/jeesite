@@ -25,6 +25,7 @@ import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.multiple.entity.MultipleSelection;
 import com.jeesite.modules.multiple.service.MultipleSelectionService;
 import com.jeesite.modules.single.entity.SingleSelection;
+import com.jeesite.modules.wrong.entity.WrongReason;
 
 /**
  * multiple_selectionController
@@ -101,7 +102,17 @@ public class MultipleSelectionController extends BaseController {
 		model.addAttribute("multipleSelection", multipleSelection);
 		return "modules/multiple/multipleSelectionForm";
 	}
-
+	
+	/**
+	 * 查询错误原因列表
+	 */
+	@RequiresPermissions("multiple:multipleSelection:edit")
+	@RequestMapping(value = {"wrongreason", ""})
+	public String list(WrongReason wrongReason, Model model) {
+		model.addAttribute("wrongReason", wrongReason);
+		return "modules/multiple/wrongReasonList";
+	}
+	
 	/**
 	 * 保存多项选择题
 	 */

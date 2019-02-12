@@ -24,7 +24,8 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="d", attrName="d", label="d"),
 		@Column(name="answer", attrName="answer", label="answer"),
 		@Column(includeEntity=DataEntity.class),
-		@Column(name="reason", attrName="reason", label="reason"),
+		@Column(name="wrong_reason_id", attrName="wrongReasonId", label="错误原因号"),
+		@Column(name="wrong_reason", attrName="wrongReason", label="错误原因"),
 	}, orderBy="a.update_date DESC"
 )
 public class MultipleSelection extends DataEntity<MultipleSelection> {
@@ -36,7 +37,8 @@ public class MultipleSelection extends DataEntity<MultipleSelection> {
 	private String c;		// c
 	private String d;		// d
 	private String answer;		// answer
-	private String reason;		// reason
+	private String wrongReasonId;		// 错误原因号
+	private String wrongReason;		// 错误原因
 	
 	public MultipleSelection() {
 		this(null);
@@ -100,13 +102,22 @@ public class MultipleSelection extends DataEntity<MultipleSelection> {
 		this.answer = answer;
 	}
 	
-	@Length(min=0, max=255, message="reason长度不能超过 255 个字符")
-	public String getReason() {
-		return reason;
+	@Length(min=0, max=255, message="错误原因号长度不能超过 255 个字符")
+	public String getWrongReasonId() {
+		return wrongReasonId;
 	}
 
-	public void setReason(String reason) {
-		this.reason = reason;
+	public void setWrongReasonId(String wrongReasonId) {
+		this.wrongReasonId = wrongReasonId;
+	}
+	
+	@Length(min=0, max=255, message="错误原因长度不能超过 255 个字符")
+	public String getWrongReason() {
+		return wrongReason;
+	}
+
+	public void setWrongReason(String wrongReason) {
+		this.wrongReason = wrongReason;
 	}
 	
 }
