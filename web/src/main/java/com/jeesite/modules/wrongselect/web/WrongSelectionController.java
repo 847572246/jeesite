@@ -3,6 +3,8 @@
  */
 package com.jeesite.modules.wrongselect.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jeesite.common.config.Global;
@@ -46,7 +49,12 @@ public class WrongSelectionController extends BaseController {
 	public WrongSelection get(String id, boolean isNewRecord) {
 		return wrongSelectionService.get(id, isNewRecord);
 	}
-	
+	@RequiresPermissions("wrongselect:wrongSelection:view")
+	@RequestMapping(value = "listwrongreason")
+	public List<String> finduserwrong(@RequestParam String usercode) {
+		List<String> userwrong=wrongSelectionService.finduserwrong(usercode);
+		return userwrong;		
+	}
 	/**
 	 * 查询列表
 	 */
@@ -74,7 +82,7 @@ public class WrongSelectionController extends BaseController {
 	@RequestMapping(value = {"single", ""})
 	public String listsingle(SingleSelection singleSelection, Model model) {
 		model.addAttribute("singleSelection", singleSelection);
-		return "modules/wrongselect/createWordList2";
+		return "modules/wrongselect/wrongsingle";
 	}
 	/**
 	 * 查询多选题列表
@@ -83,7 +91,7 @@ public class WrongSelectionController extends BaseController {
 	@RequestMapping(value = {"multiple", ""})
 	public String listmultiple(MultipleSelection multipleSelection, Model model) {
 		model.addAttribute("multipleSelection", multipleSelection);
-		return "modules/wrongselect/createWordList3";
+		return "modules/wrongselect/wrongmultiple";
 	}
 	/**
 	 * 

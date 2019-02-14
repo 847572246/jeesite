@@ -3,14 +3,10 @@
 	<div class="box box-main">
 		<div class="box-header">
 			<div class="box-title">
-				<i class="fa icon-user"></i> ${text('用户管理')}
+				<i class="fa icon-user"></i> ${text('选择学生')}
 			</div>
 			<div class="box-tools pull-right">
-				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
-				<% if(hasPermi('sys:empUser:edit')){ %>
-					<a href="${ctx}/sys/empUser/form?op=add" class="btn btn-default btnTool" title="${text('新增用户')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
-				<% } %>
-				
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>								
 			</div>
 		</div>
 		<div class="box-body">
@@ -110,7 +106,7 @@ $('#dataGrid').dataGrid({
 		{header:'${text('操作')}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
 			<% if(hasPermi('single:singleSelection:edit')){ %>
-				return '<button type="button" value="'+row+'" onclick="select(\''+row.refName+'\',\''+row.userCode+'\')">选择</button>';
+				return '<button type="button" value="'+row+'" onclick="select(\''+row.userCode+'\')">选择</button>';
 			<% } %>
 			return actions.join('');
 		}}
@@ -120,9 +116,16 @@ $('#dataGrid').dataGrid({
 		
 	}
 });
-function select(e,id){
-	window.parent.document.getElementById("username").value=e;
-	window.parent.document.getElementById("userid").value=id;
+function select(id){
+	/* window.parent.document.getElementById("userid").value=id; */
+	$.ajax({
+		url:'http://localhost:8080/jeesite-demo/a/wrongselect/wrongSelection/listwrongreason',
+		type:'post',
+		async:false,
+		success:function(uid){
+		console.log(uid);
+		}
+	});
 }
 $('#btnExport').click(function(){
 	js.ajaxSubmitForm($('#searchForm'), {

@@ -11,5 +11,10 @@
 		</where>
 		ORDER BY ${sqlMap.order.toSql()}
 	</select> -->
+	<select id="finduserwrong" resultType="string">
+	SELECT user_name,wrong_reason,flag
+	FROM wrong_selection
+	WHERE status=0 and flag>0 and user_code=#{usercode}
+	</select>
 	
 </mapper>

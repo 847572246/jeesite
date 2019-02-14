@@ -1,19 +1,19 @@
-<% layout('/layouts/default.html', {title: 'single_test管理', libs: ['dataGrid']}){ %>
+<% layout('/layouts/default.html', {title: '添加多选错题', libs: ['dataGrid']}){ %>
 <div class="main-content">
 	<div class="box box-main">
 		<div class="box-header">
 			<div class="box-title">
-				<i class="fa fa-list-alt"></i> ${text('single_test管理')}
+				<i class="fa fa-list-alt"></i> ${text('添加多选错题')}
 			</div>
 			<div class="box-tools pull-right">
 				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
-				<% if(hasPermi('single:singleTest:edit')){ %>
-					<a href="${ctx}/single/singleTest/form" class="btn btn-default btnTool" title="${text('新增single_test')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% if(hasPermi('multiple:multipleSelection:edit')){ %>
+					<a href="${ctx}/multiple/multipleSelection/form" class="btn btn-default btnTool" title="${text('新增多项选择题')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
 				<% } %>
 			</div>
 		</div>
 		<div class="box-body">
-			<#form:form id="searchForm" model="${singleTest}" action="${ctx}/single/singleTest/listData" method="post" class="form-inline hide"
+			<#form:form id="searchForm" model="${multipleSelection}" action="${ctx}/multiple/multipleSelection/listData" method="post" class="form-inline hide"
 					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
 				<div class="form-group">
 					<label class="control-label">${text('title')}：</label>
@@ -48,31 +48,25 @@
 				<div class="form-group">
 					<label class="control-label">${text('answer')}：</label>
 					<div class="control-inline">
-						<#form:input path="answer" maxlength="1" class="form-control width-120"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label">${text('错误原因号')}：</label>
-					<div class="control-inline">
-						<#form:input path="wrongReasonId" maxlength="255" class="form-control width-120"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label">${text('错误原因')}：</label>
-					<div class="control-inline">
-						<#form:input path="wrongReason" maxlength="255" class="form-control width-120"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label">${text('remarks')}：</label>
-					<div class="control-inline">
-						<#form:input path="remarks" maxlength="255" class="form-control width-120"/>
+						<#form:input path="answer" maxlength="4" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">${text('status')}：</label>
 					<div class="control-inline width-120">
 						<#form:select path="status" dictType="sys_search_status" blankOption="true" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('reason')}：</label>
+					<div class="control-inline">
+						<#form:input path="reason" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('remarks')}：</label>
+					<div class="control-inline">
+						<#form:input path="remarks" maxlength="255" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -91,26 +85,24 @@
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'${text('title')}', name:'title', index:'a.title', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
-			return '<a href="${ctx}/single/singleTest/form?id='+row.id+'" class="btnList" data-title="${text('编辑single_test')}">'+(val||row.id)+'</a>';
+		{header:'${text('title')}', name:'title', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/multiple/multipleSelection/form?id='+row.id+'" class="btnList" data-title="${text('编辑多项选择题')}">'+(val||row.id)+'</a>';
 		}},
 		{header:'${text('a')}', name:'a', index:'a.a', width:150, align:"left"},
 		{header:'${text('b')}', name:'b', index:'a.b', width:150, align:"left"},
 		{header:'${text('c')}', name:'c', index:'a.c', width:150, align:"left"},
 		{header:'${text('d')}', name:'d', index:'a.d', width:150, align:"left"},
 		{header:'${text('answer')}', name:'answer', index:'a.answer', width:150, align:"left"},
-		{header:'${text('错误原因号')}', name:'wrongReasonId', index:'a.wrong_reason_id', width:150, align:"left"},
-		{header:'${text('错误原因')}', name:'wrongReason', index:'a.wrong_reason', width:150, align:"left"},
-		{header:'${text('remarks')}', name:'remarks', index:'a.remarks', width:150, align:"left"},
 		{header:'${text('status')}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
 			return js.getDictLabel(${@DictUtils.getDictListJson('sys_search_status')}, val, '${text('未知')}', true);
 		}},
+		{header:'${text('reason')}', name:'reason', index:'a.reason', width:150, align:"left"},
 		{header:'${text('create_date')}', name:'createDate', index:'a.create_date', width:150, align:"center"},
+		{header:'${text('remarks')}', name:'remarks', index:'a.remarks', width:150, align:"left"},
 		{header:'${text('操作')}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-			<% if(hasPermi('single:singleTest:edit')){ %>
-				actions.push('<a href="${ctx}/single/singleTest/form?id='+row.id+'" class="btnList" title="${text('编辑single_test')}"><i class="fa fa-pencil"></i></a>&nbsp;');
-				actions.push('<a href="${ctx}/single/singleTest/delete?id='+row.id+'" class="btnList" title="${text('删除single_test')}" data-confirm="${text('确认要删除该single_test吗？')}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			<% if(hasPermi('single:singleSelection:edit')){ %>
+				return '<button type="button" value="'+row+'" onclick="select(\''+row.title+'\',\''+row.id+'\')">选择</button>';
 			<% } %>
 			return actions.join('');
 		}}
@@ -120,4 +112,9 @@ $('#dataGrid').dataGrid({
 		
 	}
 });
+function select(e,id){
+	window.parent.document.getElementById("multitle").value=e;
+	window.parent.document.getElementById("mulid").value=id;
+	//window.parent.document.getElementById("sintitle").remove();
+}
 </script>

@@ -39,6 +39,8 @@ import com.jeesite.modules.multiple.web.MultipleSelectionController;
 import com.jeesite.modules.single.entity.SingleSelection;
 import com.jeesite.modules.single.service.SingleSelectionService;
 import com.jeesite.modules.single.web.SingleSelectionController;
+import com.jeesite.modules.sys.entity.EmpUser;
+import com.jeesite.modules.sys.entity.Post;
 
 /**
  * 代码生成表Controller
@@ -76,7 +78,20 @@ public class CreateWordController extends BaseController {
 		model.addAttribute("multipleSelection", multipleSelection);
 		return "modules/createword/createWordList3";
 	}
-	
+	/**
+	 * 
+	 * @param empUser
+	 * @param model
+	 * @return
+	 */
+	@RequiresPermissions("createword:create:view")
+	@RequestMapping(value = "listuser")
+	public String list(EmpUser empUser, Model model) {
+		// 获取岗位列表
+		Post post = new Post();
+		//model.addAttribute("postList", postService.findList(post));
+		return "modules/createword/empUserList";
+	}
 	@RequestMapping(value = "create")
 	@ResponseBody
 	public String exportSimpleWord(String[] ids) {
@@ -87,7 +102,7 @@ public class CreateWordController extends BaseController {
 		Map<String, Object> root = new HashMap<String, Object>();
 		root.put("single", list);
 		root.put("multiple", list1);
-		FreeMarkertUtil.analysisTemplate("C:/create/", "exam.ftl", "C:/create/use.doc" + Math.random() * 10000 + ".doc",
+		FreeMarkertUtil.analysisTemplate("C:/create/", "exam.ftl", "C:/create/use.doc" + Math.random() * 100 + ".doc",
 				root);
 		return "生成成功";
 	}
@@ -109,47 +124,6 @@ public class CreateWordController extends BaseController {
 		return "modules/createword/createWordList";
 	}
 
-	/**
-	 * 单选题列表
-	 * 
-	 * @param single
-	 * @param model
-	 * @return
-	 *//*
-	@RequiresPermissions("createword:create:view")
-	@RequestMapping(value = { "list", "" })
-	public String list(SingleSelection single, Model model) {
-		model.addAttribute("single", single);
-		return "modules/single/singleSelectionList";
-	}
-
-	*//**
-	 * 多选题列表
-	 * 
-	 * @param multiple
-	 * @param model
-	 * @return
-	 *//*
-
-	@RequiresPermissions("createword:create:view") 
-	@RequestMapping(value = { "start", "" })
-	public String start(MultipleSelection multiple, Model model) {
-		model.addAttribute("multiple", multiple);
-		return "modules/multiple/multipleSelectionList";
-	}
-*/
-	/**
-	 * 查询列表数据
-	 */
-	/*
-	 * @RequiresPermissions("createword:create:view")
-	 * 
-	 * @RequestMapping(value = "listData")
-	 * 
-	 * @ResponseBody public Page<Single> listData(Single single, HttpServletRequest
-	 * request, HttpServletResponse response) { single.setPage(new Page<>(request,
-	 * response)); Page<Single> page = examService.findPage(single); return page; }
-	 */
 
 	/**
 	 * 查看编辑表单

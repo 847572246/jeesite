@@ -1,5 +1,7 @@
 <% layout('/layouts/default.html', {title: '错题库管理', libs: ['validate']}){ %>
 <link rel="stylesheet" type="text/css" href="${ctxStatic}/common/demo.css?${_version}">
+<link href="${ctxStatic}/common/changebutton.css?${_version}" rel="stylesheet" type="text/css" />
+<script src="${ctxStatic}/common/jquery.min.js?${_version}" type="text/javascript"></script>
 <div class="main-content">
 	<div class="box box-main">
 		<div class="box-header with-border">
@@ -20,14 +22,11 @@
 							<label class="control-label col-sm-4" title="">
 								${text('错题题型选择')}：</label>
 							<div class="col-sm-8">
-								<input class="magic-radio" type="radio" name="radiobutton"
-									checked="checked" id="r1" value="option1" onclick="test(this)">
-								<label for="r1">单选</label>
-							<input class="magic-radio" type="radio" name="radiobutton"
-									id="r2" value="option1" onclick="test(this)">
-									<label for="r2">多选</label>
-								<!-- <input id="r2" name="radiobutton" type="radio"
-									onclick="test(this)" /> <span>多选</span> -->
+						<li class="tg-list-item">
+							<h4></h4>
+							<input class="tgl tgl-flip" id="cb5" type="checkbox">
+							<label class="tgl-btn" id="singlebutton" data-tg-off="单选" data-tg-on="多选" for="cb5" onclick="testbutton(this)"></label>
+						</li>	
 							</div>
 						</div>
 					</div>
@@ -58,7 +57,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('单选错题题目')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="wrongSelect" id="sintitle" maxlength="255" class="form-control" onclick="singlelist()"/>
+								<#form:input path="wrongSelect" id="sintitle" maxlength="255" class="form-control" onclick="singlelist()" />
 							</div>
 						</div>
 					</div>
@@ -78,7 +77,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('多选错题题目')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="wrongSelect" id="multitle" maxlength="255" class="form-control" onclick="multiplelist()"/>
+								<#form:input path="wrongSelect" style="disabled:false" id="multitle" maxlength="255" class="form-control" onclick="multiplelist()"/>
 							</div>
 						</div>
 					</div>
@@ -87,7 +86,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('多选题号')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="wrongIdMul" id="mulid" maxlength="255" class="form-control"/>
+								<#form:input path="wrongIdMul" id="mulid" maxlength="255" class="form-control" onclick="multiplelist()"/>
 							</div>
 						</div>
 					</div>
@@ -139,7 +138,7 @@
 				<div class="row">
 					<div class="col-sm-offset-2 col-sm-10">
 						<% if (hasPermi('wrongselect:wrongSelection:edit')){ %>
-							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp;
+							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit" onclick="deletepath()"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp;
 						<% } %>
 						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> ${text('关 闭')}</button>
 					</div>
@@ -179,31 +178,38 @@ $("#inputForm").validate({
     }
 });
 </script>
+
 </script>
  <script type="text/javascript">
-        function test(obj) {
-            if (obj.id == "r1") {
-                document.getElementById("singletitle").style.display = "block";
-                document.getElementById("single").style.display = "block";
-                document.getElementById("multipletitle").style.display = "none";               
-                document.getElementById("multiple").style.display = "none";
-                document.getElementById("content1").style.display = "none";
-                document.getElementById("content2").style.display = "none";
-                document.getElementById("content3").style.display = "none";
-                document.getElementById("content4").style.display = "none";
-            }
-            else {
-                document.getElementById("singletitle").style.display = "none";
-                document.getElementById("single").style.display = "none";
-                document.getElementById("multipletitle").style.display = "block";
-                document.getElementById("multiple").style.display = "block";
-                document.getElementById("content1").style.display = "none";
-                document.getElementById("content2").style.display = "none";
-                document.getElementById("content3").style.display = "none";
-                document.getElementById("content4").style.display = "none";
-            }
-        }
-        function singlelist(){    	
+ function testbutton(obj) {
+		if (obj.id == "singlebutton") {
+			obj.id = "multiplebutton"
+		 document.getElementById("sintitle").value="";
+		 document.getElementById("sinid").value="";
+		 document.getElementById("singletitle").style.display = "none";
+         document.getElementById("single").style.display = "none";
+         document.getElementById("multipletitle").style.display = "block";
+         document.getElementById("multiple").style.display = "block";
+         document.getElementById("content1").style.display = "none";
+         document.getElementById("content2").style.display = "none";
+         document.getElementById("content3").style.display = "none";
+         document.getElementById("content4").style.display = "none";
+			
+		} else {
+			obj.id = "singlebutton"
+		 document.getElementById("multitle").value="";
+		 document.getElementById("mulid").value="";
+		 document.getElementById("singletitle").style.display = "block";
+         document.getElementById("single").style.display = "block";
+         document.getElementById("multipletitle").style.display = "none";               
+         document.getElementById("multiple").style.display = "none";
+         document.getElementById("content1").style.display = "none";
+         document.getElementById("content2").style.display = "none";
+         document.getElementById("content3").style.display = "none";
+         document.getElementById("content4").style.display = "none";
+		}				
+	}
+        function singlelist(){ 
         document.getElementById("content1").style.display = "block";
         document.getElementById("content2").style.display = "none";
         document.getElementById("content3").style.display = "none";
@@ -226,5 +232,11 @@ $("#inputForm").validate({
         	document.getElementById("content1").style.display = "none";
             document.getElementById("content2").style.display = "none";
             document.getElementById("content3").style.display = "none";
+        }
+        function deletepath(){
+        	if(document.getElementById("sintitle"))
+        		document.getElementById("multitle").remove();
+        	if(document.getElementById("multitle"))
+            	document.getElementById("sintitle").remove();
         }
     </script>

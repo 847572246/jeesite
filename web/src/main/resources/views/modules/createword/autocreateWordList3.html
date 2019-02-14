@@ -1,9 +1,9 @@
-<% layout('/layouts/default.html', {title: '多项选择题管理', libs: ['dataGrid']}){ %>
+<% layout('/layouts/default.html', {title: '多项选择题', libs: ['dataGrid']}){ %>
 <div class="main-content">
 	<div class="box box-main">
 		<div class="box-header">
 			<div class="box-title">
-				<i class="fa fa-list-alt"></i> ${text('多项选择题管理')}
+				<i class="fa fa-list-alt"></i> ${text('多项选择题')}
 			</div>
 			<div class="box-tools pull-right">
 				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
@@ -85,6 +85,9 @@
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
+		{header:'${text(' ')}',name:'checkbox' , index:'a.title', width:80, align:"left", formatter: function(val, obj, row, act){
+			return '<input type="checkbox" name="mulid" id="mulid" value="'+row.id+'">';
+		}},
 		{header:'${text('title')}', name:'title', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
 			return '<a href="${ctx}/multiple/multipleSelection/form?id='+row.id+'" class="btnList" data-title="${text('编辑多项选择题')}">'+(val||row.id)+'</a>';
 		}},
@@ -101,8 +104,9 @@ $('#dataGrid').dataGrid({
 		{header:'${text('remarks')}', name:'remarks', index:'a.remarks', width:150, align:"left"},
 		{header:'${text('操作')}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-			<% if(hasPermi('single:singleSelection:edit')){ %>
-				return '<button type="button" value="'+row+'" onclick="select(\''+row.title+'\',\''+row.id+'\')">选择</button>';
+			<% if(hasPermi('multiple:multipleSelection:edit')){ %>
+				actions.push('<a href="${ctx}/multiple/multipleSelection/form?id='+row.id+'" class="btnList" title="${text('编辑多项选择题')}"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="${ctx}/multiple/multipleSelection/delete?id='+row.id+'" class="btnList" title="${text('删除多项选择题')}" data-confirm="${text('确认要删除该多项选择题吗？')}"><i class="fa fa-trash-o"></i></a>&nbsp;');
 			<% } %>
 			return actions.join('');
 		}}
@@ -112,8 +116,4 @@ $('#dataGrid').dataGrid({
 		
 	}
 });
-function select(e,id){
-	window.parent.document.getElementById("multitle").value=e;
-	window.parent.document.getElementById("mulid").value=id;
-}
 </script>

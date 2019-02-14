@@ -1,4 +1,4 @@
-<% layout('/layouts/default.html', {title: '错题库管理', libs: ['validate']}){ %>
+<!-- <% layout('/layouts/default.html', {title: '错题库管理', libs: ['validate']}){ %>
 <link rel="stylesheet" type="text/css" href="${ctxStatic}/common/demo.css?${_version}">
 <div class="main-content">
 	<div class="box box-main">
@@ -26,8 +26,8 @@
 							<input class="magic-radio" type="radio" name="radiobutton"
 									id="r2" value="option1" onclick="test(this)">
 									<label for="r2">多选</label>
-								<!-- <input id="r2" name="radiobutton" type="radio"
-									onclick="test(this)" /> <span>多选</span> -->
+								<input id="r2" name="radiobutton" type="radio"
+									onclick="test(this)" /> <span>多选</span>
 							</div>
 							`
 						</div>
@@ -57,7 +57,7 @@
 				
 				<div class="row">
 					<div class="col-xs-6">
-						<div class="form-group" id="single"> <!-- style="display:none" -->
+						<div class="form-group" id="single"> style="display:none"
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('单选题号')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
@@ -139,4 +139,4 @@ $("#inputForm").validate({
                 document.getElementById("multiple").style.display = "block";
             }
         }
-    </script>
+    </script> -->

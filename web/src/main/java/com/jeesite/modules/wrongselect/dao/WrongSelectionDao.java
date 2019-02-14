@@ -3,6 +3,8 @@
  */
 package com.jeesite.modules.wrongselect.dao;
 
+import java.util.List;
+
 import com.jeesite.common.dao.CrudDao;
 import com.jeesite.common.mybatis.annotation.MyBatisDao;
 import com.jeesite.modules.wrongselect.entity.WrongSelection;
@@ -14,5 +16,7 @@ import com.jeesite.modules.wrongselect.entity.WrongSelection;
  */
 @MyBatisDao
 public interface WrongSelectionDao extends CrudDao<WrongSelection> {
+
+	public List<String> finduserwrong(String usercode);
 	
 }

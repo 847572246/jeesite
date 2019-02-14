@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jeesite.common.entity.Page;
 import com.jeesite.common.service.CrudService;
 import com.jeesite.modules.wrongselect.entity.WrongSelection;
+import com.jeesite.modules.single.entity.SingleSelection;
 import com.jeesite.modules.wrongselect.dao.WrongSelectionDao;
 
 /**
@@ -21,6 +22,9 @@ import com.jeesite.modules.wrongselect.dao.WrongSelectionDao;
 @Service
 @Transactional(readOnly=true)
 public class WrongSelectionService extends CrudService<WrongSelectionDao, WrongSelection> {
+	
+	
+	
 	
 	/**
 	 * 获取单条数据
@@ -71,6 +75,11 @@ public class WrongSelectionService extends CrudService<WrongSelectionDao, WrongS
 	@Transactional(readOnly=false)
 	public void delete(WrongSelection wrongSelection) {
 		super.delete(wrongSelection);
+	}
+
+	public List<String> finduserwrong(String usercode) {
+		// TODO Auto-generated method stub
+		return dao.finduserwrong(usercode);
 	}
 	
 }

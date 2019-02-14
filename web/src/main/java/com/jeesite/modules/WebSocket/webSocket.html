@@ -1,0 +1,44 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script  type="text/javascript">
+        var websocket = null;
+        if('WebSocket' in window) {
+            websocket = new WebSocket('ws://bgyzuishuai.s1.natapp.cc/webSocket');
+        }else {
+            alert('该浏览器不支持订单提醒!');		
+        }
+ 
+        websocket.onopen = function (event) {
+            console.log('建立连接');
+        }
+ 
+        websocket.onclose = function (event) {
+            console.log('连接关闭');
+        }
+ 
+        websocket.onmessage = function (event) {
+            console.log('收到消息:' + event.data)
+            //弹窗提醒, 播放音乐
+            $('#dingdanxiaoxi').modal('show');
+ 
+            document.getElementById('notice').play();
+        }
+ 
+        websocket.onerror = function() {
+			alert("WebSocket连接发生错误")
+			setMessageInnerHTML("WebSocket连接发生错误");
+		};
+ 
+        window.onbeforeunload = function () {
+            websocket.close();
+        }
+ 
+    </script>
+<body>
+
+</body>
+</html> -->
