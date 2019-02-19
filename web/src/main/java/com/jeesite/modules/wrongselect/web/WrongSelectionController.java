@@ -3,6 +3,9 @@
  */
 package com.jeesite.modules.wrongselect.web;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,12 +52,45 @@ public class WrongSelectionController extends BaseController {
 	public WrongSelection get(String id, boolean isNewRecord) {
 		return wrongSelectionService.get(id, isNewRecord);
 	}
+	/*@RequiresPermissions("wrongselect:wrongSelection:view")
+	@RequestMapping(value = "listwrongreason")
+	public List<List<String>> finduserwrong(@RequestParam String usercode) {
+		List<List<String>> userwrong=new ArrayList<List<String>>();
+		List<String> userwrongid=wrongSelectionService.finduserwrongid(usercode);
+		List<String> userwrongflag=wrongSelectionService.finduserwrongflag(usercode);
+		userwrong.add(userwrongid);
+		userwrong.add(userwrongflag);
+		return userwrong;		
+	}*/
+	/**
+	 * 根据用户查询错误原因
+	 * @param usercode
+	 * @return
+	 */
 	@RequiresPermissions("wrongselect:wrongSelection:view")
 	@RequestMapping(value = "listwrongreason")
-	public List<String> finduserwrong(@RequestParam String usercode) {
-		List<String> userwrong=wrongSelectionService.finduserwrong(usercode);
-		return userwrong;		
+/*	public List<WrongSelection> finduserwrong(@RequestParam String usercode) {
+		List<WrongSelection> userwrong=wrongSelectionService.findwrong(usercode);
+		
+		return userwrong;
+	}*/
+	public String finduserwrong(@RequestParam String usercode, Model model) {
+		List<WrongSelection> userwrongs=wrongSelectionService.findwrong(usercode);
+		model.addAttribute("userwrongs", userwrongs);
+		//System.out.println("userwrongs : "+ userwrongs.size());
+		return "modules/createword/userreason";
 	}
+	
+	/**
+	 * 查询错误原因列表
+	 */
+	@RequiresPermissions("wrongselect:wrongSelection:view")
+	@RequestMapping(value = {"userreason", ""})
+	public String userreason(WrongSelection wrongselection, Model model) {
+		model.addAttribute("WrongSelection", wrongselection);
+		return "modules/createword/userreason";
+	}
+
 	/**
 	 * 查询列表
 	 */
@@ -74,7 +110,7 @@ public class WrongSelectionController extends BaseController {
 		model.addAttribute("wrongReason", wrongReason);
 		return "modules/wrongselect/wrongReasonList";
 	}
-	
+
 	/**
 	 * 查询单选题列表
 	 */

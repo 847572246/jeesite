@@ -41,6 +41,7 @@ import com.jeesite.modules.single.service.SingleSelectionService;
 import com.jeesite.modules.single.web.SingleSelectionController;
 import com.jeesite.modules.sys.entity.EmpUser;
 import com.jeesite.modules.sys.entity.Post;
+import com.jeesite.modules.wrong.entity.WrongReason;
 
 /**
  * 代码生成表Controller
@@ -123,7 +124,6 @@ public class CreateWordController extends BaseController {
 		model.addAttribute("single", single);
 		return "modules/createword/createWordList";
 	}
-
 
 	/**
 	 * 查看编辑表单

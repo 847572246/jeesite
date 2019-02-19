@@ -76,10 +76,17 @@ public class WrongSelectionService extends CrudService<WrongSelectionDao, WrongS
 	public void delete(WrongSelection wrongSelection) {
 		super.delete(wrongSelection);
 	}
-
-	public List<String> finduserwrong(String usercode) {
+	public List<WrongSelection> findwrong(String usercode) {
 		// TODO Auto-generated method stub
-		return dao.finduserwrong(usercode);
+		return dao.findwrong(usercode);
+	}
+	public List<String> finduserwrongid(String usercode) {
+		// TODO Auto-generated method stub
+		return dao.finduserwrongid(usercode);
+	}
+	public List<String> finduserwrongflag(String usercode) {
+		// TODO Auto-generated method stub
+		return dao.finduserwrongflag(usercode);
 	}
 	
 }

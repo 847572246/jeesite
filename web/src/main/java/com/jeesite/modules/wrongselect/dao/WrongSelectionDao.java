@@ -17,6 +17,10 @@ import com.jeesite.modules.wrongselect.entity.WrongSelection;
 @MyBatisDao
 public interface WrongSelectionDao extends CrudDao<WrongSelection> {
 
-	public List<String> finduserwrong(String usercode);
+	public List<String> finduserwrongflag(String usercode);
+
+	public List<String> finduserwrongid(String usercode);
+	
+	public List<WrongSelection> findwrong(String usercode);
 	
 }

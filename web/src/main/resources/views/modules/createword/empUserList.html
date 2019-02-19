@@ -84,6 +84,7 @@
 	</div>
 </div>
 <% } %>
+
 <script>
 // 初始化DataGrid对象
 $('#dataGrid').dataGrid({
@@ -106,7 +107,7 @@ $('#dataGrid').dataGrid({
 		{header:'${text('操作')}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
 			<% if(hasPermi('single:singleSelection:edit')){ %>
-				return '<button type="button" value="'+row+'" onclick="select(\''+row.userCode+'\')">选择</button>';
+				return '<a  href="${ctx}/wrongselect/wrongSelection/listwrongreason?usercode='+row.userCode+'">选择</button>';
 			<% } %>
 			return actions.join('');
 		}}
@@ -116,14 +117,34 @@ $('#dataGrid').dataGrid({
 		
 	}
 });
+function SetCookie(cookieName, cookieValue, nDays) {
+	/*当前日期*/
+	var today = new Date();
+	/*Cookie过期时间*/
+	var expire = new Date();
+	/*如果未设置nDays参数或者nDays为0，取默认值1*/
+	if (nDays == null || nDays == 0) nDays = 1;
+	/*计算Cookie过期时间*/
+	expire.setTime(today.getTime() + 3600000 * 24 * nDays);
+	/*设置Cookie值*/
+	document.cookie = cookieName + "=" + escape(cookieValue) +
+		";expires=" + expire.toGMTString();
+}
+/* function $(id) {
+	return document.getElementById(id);
+} */
 function select(id){
 	/* window.parent.document.getElementById("userid").value=id; */
 	$.ajax({
 		url:'http://localhost:8080/jeesite-demo/a/wrongselect/wrongSelection/listwrongreason',
 		type:'post',
 		async:false,
+		data: {usercode:id},
 		success:function(uid){
-		console.log(uid);
+			console.log(uid);
+			SetCookie("uid", uid, 1);
+			/*跳转到ex8.html页面*/
+			document.location ="http://localhost:8080/jeesite-demo/a/wrongselect/wrongSelection/userreason";
 		}
 	});
 }
