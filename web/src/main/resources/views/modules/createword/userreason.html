@@ -2,24 +2,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>jquery图形多选复选框 - 站长素材</title>
+<title>jquery图形多选复选框 - 站长素材</title>
 <script src="${ctxStatic}/checkbox/js/jquery.min.js?${_version}" type="text/javascript"></script>
 
 	<script type="text/javascript">
-	$(document).ready(function() {
-		$(function() {
-			var str="";
-			for(var i=0;i<4;i++){
-						str+='<li>'+
-							'<input name="jqdemo" value="${userwrongs[0].wrongReason}" type="checkbox" id="choice_'+i+'"/>'+
-							'<label for="choice_'+i+'">${userwrongs[0].wrongReason}</label>'+
-							'<font size="" color="red"><label for="choice_'+i+'">Heres the 1st selection</label></font>'+
-							'<a class="checkbox-select" href="#">Select</a>'+
-							'<a class="checkbox-deselect" href="#">Cancel</a>'+
-							'</li>'			
-				}
-					$("#checkbox").html(str);
-					
-			}); 
+	
+$(document).ready(function() {
+
 	/* see if anything is previously checked and reflect that in the view*/
 	$(".checklist input:checked").parent().addClass("selected");
 	
@@ -49,7 +38,9 @@
 		console.log(getElementsByClassName("checklist").value);
 		
 	}
-
+	
+	</script>
+	
 	
 <style type="text/css">
 
@@ -149,17 +140,27 @@ a.checkbox-deselect {
 	
 </head>
 
-<body >
+<body>
 <div id="" align="center">	
 		
 	<form action="">
 		<fieldset>
 			<legend>Choose some stuff...</legend>
-			<ul class="checklist" id="checkbox">
-				
-			</ul></br>
-			<div style="clear: both;">${userwrongs[1].wrongReason}</div>
-			<div style="clear: both;">${userwrongs.length()}</div>
+			<%
+				for(user in userwrongs){
+			%>
+				<ul class="checklist" id="checkbox">
+				<li>
+					<input name="jqdemo" value="value'+i+'" type="checkbox" id="choice_'+i+'"/>
+					<label for="choice_'+i+'">${user.wrongReason}</label>
+					<font size="" color="red"><label for="choice_'+i+'">错误次数:${user.flag}</label></font>
+					<a class="checkbox-select" href="#">Select</a>
+					<a class="checkbox-deselect" href="#">Cancel</a>
+					</li>
+				</ul>
+					<%}%>	
+			
+			<div style="clear: both;"></div>
 			<button class="sendit" type="submit" name="submitbutton"  onclick="submitselect()">Send it!</button>
 		</fieldset>
 	</form>
