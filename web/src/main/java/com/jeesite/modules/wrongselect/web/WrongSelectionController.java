@@ -52,16 +52,20 @@ public class WrongSelectionController extends BaseController {
 	public WrongSelection get(String id, boolean isNewRecord) {
 		return wrongSelectionService.get(id, isNewRecord);
 	}
-	/*@RequiresPermissions("wrongselect:wrongSelection:view")
-	@RequestMapping(value = "listwrongreason")
-	public List<List<String>> finduserwrong(@RequestParam String usercode) {
-		List<List<String>> userwrong=new ArrayList<List<String>>();
-		List<String> userwrongid=wrongSelectionService.finduserwrongid(usercode);
-		List<String> userwrongflag=wrongSelectionService.finduserwrongflag(usercode);
-		userwrong.add(userwrongid);
-		userwrong.add(userwrongflag);
-		return userwrong;		
-	}*/
+	
+	
+	@RequiresPermissions("wrongselect:wrongSelection:view")
+	@RequestMapping(value = "selectselection")
+	public String selectselection(@RequestParam String[] wrongreasonid) {
+		String selectionid=new String();
+		for (int i = 0; i < wrongreasonid.length; i++) {
+			selectionid+=wrongSelectionService.selectionmultiple(wrongreasonid[i]);			
+		}
+		for (int i = 0; i < wrongreasonid.length; i++) {
+			selectionid+=wrongSelectionService.selectionsingle(wrongreasonid[i]);
+		}
+		return selectionid;
+	}
 	/**
 	 * 根据用户查询错误原因
 	 * @param usercode
@@ -69,15 +73,9 @@ public class WrongSelectionController extends BaseController {
 	 */
 	@RequiresPermissions("wrongselect:wrongSelection:view")
 	@RequestMapping(value = "listwrongreason")
-/*	public List<WrongSelection> finduserwrong(@RequestParam String usercode) {
-		List<WrongSelection> userwrong=wrongSelectionService.findwrong(usercode);
-		
-		return userwrong;
-	}*/
 	public String finduserwrong(@RequestParam String usercode, Model model) {
 		List<WrongSelection> userwrongs=wrongSelectionService.findwrong(usercode);
 		model.addAttribute("userwrongs", userwrongs);
-		//System.out.println("userwrongs : "+ userwrongs.size());
 		return "modules/createword/userreason";
 	}
 	

@@ -18,16 +18,15 @@
 	WHERE status=0 and flag>0 and user_code=#{usercode}
 	group by wrong_reason_id
 	</select>
-<!-- 	<select id="finduserwrongid" resultType="string">	
-	SELECT DISTINCT wrong_reason_id
-	FROM wrong_selection	
-	WHERE status=0 and flag>0 and user_code=#{usercode}
+	<select id="selectionsingle" resultType="SingleSelection">
+	SELECT id 
+	FROM single_selection
+	where wrong_reason_id LIKE '%#{wrongreasonid}%'
 	</select>
-	<select id="finduserwrongflag" resultType="string">	
-	SELECT sum(flag)
-	FROM wrong_selection	
-	WHERE status=0 and flag>0 and user_code=#{usercode}
-	group by wrong_reason_id
-	</select> -->
+	<select id="selectionmultiple" resultType="MultipleSelection">
+	SELECT id 
+	FROM multiple_selection
+	where wrong_reason_id LIKE '%#{wrongreasonid}%'
+	</select>
 	
 </mapper>

@@ -34,9 +34,23 @@ $(document).ready(function() {
 	
 });
 
-	function submitselect(){
-		console.log(getElementsByClassName("checklist").value);
-		
+
+	function submitselect(){  //jquery获取复选框值 
+		  var ids= new Array; 
+		  $('input[name="wrongRId"]:checked').each(function(){ 
+			  ids.push($(this).val()); 
+		  }); 
+		  console.log(ids);
+		  $.ajax({
+				url:'http://localhost:8080/jeesite-demo/a/wrongselect/wrongSelection/selectselection',
+				type:'post',
+				async:false,			
+				data: {wrongreasonid:ids},
+				traditional: true,
+				success: function (data) { //返回json结果				 
+					alert(data);
+				} 			
+			});
 	}
 	
 	</script>
@@ -145,13 +159,13 @@ a.checkbox-deselect {
 		
 	<form action="">
 		<fieldset>
-			<legend>Choose some stuff...</legend>
+			<legend>学生</legend>
 			<%
 				for(user in userwrongs){
 			%>
-				<ul class="checklist" id="checkbox">
+				<ul class="checklist" id="checkbox" >
 				<li>
-					<input name="jqdemo" value="value'+i+'" type="checkbox" id="choice_'+i+'"/>
+					<input name="wrongRId"  value="${user.wrongReasonId}" type="checkbox"/>
 					<label for="choice_'+i+'">${user.wrongReason}</label>
 					<font size="" color="red"><label for="choice_'+i+'">错误次数:${user.flag}</label></font>
 					<a class="checkbox-select" href="#">Select</a>
@@ -161,7 +175,7 @@ a.checkbox-deselect {
 					<%}%>	
 			
 			<div style="clear: both;"></div>
-			<button class="sendit" type="submit" name="submitbutton"  onclick="submitselect()">Send it!</button>
+			<button class="sendit" type="button" name="submitbutton"  onclick="submitselect()">确认</button>			
 		</fieldset>
 	</form>
 	
