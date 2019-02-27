@@ -22,6 +22,7 @@
 	SELECT id 
 	FROM single_selection
 	where wrong_reason_id LIKE '%#{wrongreasonid}%'
+	order by rand() limit #{count}
 	</select>
 	<select id="selectionmultiple" resultType="MultipleSelection">
 	SELECT id 

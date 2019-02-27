@@ -23,8 +23,8 @@ public interface WrongSelectionDao extends CrudDao<WrongSelection> {
 	
 	public List<WrongSelection> findwrong(String usercode);
 
-	public String selectionmultiple(String wrongreasonid);
+	public List<String> selectionmultiple(String wrongreasonid, String multiplecount);
 
-	public String selectionsingle(String wrongreasonid);
+	public List<String> selectionsingle(String wrongreasonid, String singlecount);
 	
 }

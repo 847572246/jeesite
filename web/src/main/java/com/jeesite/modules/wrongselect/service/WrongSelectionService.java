@@ -89,14 +89,14 @@ public class WrongSelectionService extends CrudService<WrongSelectionDao, WrongS
 		return dao.finduserwrongflag(usercode);
 	}
 
-	public String selectionmultiple(String wrongreasonid) {
+	public List<String> selectionmultiple(String wrongreasonid, String multiplecount) {
 		// TODO Auto-generated method stub
-		return dao.selectionmultiple(wrongreasonid);
+		return dao.selectionmultiple(wrongreasonid,multiplecount);
 	}
 
-	public String selectionsingle(String wrongreasonid) {
+	public List<String> selectionsingle(String wrongreasonid, String singlecount) {
 		// TODO Auto-generated method stub
-		return dao.selectionsingle(wrongreasonid);
+		return dao.selectionsingle(wrongreasonid,singlecount);
 	}
 	
 }

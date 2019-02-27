@@ -56,15 +56,17 @@ public class WrongSelectionController extends BaseController {
 	
 	@RequiresPermissions("wrongselect:wrongSelection:view")
 	@RequestMapping(value = "selectselection")
-	public String selectselection(@RequestParam String[] wrongreasonid) {
-		String selectionid=new String();
+	public List<List<String>> selectselection(@RequestParam String[] wrongreasonid,@RequestParam String[] singlecount,@RequestParam String[] multiplecount) {
+		List<List<String>> list = new ArrayList<List<String>>();
+		List<String> singleid=new ArrayList<String>();
+		List<String> multipleid=new ArrayList<String>();
 		for (int i = 0; i < wrongreasonid.length; i++) {
-			selectionid+=wrongSelectionService.selectionmultiple(wrongreasonid[i]);			
+			singleid=wrongSelectionService.selectionsingle(wrongreasonid[i],singlecount[i]);
+			multipleid=wrongSelectionService.selectionmultiple(wrongreasonid[i],multiplecount[i]);			
 		}
-		for (int i = 0; i < wrongreasonid.length; i++) {
-			selectionid+=wrongSelectionService.selectionsingle(wrongreasonid[i]);
-		}
-		return selectionid;
+		list.add(singleid);
+		list.add(multipleid);
+		return list;
 	}
 	/**
 	 * 根据用户查询错误原因
