@@ -83,14 +83,14 @@ fieldset {
 	float: left;
 	margin-right: 10px;
 	background: url(../../../static/checkbox/checkboxbg.gif) no-repeat 0 0;
-	width: 105px;
-	height: 150px;
+	width: 205px;
+	height: 300px;
 	position: relative;
 	font: normal 11px/1.3 "Lucida Grande","Lucida","Arial",Sans-serif;
 }
 
 .checklist li.selected {
-	background-position: -105px 0;
+	background-position: -205px 0;
 }
 
 .checklist li.selected .checkbox-select {
@@ -101,8 +101,8 @@ fieldset {
 	display: block;
 	float: left;
 	position: absolute;
-	top: 118px;
-	left: 10px;
+	top: 80%;
+	left: 40%;
 	width: 85px;
 	height: 23px;
 	background: url(../../../static/checkbox/select.gif) no-repeat 0 0;
@@ -110,7 +110,10 @@ fieldset {
 }
 
 .checklist li input {
-	display: none;	
+	/* display: none;	 */
+}
+.wrongRId{
+display: none;
 }
 
 a.checkbox-deselect {
@@ -119,8 +122,8 @@ a.checkbox-deselect {
 	font-weight: bold;
 	text-decoration: none;
 	position: absolute;
-	top: 120px;
-	right: 10px;
+	top: 80%;
+	right: 40%;
 }
 
 .checklist li.selected a.checkbox-deselect {
@@ -146,7 +149,10 @@ a.checkbox-deselect {
 	text-indent: -9999px;
 	margin: 20px 0;
 }
-
+.count{
+	width:50px;
+	top:70%;
+}
 </style>
 	
 	
@@ -164,12 +170,14 @@ a.checkbox-deselect {
 			%>
 				<ul class="checklist" id="checkbox" >
 				<li>
-					<input name="wrongRId"  value="${user.wrongReasonId}" type="checkbox"/>
+					<input class="wrongRId" name="wrongRId"  value="${user.wrongReasonId}" type="checkbox"/>
 					<label for="choice_'+i+'">${user.wrongReason}</label>
 					<font size="" color="red"><label for="choice_'+i+'">错误次数:${user.flag}</label></font>
 					<a class="checkbox-select" href="#">Select</a>
 					<a class="checkbox-deselect" href="#">Cancel</a>
-					</li>
+					单选题数量<input class="count" type="text" name="wrongRId" id="" value="0" /><br>
+					多选题数量<input class="count" type="text" name="wrongRId" id="" value="0" />
+					</li>				
 				</ul>
 					<%}%>	
 			

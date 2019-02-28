@@ -28,6 +28,7 @@
 	SELECT id 
 	FROM multiple_selection
 	where wrong_reason_id LIKE '%#{wrongreasonid}%'
+	order by rand() limit #{count}
 	</select>
 	
 </mapper>
