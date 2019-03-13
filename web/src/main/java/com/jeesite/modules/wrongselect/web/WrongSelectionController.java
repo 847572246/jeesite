@@ -3,9 +3,7 @@
  */
 package com.jeesite.modules.wrongselect.web;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,18 +54,29 @@ public class WrongSelectionController extends BaseController {
 	
 	@RequiresPermissions("wrongselect:wrongSelection:view")
 	@RequestMapping(value = "selectselection")
-	public List<List<String>> selectselection(@RequestParam String[] wrongreasonid,@RequestParam String[] singlecount,@RequestParam String[] multiplecount) {
+	public List<List<String>> selectselection(@RequestParam String[] wrongreasonid, @RequestParam String[] singlecount, @RequestParam String[] multiplecount, Model model) {
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<String> singleid=new ArrayList<String>();
 		List<String> multipleid=new ArrayList<String>();
 		for (int i = 0; i < wrongreasonid.length; i++) {
-			singleid=wrongSelectionService.selectionsingle(wrongreasonid[i],singlecount[i]);
-			multipleid=wrongSelectionService.selectionmultiple(wrongreasonid[i],multiplecount[i]);			
+			singleid.addAll(wrongSelectionService.selectionsingle(wrongreasonid[i],singlecount[i]));
+			multipleid.addAll(wrongSelectionService.selectionmultiple(wrongreasonid[i],multiplecount[i]));
 		}
 		list.add(singleid);
 		list.add(multipleid);
+		model.addAttribute("selectsinid", singleid);
+		model.addAttribute("selectmulid", multipleid);
+		//return "modules/createword/autocreateWordList";
 		return list;
 	}
+
+	/*@RequiresPermissions("wrongselect:wrongSelection:view")
+	@RequestMapping(value = "listwrongreason")
+	public String transfer(@RequestParam List<List<String>> list, Model model) {
+		//List<WrongSelection> userwrongs=wrongSelectionService.findwrong(usercode);
+		model.addAttribute("userwrongs", list);
+		return "modules/createword/autocreateWordList";
+	}*/
 	/**
 	 * 根据用户查询错误原因
 	 * @param usercode

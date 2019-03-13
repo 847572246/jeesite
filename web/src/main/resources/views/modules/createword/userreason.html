@@ -17,7 +17,6 @@ $(document).ready(function() {
 			event.preventDefault();
 			$(this).parent().addClass("selected");
 			$(this).parent().find(":checkbox").attr("checked","checked");
-			
 		}
 	);
 	
@@ -26,35 +25,36 @@ $(document).ready(function() {
 			event.preventDefault();
 			$(this).parent().removeClass("selected");
 			$(this).parent().find(":checkbox").removeAttr("checked");
-			
-			
 		}
 	);
-	
 });
-
-
 	function submitselect(){  //jquery获取复选框值 
 		  var ids= new Array; 
+		  var singlecount=new Array;
+		  var multiplecount=new Array;
 		  $('input[name="wrongRId"]:checked').each(function(){ 
-			  ids.push($(this).val()); 
+			  ids.push($(this).val());
+			  singlecount.push($(this).siblings('input[name="singlecount"]').val())
+			  multiplecount.push($(this).siblings('input[name="multiplecount"]').val())
 		  }); 
 		  console.log(ids);
+		  console.log(singlecount);
+		  console.log(multiplecount);
 		  $.ajax({
 				url:'http://localhost:8080/jeesite-demo/a/wrongselect/wrongSelection/selectselection',
 				type:'post',
 				async:false,			
-				data: {wrongreasonid:ids},
+				data: {wrongreasonid:ids,singlecount:singlecount,multiplecount:multiplecount},
 				traditional: true,
-				success: function (data) { //返回json结果				 
-					alert(data);
+				success: function (data) { //返回json结果	
+					/*for(var i=0;i<2;i++){
+						console.log(data[0][0]+"爱国好饿日哦华贵而");
+					}*/
 				} 			
 			});
 	}
 	
 	</script>
-	
-	
 <style type="text/css">
 
 body {
@@ -175,14 +175,17 @@ a.checkbox-deselect {
 					<font size="" color="red"><label for="choice_'+i+'">错误次数:${user.flag}</label></font>
 					<a class="checkbox-select" href="#">Select</a>
 					<a class="checkbox-deselect" href="#">Cancel</a>
-					单选题数量<input class="count" type="text" name="wrongRId" id="" value="0" /><br>
-					多选题数量<input class="count" type="text" name="wrongRId" id="" value="0" />
+					<font>单选题数量</font>
+					<input class="count" type="text" name="singlecount" id="" value="0" /><br>	
+					<font>多选题数量</font>
+					<input class="count" type="text" name="multiplecount" id="" value="0" />
 					</li>				
 				</ul>
 					<%}%>	
 			
 			<div style="clear: both;"></div>
-			<button class="sendit" type="button" name="submitbutton"  onclick="submitselect()">确认</button>			
+			<button class="sendit" type="button" name="submitbutton"  onclick="submitselect()">确认</button>
+			<!--<a href="${ctx}/wrongselect/wrongSelection/selectselection?${user.wrongReason}">确认</a>-->
 		</fieldset>
 	</form>
 	

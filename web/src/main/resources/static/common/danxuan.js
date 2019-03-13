@@ -9,7 +9,7 @@ function dan(){
 			type:'post',
 			async:false,
 			success:function(data){
-				console.log(data);
+				/*console.log(data);*/
 				for(var i=1;i<=5;i++){
 				str+='<li id="qu_0_'+i+'">'+
 				'<div class="test_content_nr_tt">'+

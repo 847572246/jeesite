@@ -71,9 +71,9 @@ public class SingleSelectionController extends BaseController {
 	@ResponseBody
 	public List<SingleSelection> getsingle() {
 		List<SingleSelection> single=singleSelectionService.getsingle();
-		for (int i = 0; i < single.size(); i++) {
+		/*for (int i = 0; i < single.size(); i++) {
 			System.out.println(single.get(i));
-		}
+		}*/
 		
 		return single;
 	}
@@ -128,6 +128,7 @@ public class SingleSelectionController extends BaseController {
 	@ResponseBody
 	public String save(@Validated SingleSelection singleSelection) {
 		singleSelectionService.save(singleSelection);
+		singleSelection.getA();
 		return renderResult(Global.TRUE, text("保存单项选择题成功！"));
 	}
 	

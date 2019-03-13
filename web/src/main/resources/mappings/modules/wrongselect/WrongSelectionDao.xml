@@ -18,17 +18,27 @@
 	WHERE status=0 and flag>0 and user_code=#{usercode}
 	group by wrong_reason_id
 	</select>
+	<select id="sumsingle" resultType="SingleSelection">
+	SELECT COUNT(*)
+	FROM single_selection
+	where wrong_reason_id LIKE '%${wrongreasonid}%'
+	</select>
+	<select id="summultiple" resultType="MultipleSelection">
+	SELECT COUNT(*)
+	FROM multiple_selection
+	where wrong_reason_id LIKE '%${wrongreasonid}%'
+	</select>
 	<select id="selectionsingle" resultType="SingleSelection">
 	SELECT id 
 	FROM single_selection
-	where wrong_reason_id LIKE '%#{wrongreasonid}%'
-	order by rand() limit #{count}
+	where wrong_reason_id LIKE '%${wrongreasonid}%'
+	order by rand() limit ${singlecount}
 	</select>
 	<select id="selectionmultiple" resultType="MultipleSelection">
 	SELECT id 
 	FROM multiple_selection
-	where wrong_reason_id LIKE '%#{wrongreasonid}%'
-	order by rand() limit #{count}
+	where wrong_reason_id LIKE '%${wrongreasonid}%'
+	order by rand() limit  ${multiplecount}
 	</select>
 	
 </mapper>

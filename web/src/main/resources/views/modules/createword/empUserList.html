@@ -90,9 +90,7 @@
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'${text('登录账号')}', name:'loginCode', index:'a.login_code', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
-			return '<a href="${ctx}/sys/empUser/form?userCode='+row.userCode+'&op=edit" class="btnList" data-title="${text('编辑用户')}">'+(val||row.id)+'</a>';
-		}},
+		{header:'${text('登录账号')}', name:'loginCode', index:'a.login_code', width:200, align:"center", frozen:true},
 		{header:'${text('用户昵称')}', name:'userName', index:'a.user_name', width:200, align:"center"},
 		{header:'${text('员工姓名')}', name:'refName', index:'a.ref_name', width:200, align:"center"},
 		{header:'${text('归属机构')}', name:'employee.office.officeName', index:'o.office_name', width:200, align:"center"},
@@ -130,24 +128,7 @@ function SetCookie(cookieName, cookieValue, nDays) {
 	document.cookie = cookieName + "=" + escape(cookieValue) +
 		";expires=" + expire.toGMTString();
 }
-/* function $(id) {
-	return document.getElementById(id);
-} */
-function select(id){
-	/* window.parent.document.getElementById("userid").value=id; */
-	$.ajax({
-		url:'http://localhost:8080/jeesite-demo/a/wrongselect/wrongSelection/listwrongreason',
-		type:'post',
-		async:false,
-		data: {usercode:id},
-		success:function(uid){
-			console.log(uid);
-			SetCookie("uid", uid, 1);
-			/*跳转到ex8.html页面*/
-			document.location ="http://localhost:8080/jeesite-demo/a/wrongselect/wrongSelection/userreason";
-		}
-	});
-}
+
 $('#btnExport').click(function(){
 	js.ajaxSubmitForm($('#searchForm'), {
 		url:'${ctx}/sys/empUser/exportData',
