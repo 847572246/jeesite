@@ -1,9 +1,12 @@
 ﻿<!DOCTYPE html>
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head xmlns:th="http://java.sun.com/jsf/composite">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>jquery图形多选复选框 - 站长素材</title>
 <script src="${ctxStatic}/checkbox/js/jquery.min.js?${_version}" type="text/javascript"></script>
-
+<!--
+<script src="${ctxStatic}/checkbox/css/main.css?${_version}" type="text/javascript"></script>
+-->
 	<script type="text/javascript">
 	
 $(document).ready(function() {
@@ -53,7 +56,14 @@ $(document).ready(function() {
 				} 			
 			});
 	}
-	
+function AppendLink() {
+    var div = document.getElementById("divMain");
+    var linkTmp = document.createElement("a");
+    linkTmp.href = "${ctx}/wrongselect/wrongSelection/listwrongreason";
+    linkTmp.innerText = "百度";
+    //链接要使用innertText,不能使用value
+    div.appendChild(linkTmp);
+}
 	</script>
 <style type="text/css">
 
@@ -110,7 +120,7 @@ fieldset {
 }
 
 .checklist li input {
-	/* display: none;	 */
+	!* display: none;	 *!
 }
 .wrongRId{
 display: none;
@@ -160,9 +170,10 @@ a.checkbox-deselect {
 </head>
 
 <body>
-<div id="" align="center">	
-		
-	<form action="">
+
+<div id="" align="center">
+
+	<form th:action="@{selectselection}">
 		<fieldset>
 			<legend>学生</legend>
 			<%
@@ -181,14 +192,16 @@ a.checkbox-deselect {
 					<input class="count" type="text" name="multiplecount" id="" value="0" />
 					</li>				
 				</ul>
-					<%}%>	
-			
+					<%}%>
 			<div style="clear: both;"></div>
-			<button class="sendit" type="button" name="submitbutton"  onclick="submitselect()">确认</button>
-			<!--<a href="${ctx}/wrongselect/wrongSelection/selectselection?${user.wrongReason}">确认</a>-->
+			<button  class="sendit" type="submit" name="submitbutton" >确认</button>
+            <input type="submit" value="提交"><!--onsubmit="submitselect()"-->
+            <div id="sub"></div>
 		</fieldset>
 	</form>
-	
 </div>
+
+<div id="divMain"></div>
+<input type="button" value="添加链接" onclick="AppendLink()" />
 </body>
 </html>

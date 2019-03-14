@@ -54,7 +54,7 @@ public class WrongSelectionController extends BaseController {
 	
 	@RequiresPermissions("wrongselect:wrongSelection:view")
 	@RequestMapping(value = "selectselection")
-	public List<List<String>> selectselection(@RequestParam String[] wrongreasonid, @RequestParam String[] singlecount, @RequestParam String[] multiplecount, Model model) {
+	public String selectselection(@RequestParam String[] wrongreasonid, @RequestParam String[] singlecount, @RequestParam String[] multiplecount, Model model) {
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<String> singleid=new ArrayList<String>();
 		List<String> multipleid=new ArrayList<String>();
@@ -66,8 +66,8 @@ public class WrongSelectionController extends BaseController {
 		list.add(multipleid);
 		model.addAttribute("selectsinid", singleid);
 		model.addAttribute("selectmulid", multipleid);
-		//return "modules/createword/autocreateWordList";
-		return list;
+		return "modules/createword/autocreateWordList";
+		//return list;
 	}
 
 	/*@RequiresPermissions("wrongselect:wrongSelection:view")
