@@ -22,10 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
@@ -42,6 +39,7 @@ import com.jeesite.modules.single.web.SingleSelectionController;
 import com.jeesite.modules.sys.entity.EmpUser;
 import com.jeesite.modules.sys.entity.Post;
 import com.jeesite.modules.wrong.entity.WrongReason;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 代码生成表Controller
@@ -78,6 +76,31 @@ public class CreateWordController extends BaseController {
 	public String listmultiple(MultipleSelection multipleSelection, Model model) {
 		model.addAttribute("multipleSelection", multipleSelection);
 		return "modules/createword/createWordList3";
+	}
+	/**
+	 * 自动查询列表
+	 */
+	@RequiresPermissions("createword:create:view")
+	@RequestMapping(value = {"autosingle", ""})
+	public String autolistsingle(SingleSelection singleSelection,
+								 @RequestParam(name = "selectsinids", required = false)String selectsinids,
+								 Model model) {
+		model.addAttribute("singleSelection", singleSelection);
+		model.addAttribute("selectsinids", selectsinids);
+		return "modules/createword/autocreateWordList2";
+	}
+
+	/**
+	 * 自动查询列表
+	 */
+	@RequiresPermissions("createword:create:view")
+	@RequestMapping(value = {"automultiple", ""})
+	public String autolistmultiple(MultipleSelection multipleSelection,
+								   @RequestParam(value = "selectedids", required = false)String selectedids,
+								   Model model) {
+		model.addAttribute("selectedids", selectedids);
+		model.addAttribute("multipleSelection", multipleSelection);
+		return "modules/createword/autocreateWordList3";
 	}
 	/**
 	 * 

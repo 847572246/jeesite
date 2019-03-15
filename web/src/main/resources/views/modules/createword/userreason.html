@@ -173,7 +173,7 @@ a.checkbox-deselect {
 
 <div id="" align="center">
 
-	<form th:action="@{selectselection}">
+	<form action="${ctx}/wrongselect/wrongSelection/selectselection" method="post" enctype="multipart/form-data">
 		<fieldset>
 			<legend>学生</legend>
 			<%
@@ -181,20 +181,20 @@ a.checkbox-deselect {
 			%>
 				<ul class="checklist" id="checkbox" >
 				<li>
-					<input class="wrongRId" name="wrongRId"  value="${user.wrongReasonId}" type="checkbox"/>
+					<input class="wrongRId" name="wrongreasonid"  value="${user.wrongReasonId}" type="checkbox"/>
 					<label for="choice_'+i+'">${user.wrongReason}</label>
 					<font size="" color="red"><label for="choice_'+i+'">错误次数:${user.flag}</label></font>
 					<a class="checkbox-select" href="#">Select</a>
 					<a class="checkbox-deselect" href="#">Cancel</a>
 					<font>单选题数量</font>
-					<input class="count" type="text" name="singlecount" id="" value="0" /><br>	
+					<input class="count" type="text" name="singlecount" id="" value="0" /><br>
 					<font>多选题数量</font>
 					<input class="count" type="text" name="multiplecount" id="" value="0" />
 					</li>				
 				</ul>
 					<%}%>
 			<div style="clear: both;"></div>
-			<button  class="sendit" type="submit" name="submitbutton" >确认</button>
+			<button  class="sendit" type="submit" >确认</button>
             <input type="submit" value="提交"><!--onsubmit="submitselect()"-->
             <div id="sub"></div>
 		</fieldset>

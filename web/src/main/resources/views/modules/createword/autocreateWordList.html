@@ -36,14 +36,14 @@ function static_num()
 <body>
 
 	<div>
-
+		${selectsinid}
 	</div>
 	<iframe border="0" id="content1" name="content1"
-		src="http://localhost:8080/jeesite-demo/a/createword/create/single"
+		src="${ctx}/createword/create/autosingle?selectsinids=${selectsinid}"
 		frameborder="0" style="height: 600px" height="100%" width="100%">
 	</iframe>
 	<iframe border="0" id="content2" name="content2"
-		src="http://localhost:8080/jeesite-demo/a/createword/create/multiple"
+		src="${ctx}/createword/create/automultiple"
 		frameborder="0" style="height: 600px" height="100%" width="100%">
 	</iframe>
 	<div>

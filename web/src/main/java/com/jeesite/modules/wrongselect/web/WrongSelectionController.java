@@ -3,7 +3,9 @@
  */
 package com.jeesite.modules.wrongselect.web;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +32,7 @@ import com.jeesite.modules.sys.entity.Post;
 import com.jeesite.modules.wrong.entity.WrongReason;
 import com.jeesite.modules.wrongselect.entity.WrongSelection;
 import com.jeesite.modules.wrongselect.service.WrongSelectionService;
+import com.jeesite.common.web.BaseController;
 
 /**
  * wrong_selectionController
@@ -64,7 +67,11 @@ public class WrongSelectionController extends BaseController {
 		}
 		list.add(singleid);
 		list.add(multipleid);
-		model.addAttribute("selectsinid", singleid);
+		String selectsinids = "";
+		try{
+			selectsinids = URLEncoder.encode(singleid+"","UTF-8");
+		}catch (Exception ex) {}
+		model.addAttribute("selectsinid", selectsinids);
 		model.addAttribute("selectmulid", multipleid);
 		return "modules/createword/autocreateWordList";
 		//return list;
