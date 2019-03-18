@@ -70,11 +70,13 @@ public class WrongSelectionController extends BaseController {
 		String selectsinids = "";
 		try{
 			selectsinids = URLEncoder.encode(singleid+"","UTF-8");
-		}catch (Exception ex) {}
+			selectsinids += URLEncoder.encode(multipleid+"","UTF-8");
+		}catch (Exception ex) {
+
+		}
 		model.addAttribute("selectsinid", selectsinids);
 		model.addAttribute("selectmulid", multipleid);
 		return "modules/createword/autocreateWordList";
-		//return list;
 	}
 
 	/*@RequiresPermissions("wrongselect:wrongSelection:view")

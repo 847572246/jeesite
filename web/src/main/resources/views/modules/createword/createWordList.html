@@ -30,10 +30,18 @@ function static_num()
 		});
         return;
     };        
-};    
+};
 </script>
 </head>
 <body>
+<form id="inputForm"  action="${ctx}/examination/examinationPaper/save" method="post">
+	<div>
+		<div>请输入试卷名称</div>
+		<input type="text">
+	</div>
+	<div>
+		<input path="questionId" maxlength="255" class="form-control required" style="display:none"/>
+	</div>
 	<iframe border="0" id="content1" name="content1"
 		src="http://localhost:8080/jeesite-demo/a/createword/create/single"
 		frameborder="0" style="height: 600px" height="100%" width="100%">
@@ -43,8 +51,11 @@ function static_num()
 		frameborder="0" style="height: 600px" height="100%" width="100%">
 	</iframe>
 	<div>
+		<% if (hasPermi('examination:examinationPaper:edit')){ %>
+		<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> ${text('保存试卷')}</button>&nbsp;
+		<% } %>
 		<input id="btnOperate" type="button" value="生成试卷" onclick="static_num()" />
-        <input type="button" value="保存试卷">
 	</div>
+</form>
 </body>
 </html>

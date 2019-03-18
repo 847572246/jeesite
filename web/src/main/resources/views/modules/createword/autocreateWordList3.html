@@ -86,7 +86,18 @@ $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
 		{header:'${text(' ')}',name:'checkbox' , index:'a.title', width:80, align:"left", formatter: function(val, obj, row, act){
-			return '<input type="checkbox" name="mulid" id="mulid" value="'+row.id+'">';
+			/*return '<input type="checkbox" name="mulid" id="mulid" value="'+row.id+'">';*/
+                var checkboxNoChecked =  '<input type="checkbox" name="mulid" id="mulid" value="'+row.id+'">';
+                var checkboxChecked =  '<input type="checkbox" name="mulid" id="mulid" value="'+row.id+'" checked>';
+                var compCheckbox;
+                var ids = '${selectsinids}';
+                if (ids.indexOf(row.id) > 0) {
+                    compCheckbox = checkboxChecked
+                }else {
+                    compCheckbox = checkboxNoChecked
+                }
+
+                return compCheckbox;
 		}},
 		{header:'${text('title')}', name:'title', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
 			return '<a href="${ctx}/multiple/multipleSelection/form?id='+row.id+'" class="btnList" data-title="${text('编辑多项选择题')}">'+(val||row.id)+'</a>';

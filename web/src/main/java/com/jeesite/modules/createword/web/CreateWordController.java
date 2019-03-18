@@ -96,9 +96,9 @@ public class CreateWordController extends BaseController {
 	@RequiresPermissions("createword:create:view")
 	@RequestMapping(value = {"automultiple", ""})
 	public String autolistmultiple(MultipleSelection multipleSelection,
-								   @RequestParam(value = "selectedids", required = false)String selectedids,
+								   @RequestParam(value = "selectsinids", required = false)String selectsinids,
 								   Model model) {
-		model.addAttribute("selectedids", selectedids);
+		model.addAttribute("selectsinids", selectsinids);
 		model.addAttribute("multipleSelection", multipleSelection);
 		return "modules/createword/autocreateWordList3";
 	}

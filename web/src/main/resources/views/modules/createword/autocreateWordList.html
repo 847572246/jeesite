@@ -5,7 +5,7 @@
 <title></title>
 <script src="${ctxStatic}/common/jquery.min.js?${_version}" charset="utf-8"></script>
 <script>        
-function static_num() 
+function create_paper()
 {            
     document.getElementById("btnOperate").onclick = function () {
     	var ids = new Array;
@@ -30,25 +30,47 @@ function static_num()
 		});
         return;
     };        
-};    
+};
+function save_paper()
+{
+    document.getElementById("btnOperate").onclick = function () {
+        var ids = new Array;
+        var str="";
+        $(window.frames["content1"].document)
+            .find("input[name='sinid']:checked").each(function () {
+            ids.push($(this).val());
+        });
+        $(window.frames["content2"].document)
+            .find("input[name='mulid']:checked").each(function () {
+            ids.push($(this).val());
+        });
+        $.ajax({
+            url:'http://localhost:8080/jeesite-demo/a/examination/examinationPaper/save',
+            type:'post',
+            async:false,
+            data: {ids:ids},
+            traditional: true,
+            success: function (data) { //返回json结果
+                alert(data);
+            }
+        });
+        return;
+    };
+};
 </script>
 </head>
 <body>
-
-	<div>
-		${selectsinid}
-	</div>
 	<iframe border="0" id="content1" name="content1"
 		src="${ctx}/createword/create/autosingle?selectsinids=${selectsinid}"
 		frameborder="0" style="height: 600px" height="100%" width="100%">
 	</iframe>
 	<iframe border="0" id="content2" name="content2"
-		src="${ctx}/createword/create/automultiple"
+		src="${ctx}/createword/create/automultiple?selectsinids=${selectsinid}"
 		frameborder="0" style="height: 600px" height="100%" width="100%">
 	</iframe>
 	<div>
-		<input id="btnOperate" type="button" value="生成试卷" onclick="static_num()" />
-		<input type="button" value="保存试卷">
+		<input id="btnOperate" type="button" value="生成试卷" onclick="create_paper()" />
+		<input type="button" value="保存试卷" onclick="save_paper()">
 	</div>
 </body>
 </html>
