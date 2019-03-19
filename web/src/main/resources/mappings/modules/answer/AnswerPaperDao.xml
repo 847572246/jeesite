@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jeesite.modules.examination.dao.ExaminationPaperDao">
+<mapper namespace="com.jeesite.modules.answer.dao.AnswerPaperDao">
 	
 	<!-- 查询数据
-	<select id="findList" resultType="ExaminationPaper">
+	<select id="findList" resultType="AnswerPaper">
 		SELECT ${sqlMap.column.toSql()}
 		FROM ${sqlMap.table.toSql()}
 		<where>
@@ -11,8 +11,5 @@
 		</where>
 		ORDER BY ${sqlMap.order.toSql()}
 	</select> -->
-	<select id="saveid" resultType="ExaminationPaper">
-		insert into examination_paper (question_id,exam_name)
-		value (question_id=#{ids},exam_name=#{examName})
-	</select>
+	
 </mapper>

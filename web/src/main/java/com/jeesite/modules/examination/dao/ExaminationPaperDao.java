@@ -14,5 +14,6 @@ import com.jeesite.modules.examination.entity.ExaminationPaper;
  */
 @MyBatisDao
 public interface ExaminationPaperDao extends CrudDao<ExaminationPaper> {
-	
+
+    public int saveid(String[] ids, String examName);
 }

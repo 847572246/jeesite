@@ -76,7 +76,7 @@ public class ExaminationPaperService extends CrudService<ExaminationPaperDao, Ex
 		super.delete(examinationPaper);
 	}
 
-    public void saveid(String[] ids) {
-
+    public int saveid(String[] ids, String examName) {
+	    return dao.saveid(ids,examName);
     }
 }

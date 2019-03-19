@@ -6,8 +6,7 @@
 <script src="${ctxStatic}/common/jquery.min.js?${_version}" charset="utf-8"></script>
 <script>        
 function create_paper()
-{            
-    document.getElementById("btnOperate").onclick = function () {
+{
     	var ids = new Array;
     	var str="";
         $(window.frames["content1"].document)
@@ -19,7 +18,7 @@ function create_paper()
             ids.push($(this).val());
         });
         $.ajax({
-			url:'http://localhost:8080/jeesite-demo/a/createword/create/create',
+			url:'${ctx}/createword/create/create',
 			type:'post',
 			async:false,			
 			data: {ids:ids},
@@ -29,37 +28,42 @@ function create_paper()
 			} 			
 		});
         return;
-    };        
 };
 function save_paper()
 {
-    document.getElementById("btnOperate").onclick = function () {
-        var ids = new Array;
-        var str="";
-        $(window.frames["content1"].document)
-            .find("input[name='sinid']:checked").each(function () {
-            ids.push($(this).val());
-        });
-        $(window.frames["content2"].document)
-            .find("input[name='mulid']:checked").each(function () {
-            ids.push($(this).val());
-        });
-        $.ajax({
-            url:'http://localhost:8080/jeesite-demo/a/examination/examinationPaper/save',
-            type:'post',
-            async:false,
-            data: {ids:ids},
-            traditional: true,
-            success: function (data) { //返回json结果
-                alert(data);
-            }
-        });
-        return;
-    };
+    var ids = new Array;
+    var remarks=" ";
+    $(window.frames["content1"].document)
+        .find("input[name='sinid']:checked").each(function () {
+        ids.push($(this).val());
+    });
+    $(window.frames["content2"].document)
+        .find("input[name='mulid']:checked").each(function () {
+        ids.push($(this).val());
+    });
+    var examName=document.getElementById("ptitle").value;
+    $.ajax({
+        url:'${ctx}/examination/examinationPaper/saveid',
+        type:'post',
+        async:false,
+        data: {ids:ids,examName:examName},
+        traditional: true,
+        success: function (data) { //返回json结果
+            alert("保存试卷成功！");
+            alert(data);
+        }
+    });
 };
 </script>
 </head>
 <body>
+<div>
+    <div>请输入试卷名称</div>
+    <input path="examName" maxlength="255" id="ptitle" class="form-control required"/>
+</div>
+<div>
+    <input path="questionId" maxlength="255" class="form-control required" id="qid" style="display:none"/>
+</div>
 	<iframe border="0" id="content1" name="content1"
 		src="${ctx}/createword/create/autosingle?selectsinids=${selectsinid}"
 		frameborder="0" style="height: 600px" height="100%" width="100%">
@@ -70,7 +74,7 @@ function save_paper()
 	</iframe>
 	<div>
 		<input id="btnOperate" type="button" value="生成试卷" onclick="create_paper()" />
-		<input type="button" value="保存试卷" onclick="save_paper()">
+        <button type="button" class="btn btn-sm btn-primary" id="btnSubmit" onclick="save_paper()"><i class="fa fa-check"></i> ${text('保存试卷')}</button>&nbsp;
 	</div>
 </body>
 </html>

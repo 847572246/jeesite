@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -79,10 +80,13 @@ public class ExaminationPaperController extends BaseController {
 	 */
 	@RequiresPermissions("examination:examinationPaper:edit")
 	@PostMapping(value = "saveid")
-	@ResponseBody
-	public String saveid(String[] ids) {
-		examinationPaperService.saveid(ids);
-		return renderResult(Global.TRUE, text("保存试卷成功！"));
+    @Transactional(readOnly = false)
+	public String saveid(String ids,String examName) {
+        ExaminationPaper examinationPaper=new ExaminationPaper();
+        examinationPaper.setQuestionId(ids);
+        examinationPaper.setExamName(examName);
+        examinationPaperService.save(examinationPaper);
+        return renderResult(Global.TRUE, text("保存试卷成功！"));
 	}
 	/**
 	 * 保存试卷
