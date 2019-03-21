@@ -9,7 +9,7 @@
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 			</div>
 		</div>
-		<#form:form id="inputForm" model="${answerPaper}" action="${ctx}/answer/answerPaper/save" method="post" class="form-horizontal">
+		<#form:form id="inputForm" model="${examinationPaper}" action="${ctx}/examination/examinationPaper/send" method="post" class="form-horizontal">
 			<div class="box-body">
 				<div class="form-unit">${text('基本信息')}</div>
 				<#form:hidden path="id"/>
@@ -96,15 +96,6 @@
 					</div>
 				</div>
 				<!--<div class="row">
-					<div class="col-xs-6">
-						<div class="form-group">
-							<label class="control-label col-sm-4" title="">
-								<span class="required hide">*</span> ${text('是否正确')}：<i class="fa icon-question hide"></i></label>
-							<div class="col-sm-8">
-								<#form:input path="correct" maxlength="1" class="form-control"/>
-							</div>
-						</div>
-					</div>
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">

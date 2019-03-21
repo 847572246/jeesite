@@ -6,6 +6,9 @@ package com.jeesite.modules.examination.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeesite.modules.answer.entity.AnswerPaper;
+import com.jeesite.modules.answer.service.AnswerPaperService;
+import com.jeesite.modules.sys.entity.EmpUser;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +37,8 @@ public class ExaminationPaperController extends BaseController {
 
 	@Autowired
 	private ExaminationPaperService examinationPaperService;
+	@Autowired
+	private AnswerPaperService answerPaperService;
 	
 	/**
 	 * 获取数据
@@ -81,6 +86,7 @@ public class ExaminationPaperController extends BaseController {
 	@RequiresPermissions("examination:examinationPaper:edit")
 	@PostMapping(value = "saveid")
     @Transactional(readOnly = false)
+	@ResponseBody
 	public String saveid(String ids,String examName) {
         ExaminationPaper examinationPaper=new ExaminationPaper();
         examinationPaper.setQuestionId(ids);
@@ -89,8 +95,25 @@ public class ExaminationPaperController extends BaseController {
         return renderResult(Global.TRUE, text("保存试卷成功！"));
 	}
 	/**
-	 * 保存试卷
+	 * 发送试卷
 	 */
+	@RequiresPermissions("examination:examinationPaper:edit")
+	@PostMapping(value = "send")
+	@ResponseBody
+	public String send(@Validated ExaminationPaper examinationPaper,String usercode,String username) {
+		answerPaperService.send(examinationPaper,usercode,username);
+		return renderResult(Global.TRUE, text("发送试卷成功！"));
+	}
+	/**
+	 * 显示用户列表
+	 */
+	@RequiresPermissions("examination:examinationPaper:edit")
+	@RequestMapping(value = "userlist")
+	public String userlist(ExaminationPaper examinationPaper, EmpUser empUser, Model model) {
+		model.addAttribute("examinationPaper", examinationPaper);
+		return "modules/examination/empUserList";
+	}
+
 	@RequiresPermissions("examination:examinationPaper:edit")
 	@PostMapping(value = "save")
 	@ResponseBody

@@ -25,7 +25,7 @@ import com.jeesite.modules.answer.service.AnswerPaperService;
 /**
  * answer_paperController
  * @author xt
- * @version 2019-03-19
+ * @version 2019-03-20
  */
 @Controller
 @RequestMapping(value = "${adminPath}/answer/answerPaper")
@@ -84,7 +84,16 @@ public class AnswerPaperController extends BaseController {
 		answerPaperService.save(answerPaper);
 		return renderResult(Global.TRUE, text("保存试卷成功！"));
 	}
-	
+	/**
+	 * 保存试卷
+	 */
+	@RequiresPermissions("answer:answerPaper:edit")
+	@PostMapping(value = "answer")
+	@ResponseBody
+	public String answer(@Validated AnswerPaper answerPaper) {
+		answerPaperService.save(answerPaper);
+		return renderResult(Global.TRUE, text("保存试卷成功！"));
+	}
 	/**
 	 * 删除试卷
 	 */
@@ -95,5 +104,4 @@ public class AnswerPaperController extends BaseController {
 		answerPaperService.delete(answerPaper);
 		return renderResult(Global.TRUE, text("删除试卷成功！"));
 	}
-	
 }

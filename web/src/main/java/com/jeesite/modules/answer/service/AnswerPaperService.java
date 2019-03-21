@@ -5,6 +5,7 @@ package com.jeesite.modules.answer.service;
 
 import java.util.List;
 
+import com.jeesite.modules.examination.entity.ExaminationPaper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +17,7 @@ import com.jeesite.modules.answer.dao.AnswerPaperDao;
 /**
  * answer_paperService
  * @author xt
- * @version 2019-03-19
+ * @version 2019-03-20
  */
 @Service
 @Transactional(readOnly=true)
@@ -52,7 +53,21 @@ public class AnswerPaperService extends CrudService<AnswerPaperDao, AnswerPaper>
 	public void save(AnswerPaper answerPaper) {
 		super.save(answerPaper);
 	}
-	
+	/**
+	 * 发送数据（插入或更新）
+	 * @param answerPaper
+	 */
+	/*@Override*/
+	@Transactional(readOnly=false)
+	public void send(ExaminationPaper examinationPaper, String usercode, String username) {
+		AnswerPaper answerPaper=new AnswerPaper();
+		answerPaper.setExamId(examinationPaper.getId());
+		answerPaper.setExamName(examinationPaper.getExamName());
+		answerPaper.setUserCode(usercode);
+		answerPaper.setUserName(username);
+		answerPaper.setQuestionId(examinationPaper.getQuestionId());
+		super.save(answerPaper);
+	}
 	/**
 	 * 更新状态
 	 * @param answerPaper
@@ -72,5 +87,6 @@ public class AnswerPaperService extends CrudService<AnswerPaperDao, AnswerPaper>
 	public void delete(AnswerPaper answerPaper) {
 		super.delete(answerPaper);
 	}
-	
+
+
 }

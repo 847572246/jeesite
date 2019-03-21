@@ -10,7 +10,7 @@ import com.jeesite.modules.answer.entity.AnswerPaper;
 /**
  * answer_paperDAO接口
  * @author xt
- * @version 2019-03-19
+ * @version 2019-03-20
  */
 @MyBatisDao
 public interface AnswerPaperDao extends CrudDao<AnswerPaper> {
