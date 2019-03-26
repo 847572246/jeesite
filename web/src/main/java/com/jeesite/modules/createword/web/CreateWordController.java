@@ -118,9 +118,15 @@ public class CreateWordController extends BaseController {
 	}
 	@RequestMapping(value = "create")
 	@ResponseBody
-	public String exportSimpleWord(String[] ids) {
-		List<SingleSelection> list = singleselectioncontroller.findsingle(ids);
-		List<MultipleSelection> list1 = multipleSelectionController.findmultiple(ids);
+	public String exportSimpleWord(@RequestParam(required = false) String[] sinids,@RequestParam(required = false) String[] mulids) {
+		List<SingleSelection> list= new ArrayList<>();
+		List<MultipleSelection> list1=new ArrayList<>();
+		if (sinids!=null) {
+			list = singleselectioncontroller.findsingle(sinids);
+		}
+		if (mulids!=null) {
+			list1 = multipleSelectionController.findmultiple(mulids);
+		}
 		list.removeAll(Collections.singleton(null));
 		list1.removeAll(Collections.singleton(null));
 		Map<String, Object> root = new HashMap<String, Object>();

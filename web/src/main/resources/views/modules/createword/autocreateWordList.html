@@ -4,52 +4,51 @@
 <meta charset="utf-8" />
 <title></title>
 <script src="${ctxStatic}/common/jquery.min.js?${_version}" charset="utf-8"></script>
-<script>        
-function create_paper()
-{
-    	var ids = new Array;
-    	var str="";
+<script>
+    function create_paper()
+    {
+        var sinids = new Array;
+        var mulids = new Array;
         $(window.frames["content1"].document)
-        .find("input[name='sinid']:checked").each(function () {
-            ids.push($(this).val());
-        }); 
+            .find("input[name='sinid']:checked").each(function () {
+            sinids.push($(this).val());
+        });
         $(window.frames["content2"].document)
-        .find("input[name='mulid']:checked").each(function () {
-            ids.push($(this).val());
+            .find("input[name='mulid']:checked").each(function () {
+            mulids.push($(this).val());
         });
         $.ajax({
-			url:'${ctx}/createword/create/create',
-			type:'post',
-			async:false,			
-			data: {ids:ids},
-			traditional: true,
-			success: function (data) { //返回json结果				 
-				alert(data);
-			} 			
-		});
-        return;
-};
+            url:'${ctx}/createword/create/create',
+            type:'post',
+            async:false,
+            data: {sinids:sinids,mulids:mulids},
+            traditional: true,
+            success: function (data) { //返回json结果
+                alert(data);
+            }
+        });
+    };
 function save_paper()
 {
-    var ids = new Array;
+    var sinids = new Array;
+    var mulids = new Array;
     var remarks=" ";
     $(window.frames["content1"].document)
         .find("input[name='sinid']:checked").each(function () {
-        ids.push($(this).val());
+        sinids.push($(this).val());
     });
     $(window.frames["content2"].document)
         .find("input[name='mulid']:checked").each(function () {
-        ids.push($(this).val());
+        mulids.push($(this).val());
     });
     var examName=document.getElementById("ptitle").value;
     $.ajax({
         url:'${ctx}/examination/examinationPaper/saveid',
         type:'post',
         async:false,
-        data: {ids:ids,examName:examName},
+        data: {sinids:sinids,mulids:mulids,examName:examName},
         traditional: true,
         success: function (data) { //返回json结果
-            alert("保存试卷成功！");
             alert(data);
         }
     });
@@ -57,9 +56,10 @@ function save_paper()
 </script>
 </head>
 <body>
+<form>
 <div>
     <div>请输入试卷名称</div>
-    <input path="examName" maxlength="255" id="ptitle" class="form-control required"/>
+    <input path="examName" maxlength="255" id="ptitle" class="form-control required" required/>
 </div>
 <div>
     <input path="questionId" maxlength="255" class="form-control required" id="qid" style="display:none"/>
@@ -76,5 +76,6 @@ function save_paper()
 		<input id="btnOperate" type="button" value="生成试卷" onclick="create_paper()" />
         <button type="button" class="btn btn-sm btn-primary" id="btnSubmit" onclick="save_paper()"><i class="fa fa-check"></i> ${text('保存试卷')}</button>&nbsp;
 	</div>
+</form>
 </body>
 </html>

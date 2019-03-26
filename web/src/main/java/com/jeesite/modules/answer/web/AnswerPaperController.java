@@ -6,6 +6,7 @@ package com.jeesite.modules.answer.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeesite.modules.single.entity.SingleSelection;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ import com.jeesite.common.entity.Page;
 import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.answer.entity.AnswerPaper;
 import com.jeesite.modules.answer.service.AnswerPaperService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * answer_paperController
@@ -73,7 +77,17 @@ public class AnswerPaperController extends BaseController {
 		model.addAttribute("answerPaper", answerPaper);
 		return "modules/answer/answerPaperForm";
 	}
-
+	/**
+	 * 跳转答题页面
+	 */
+	@RequiresPermissions("answer:answerPaper:view")
+	@RequestMapping(value = "exam")
+	public String exam( Model model,String examid) {
+		String ids=answerPaperService.findexamsingleid(examid);
+		List<SingleSelection> singleSelection=answerPaperService.findexamsingle(ids);
+		model.addAttribute("single", singleSelection);
+		return "modules/exam/newexam";
+	}
 	/**
 	 * 保存试卷
 	 */

@@ -22,4 +22,9 @@
 		from single_selection 
 		where status=0 and id=#{id}
 	</select>
+	<select id="getexamsingle" resultType="String">
+		select *
+		from examination_paper
+		where status=0 and id=#{id}
+	</select>
 </mapper>

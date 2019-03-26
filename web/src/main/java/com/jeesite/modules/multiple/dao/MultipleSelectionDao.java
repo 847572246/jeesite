@@ -17,5 +17,5 @@ import com.jeesite.modules.multiple.entity.MultipleSelection;
 @MyBatisDao
 public interface MultipleSelectionDao extends CrudDao<MultipleSelection> {
 	public List<MultipleSelection> getmultiple();
-	public MultipleSelection findmultiple(String id);
+	public MultipleSelection findmultiple(String mulids);
 }

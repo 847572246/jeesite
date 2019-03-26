@@ -81,23 +81,27 @@ $('#dataGrid').dataGrid({
 	columnModel: [
 		{header:'${text('试卷名称')}', name:'examName', index:'a.exam_name', width:150, align:"left"},
 		{header:'${text('用户昵称')}', name:'userName', index:'a.user_name', width:150, align:"left"},
-		{header:'${text('回答')}', name:'answer', index:'a.answer', width:150, align:"left"},
-		{header:'${text('标准答案')}', name:'modelAnswers', index:'a.model_answers', width:150, align:"left"},
 		{header:'${text('备注')}', name:'remarks', index:'a.remarks', width:150, align:"left"},
 		{header:'${text('状态')}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
 			return js.getDictLabel(${@DictUtils.getDictListJson('sys_search_status')}, val, '${text('未知')}', true);
 		}},
-		{header:'${text('创建时间')}', name:'createDate', index:'a.create_date', width:150, align:"center"},
-		{header:'${text('是否正确')}', name:'correct', index:'a.correct', width:150, align:"left"},
-		{header:'${text('试卷状态')}', name:'paperStatus', index:'a.paper_status', width:150, align:"left"},
+        {header:'${text('创建时间')}', name:'createDate', index:'a.create_date', width:150, align:"center"},
+        /*{header:'${text('是否正确')}', name:'correct', index:'a.correct', width:150, align:"left", formatter: function(val, obj, row, act){
+                return js.getDictLabel(${@DictUtils.getDictListJson('sys_search_correct')}, val, '${text('未知')}', true);
+            }},*/
+		{header:'${text('试卷状态')}', name:'paperStatus', index:'a.paper_status', width:150, align:"left", formatter: function(val, obj, row, act){
+                return js.getDictLabel(${@DictUtils.getDictListJson('sys_paper_status')}, val, '${text('未知')}', true);
+            }},
 		{header:'${text('操作')}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
 			<% if(hasPermi('answer:answerPaper:edit')){ %>
 				actions.push('<a href="${ctx}/answer/answerPaper/form?id='+row.id+'" class="btnList" title="${text('编辑试卷')}"><i class="fa fa-pencil"></i></a>&nbsp;');
 				actions.push('<a href="${ctx}/answer/answerPaper/delete?id='+row.id+'" class="btnList" title="${text('删除试卷')}" data-confirm="${text('确认要删除该试卷吗？')}"><i class="fa fa-trash-o"></i></a>&nbsp;');
 			<% } %>
-			return actions.join('');
+                actions.push( '<button><a href="${ctx}/answer/answerPaper/exam?examid='+row.examId+'">开始考试</button>');
+                return actions.join('');
 		}}
+
 	],
 	// 加载成功后执行事件
 	ajaxSuccess: function(data){

@@ -6,6 +6,7 @@ package com.jeesite.modules.answer.service;
 import java.util.List;
 
 import com.jeesite.modules.examination.entity.ExaminationPaper;
+import com.jeesite.modules.single.entity.SingleSelection;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,19 @@ public class AnswerPaperService extends CrudService<AnswerPaperDao, AnswerPaper>
 	public AnswerPaper get(AnswerPaper answerPaper) {
 		return super.get(answerPaper);
 	}
-	
+
+	/**
+	 * 查找单选题
+	 */
+	public List<SingleSelection> findexamsingle(String ids){
+		return dao.findexamsingle(ids);
+	}
+	/**
+	 *按试卷id查找单选题
+	 */
+	public String findexamsingleid(String examid){
+		return dao.findexamsingleid(examid);
+	}
 	/**
 	 * 查询分页数据
 	 * @param answerPaper 查询条件
@@ -59,13 +72,13 @@ public class AnswerPaperService extends CrudService<AnswerPaperDao, AnswerPaper>
 	 */
 	/*@Override*/
 	@Transactional(readOnly=false)
-	public void send(ExaminationPaper examinationPaper, String usercode, String username) {
+	public void send(String examid,String examName,String usercode,String username) {
 		AnswerPaper answerPaper=new AnswerPaper();
-		answerPaper.setExamId(examinationPaper.getId());
-		answerPaper.setExamName(examinationPaper.getExamName());
+		answerPaper.setExamId(examid);
+		answerPaper.setExamName(examName);
 		answerPaper.setUserCode(usercode);
 		answerPaper.setUserName(username);
-		answerPaper.setQuestionId(examinationPaper.getQuestionId());
+		//answerPaper.setQuestionId(questionId);
 		super.save(answerPaper);
 	}
 	/**

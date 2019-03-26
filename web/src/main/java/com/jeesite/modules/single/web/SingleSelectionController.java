@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeesite.modules.examination.entity.ExaminationPaper;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,19 +48,32 @@ public class SingleSelectionController extends BaseController {
 	public SingleSelection get(String id, boolean isNewRecord) {
 		return singleSelectionService.get(id, isNewRecord);
 	}
-	
-	 
+
+	/**
+	 *试卷获取单选题
+	 * @return
+	 */
+	@RequestMapping(value = "getExamsingle")
+	@ResponseBody
+	public List<SingleSelection> getExamsingle(String examid) {
+		String[] examinationPaper=singleSelectionService.getexamsingle(examid);
+		List<SingleSelection> single=new ArrayList<SingleSelection>();
+		for (int i=0;i<examinationPaper.length;i++){
+			single.add(singleSelectionService.findsingle(examinationPaper[i]));
+		}
+		return single;
+	}
 	/**
 	 * 
-	 * @param id
+	 * @param sinids
 	 * @return
 	 */
 	@RequestMapping(value = "findsingle")
 	@ResponseBody
-	public List<SingleSelection> findsingle(String[] id) {
+	public List<SingleSelection> findsingle(String[] sinids) {
 		List<SingleSelection> list=new ArrayList<SingleSelection>();
-		for (int i = 0; i < id.length; i++) {
-			list.add(singleSelectionService.findsingle(id[i]));
+		for (int i = 0; i < sinids.length; i++) {
+			list.add(singleSelectionService.findsingle(sinids[i]));
 		}
 		return list;
 	}

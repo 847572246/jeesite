@@ -15,10 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
@@ -87,22 +84,23 @@ public class ExaminationPaperController extends BaseController {
 	@PostMapping(value = "saveid")
     @Transactional(readOnly = false)
 	@ResponseBody
-	public String saveid(String ids,String examName) {
+	public String saveid(String sinids,String mulids,String examName) {
         ExaminationPaper examinationPaper=new ExaminationPaper();
-        examinationPaper.setQuestionId(ids);
+        examinationPaper.setSinquestionId(sinids);
+		examinationPaper.setMulquestionId(mulids);
         examinationPaper.setExamName(examName);
         examinationPaperService.save(examinationPaper);
-        return renderResult(Global.TRUE, text("保存试卷成功！"));
+        return ("保存试卷成功！");
 	}
 	/**
 	 * 发送试卷
 	 */
 	@RequiresPermissions("examination:examinationPaper:edit")
-	@PostMapping(value = "send")
+	@GetMapping(value = "send")
 	@ResponseBody
-	public String send(@Validated ExaminationPaper examinationPaper,String usercode,String username) {
-		answerPaperService.send(examinationPaper,usercode,username);
-		return renderResult(Global.TRUE, text("发送试卷成功！"));
+	public String send(String examid,String  examName,String usercode,String username) {
+		answerPaperService.send(examid,examName,usercode,username);
+		return "发送试卷成功！";
 	}
 	/**
 	 * 显示用户列表

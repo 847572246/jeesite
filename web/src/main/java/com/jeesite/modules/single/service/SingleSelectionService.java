@@ -5,6 +5,7 @@ package com.jeesite.modules.single.service;
 
 import java.util.List;
 
+import com.jeesite.modules.examination.entity.ExaminationPaper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,8 +86,11 @@ public class SingleSelectionService extends CrudService<SingleSelectionDao, Sing
 	public void delete(SingleSelection singleSelection) {
 		super.delete(singleSelection);
 	}
-	public SingleSelection findsingle(String id) {
-		return dao.findsingle(id);
+	public SingleSelection findsingle(String sinids) {
+		return dao.findsingle(sinids);
 	}
-	
+
+	public String[] getexamsingle(String examid) {
+		return dao.getexamsingle(examid);
+	}
 }

@@ -86,6 +86,8 @@
 <% } %>
 
 <script>
+    var examid ='${examinationPaper.id}';
+    var examname='${examinationPaper.examName}';
     // 初始化DataGrid对象
     $('#dataGrid').dataGrid({
         searchForm: $("#searchForm"),
@@ -105,7 +107,7 @@
             {header:'${text('操作')}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
                     var actions = [];
                 <% if(hasPermi('single:singleSelection:edit')){ %>
-                        return '<a  href="${ctx}/examination/examinationPaper/send?usercode='+row.userCode+'&username='+row.userName+'>选择</button>';
+                        return '<a  href="${ctx}/examination/examinationPaper/send?usercode='+row.userCode+'&username='+row.userName+'&examid='+examid+'&examName='+examname+'">发送</button>';
                     <% } %>
                     return actions.join('');
                 }}

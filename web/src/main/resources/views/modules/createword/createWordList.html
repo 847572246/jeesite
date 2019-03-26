@@ -7,60 +7,48 @@
 <script>        
 function create_paper()
 {
-    	var ids = new Array;
+    	var sinids = new Array;
+        var mulids = new Array;
         $(window.frames["content1"].document)
         .find("input[name='sinid']:checked").each(function () {
-            ids.push($(this).val());
+            sinids.push($(this).val());
         }); 
         $(window.frames["content2"].document)
         .find("input[name='mulid']:checked").each(function () {
-            ids.push($(this).val());
+            mulids.push($(this).val());
         });
         $.ajax({
 			url:'${ctx}/createword/create/create',
 			type:'post',
 			async:false,
-			data: {ids:ids},
+			data: {sinids:sinids,mulids:mulids},
 			traditional: true,
 			success: function (data) { //返回json结果
 				alert(data);
 			}
 		});
 };
-/*function saveid()
-{
-        var ids = new Array;
-        $(window.frames["content1"].document)
-            .find("input[name='sinid']:checked").each(function () {
-            ids.push($(this).val());
-        });
-        $(window.frames["content2"].document)
-            .find("input[name='mulid']:checked").each(function () {
-            ids.push($(this).val());
-        });
-        document.getElementById("qid").value=ids;
-};*/
 function save_paper()
 {
-    var ids = new Array;
+    var sinids = new Array;
+    var mulids = new Array;
     var remarks=" ";
     $(window.frames["content1"].document)
         .find("input[name='sinid']:checked").each(function () {
-        ids.push($(this).val());
+        sinids.push($(this).val());
     });
     $(window.frames["content2"].document)
         .find("input[name='mulid']:checked").each(function () {
-        ids.push($(this).val());
+        mulids.push($(this).val());
     });
     var examName=document.getElementById("ptitle").value;
     $.ajax({
         url:'${ctx}/examination/examinationPaper/saveid',
         type:'post',
         async:false,
-        data: {ids:ids,examName:examName},
+        data: {sinids:sinids,mulids:mulids,examName:examName},
         traditional: true,
         success: function (data) { //返回json结果
-            alert("保存试卷成功！");
             alert(data);
         }
     });

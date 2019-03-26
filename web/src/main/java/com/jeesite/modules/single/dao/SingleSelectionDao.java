@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.jeesite.common.dao.CrudDao;
 import com.jeesite.common.mybatis.annotation.MyBatisDao;
+import com.jeesite.modules.examination.entity.ExaminationPaper;
 import com.jeesite.modules.multiple.entity.MultipleSelection;
 import com.jeesite.modules.single.entity.SingleSelection;
 
@@ -18,5 +19,6 @@ import com.jeesite.modules.single.entity.SingleSelection;
 @MyBatisDao
 public interface SingleSelectionDao extends CrudDao<SingleSelection> {
 	public List<SingleSelection> getsingle();
-	public SingleSelection findsingle(String id);
+	public SingleSelection findsingle(String sinids);
+	public String[] getexamsingle(String examid);
 }

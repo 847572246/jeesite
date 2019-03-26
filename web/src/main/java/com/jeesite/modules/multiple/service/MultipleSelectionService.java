@@ -26,8 +26,8 @@ public class MultipleSelectionService extends CrudService<MultipleSelectionDao, 
 	public List<MultipleSelection> getmultiple() {
 		return dao.getmultiple();
 	}
-	public MultipleSelection findmultiple(String id) {
-		return dao.findmultiple(id);
+	public MultipleSelection findmultiple(String mulids) {
+		return dao.findmultiple(mulids);
 	}
 	/**
 	 * 获取单条数据

@@ -41,15 +41,15 @@ public class MultipleSelectionController extends BaseController {
 	
 	/**
 	 * 
-	 * @param id
+	 * @param mulids
 	 * @return
 	 */
 	@RequestMapping(value = "findmultiple")
 	@ResponseBody
-	public List<MultipleSelection> findmultiple(String[] id) {
+	public List<MultipleSelection> findmultiple(String[] mulids) {
 		List<MultipleSelection> list=new ArrayList<MultipleSelection>(); 
-		for (int i = 0; i < id.length; i++) {
-			list.add(multipleSelectionService.findmultiple(id[i]));
+		for (int i = 0; i < mulids.length; i++) {
+			list.add(multipleSelectionService.findmultiple(mulids[i]));
 		}
 		return list;
 	}

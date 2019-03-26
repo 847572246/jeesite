@@ -11,5 +11,15 @@
 		</where>
 		ORDER BY ${sqlMap.order.toSql()}
 	</select> -->
-	
+	<select id="findexamsingleid" resultType="String">
+		select sin_question_id
+		from examination_paper
+		where status=0 and id=#{id}
+	</select>
+	<select id="findexamsingle" resultType="SingleSelection">
+		select *
+		from single_selection
+		where status=0 and instr(#{ids,jdbcType=VARCHAR}, id)
+	</select>
+
 </mapper>
