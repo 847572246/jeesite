@@ -6,6 +6,7 @@ package com.jeesite.modules.answer.service;
 import java.util.List;
 
 import com.jeesite.modules.examination.entity.ExaminationPaper;
+import com.jeesite.modules.multiple.entity.MultipleSelection;
 import com.jeesite.modules.single.entity.SingleSelection;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,10 +42,22 @@ public class AnswerPaperService extends CrudService<AnswerPaperDao, AnswerPaper>
 		return dao.findexamsingle(ids);
 	}
 	/**
+	 * 查找多选题
+	 */
+	public List<MultipleSelection> findexammultiple(String ids){
+		return dao.findexammultiple(ids);
+	}
+	/**
 	 *按试卷id查找单选题
 	 */
 	public String findexamsingleid(String examid){
 		return dao.findexamsingleid(examid);
+	}
+	/**
+	 *按试卷id查找多选题
+	 */
+	public String findexammultipleid(String examid){
+		return dao.findexammultipleid(examid);
 	}
 	/**
 	 * 查询分页数据

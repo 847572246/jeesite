@@ -6,7 +6,11 @@ package com.jeesite.modules.answer.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeesite.modules.multiple.entity.MultipleSelection;
+import com.jeesite.modules.paper.entity.PaperSelection;
+import com.jeesite.modules.paper.service.PaperSelectionService;
 import com.jeesite.modules.single.entity.SingleSelection;
+import com.jeesite.modules.sys.utils.UserUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,7 +41,8 @@ public class AnswerPaperController extends BaseController {
 
 	@Autowired
 	private AnswerPaperService answerPaperService;
-	
+	@Autowired
+	private PaperSelectionService paperSelectionService;
 	/**
 	 * 获取数据
 	 */
@@ -78,14 +83,32 @@ public class AnswerPaperController extends BaseController {
 		return "modules/answer/answerPaperForm";
 	}
 	/**
+	 * 保存答题表
+	 */
+	@RequiresPermissions("answer:answerPaper:view")
+	@PostMapping(value = "savepaper")
+	@ResponseBody
+	public String savepaper(@Validated PaperSelection paperSelection) {
+		paperSelectionService.save(paperSelection);
+		return renderResult(Global.TRUE, text("保存答题表成功！"));
+	}
+	/**
 	 * 跳转答题页面
 	 */
 	@RequiresPermissions("answer:answerPaper:view")
 	@RequestMapping(value = "exam")
 	public String exam( Model model,String examid) {
-		String ids=answerPaperService.findexamsingleid(examid);
-		List<SingleSelection> singleSelection=answerPaperService.findexamsingle(ids);
+		PaperSelection paperSelection=new PaperSelection();
+		String user =  UserUtils.getUser().getUserCode();
+		paperSelection.setUserCode(user);
+		paperSelection.setPaperId(examid);
+		String sinids=answerPaperService.findexamsingleid(examid);
+		String mulids=answerPaperService.findexammultipleid(examid);
+		List<SingleSelection> singleSelection=answerPaperService.findexamsingle(sinids);
+		List<MultipleSelection> multipleSelection=answerPaperService.findexammultiple(mulids);
 		model.addAttribute("single", singleSelection);
+		model.addAttribute("multiple", multipleSelection);
+		model.addAttribute("paperSelection", paperSelection);
 		return "modules/exam/newexam";
 	}
 	/**

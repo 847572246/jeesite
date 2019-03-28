@@ -16,10 +16,19 @@
 		from examination_paper
 		where status=0 and id=#{id}
 	</select>
+	<select id="findexammultipleid" resultType="String">
+		select mul_question_id
+		from examination_paper
+		where status=0 and id=#{id}
+	</select>
 	<select id="findexamsingle" resultType="SingleSelection">
 		select *
 		from single_selection
 		where status=0 and instr(#{ids,jdbcType=VARCHAR}, id)
 	</select>
-
+	<select id="findexammultiple" resultType="MultipleSelection">
+		select *
+		from multiple_selection
+		where status=0 and instr(#{ids,jdbcType=VARCHAR}, id)
+	</select>
 </mapper>
