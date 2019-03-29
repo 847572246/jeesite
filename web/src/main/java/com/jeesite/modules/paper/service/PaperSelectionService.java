@@ -52,7 +52,18 @@ public class PaperSelectionService extends CrudService<PaperSelectionDao, PaperS
 	public void save(PaperSelection paperSelection) {
 		super.save(paperSelection);
 	}
-	
+
+	/**
+	 * 保存数据（插入或更新）
+	 * @param paperSelection
+	 */
+	@Transactional(readOnly=false)
+	public void savelist(List<PaperSelection> paperSelection) {
+		for (int i=0;i<paperSelection.size();i++){
+			super.save(paperSelection.get(i));
+		}
+
+	}
 	/**
 	 * 更新状态
 	 * @param paperSelection

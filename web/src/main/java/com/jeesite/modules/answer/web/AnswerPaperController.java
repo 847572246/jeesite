@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.jeesite.modules.multiple.entity.MultipleSelection;
 import com.jeesite.modules.paper.entity.PaperSelection;
+import com.jeesite.modules.paper.entity.middlePaperSelection;
 import com.jeesite.modules.paper.service.PaperSelectionService;
 import com.jeesite.modules.single.entity.SingleSelection;
 import com.jeesite.modules.sys.utils.UserUtils;
@@ -88,8 +89,16 @@ public class AnswerPaperController extends BaseController {
 	@RequiresPermissions("answer:answerPaper:view")
 	@PostMapping(value = "savepaper")
 	@ResponseBody
-	public String savepaper(@Validated PaperSelection paperSelection) {
-		paperSelectionService.save(paperSelection);
+	public String savepaper(@Validated middlePaperSelection middlepaperSelection) {
+	    PaperSelection paperSelection=new PaperSelection();
+        String user =  UserUtils.getUser().getUserCode();
+        for (int i=0;i<middlepaperSelection.getSinQuestionId().length();i++){
+            paperSelection.setUserCode(user);
+            paperSelection.setSinQuestionId(middlepaperSelection.getSinQuestionId());
+            paperSelection.setAnswer(middlepaperSelection.getAnswer());
+            paperSelection.setModelAnswers(middlepaperSelection.getModelAnswers());
+            paperSelectionService.save(paperSelection);
+        }
 		return renderResult(Global.TRUE, text("保存答题表成功！"));
 	}
 	/**

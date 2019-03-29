@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 <html xmlns:th="http://java.sun.com/jsf/composite">
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8">
@@ -29,10 +30,11 @@
 	<div class="test_main">
 		<div class="nr_left">
 			<div class="test">
-				<form action="${ctx}/answer/answerPaper/savepaper" method="post">
+				<!--${ctx}/answer/answerPaper/savepaper-->
+				<form th:action="${ctx}/answer/answerPaper/savepaper" method="post" id="question-form">
 
 					<div class="test_title">
-						<font><input type="submit" name="test_jiaojuan" value="交卷"></font>
+						<font><input type="button" id="btnSave" name="test_jiaojuan" value="交卷"></font>
 					</div>
 					<!-------------------------------------------------------------------------------------->
 					<div class="test_content">
@@ -46,32 +48,30 @@
 					<div class="test_content_nr">
 						<ul>
 							<li>
-								<input type="text" name="UserCode" value="${paperSelection.UserCode}">
-								<input type="text" name="PaperId" value="${paperSelection.PaperId}">
 								<div class="test_content_nr_tt">
 									<!--<i>1</i>--><font>${sin.title}</font><b class="icon iconfont">&#xe881;</b>
 								</div>
 
-								<div class="test_content_nr_main">
+								<div class="test_content_nr_main" name="answer">
 									<ul>
 										<label>
 										<li class="option">
-											<input type="radio" class="radioOrCheck" name="answer" value="A" id="${sin.id}"/>A.${sin.A}
+											<input type="radio" class="radioOrCheck" name="${sin.id}" value="A" id="${sin.id}"/>A.${sin.A}
 										</li>
 										</label>
 										<label>
 										<li class="option">
-											<input type="radio" class="radioOrCheck" name="answer" value="B" id="${sin.id}"/>B.${sin.B}
+											<input type="radio" class="radioOrCheck" name="${sin.id}" value="B" id="${sin.id}"/>B.${sin.B}
 										</li>
 										</label>
 										<label>
 										<li class="option">
-											<input type="radio" class="radioOrCheck" name="answer" value="C" id="${sin.id}"/>C.${sin.C}
+											<input type="radio" class="radioOrCheck" name="${sin.id}" value="C" id="${sin.id}"/>C.${sin.C}
 										</li>
 										</label>
 										<label>
 										<li class="option">
-											<input type="radio" class="radioOrCheck" name="answer" value="D" id="${sin.id}"/>D.${sin.D}
+											<input type="radio" class="radioOrCheck" name="${sin.id}" value="D" id="${sin.id}"/>D.${sin.D}
 										</li>
 										</label>
 									</ul>
@@ -95,29 +95,29 @@
 								<input type="text" name="UserCode" value="${paperSelection.UserCode}">
 								<input type="text" name="PaperId" value="${paperSelection.PaperId}">
 								<div class="test_content_nr_tt">
-									<i>1</i><font>${mul.title}</font><b class="icon iconfont">&#xe881;</b>
+									<!--<i>1</i>--><font>${mul.title}</font><b class="icon iconfont">&#xe881;</b>
 								</div>
 								<div class="test_content_nr_main">
 									<ul>
 
 										<label>
 											<li class="option">
-												<input type="checkbox" class="radioOrCheck" name="answer" value="A" id="${mul.id}"/>A.${mul.A}
+												<input type="checkbox" class="radioOrCheck" name="${mul.id}" value="A" id="${mul.id}"/>A.${mul.A}
 											</li>
 										</label>
 										<label>
 											<li class="option">
-												<input type="checkbox" class="radioOrCheck" name="answer" value="B" id="${mul.id}"/>B.${mul.B}
+												<input type="checkbox" class="radioOrCheck" name="${mul.id}" value="B" id="${mul.id}"/>B.${mul.B}
 											</li>
 										</label>
 										<label>
 											<li class="option">
-												<input type="checkbox" class="radioOrCheck" name="answer" value="C" id="${mul.id}"/>C.${mul.C}
+												<input type="checkbox" class="radioOrCheck" name="${mul.id}" value="C" id="${mul.id}"/>C.${mul.C}
 											</li>
 										</label>
 										<label>
 											<li class="option">
-												<input type="checkbox" class="radioOrCheck" name="answer" value="D" id="${mul.id}"/>D.${mul.D}
+												<input type="checkbox" class="radioOrCheck" name="${mul.id}" value="D" id="${mul.id}"/>D.${mul.D}
 											</li>
 										</label>
 									</ul>
@@ -137,7 +137,39 @@
 </div>
 
 <script>
+    $('#btnSave').click(function () {
+        var reqdata = new Array();
+        var usercode = '${paperSelection.UserCode}';
+        var paperid ='${paperSelection.PaperId}';
+        $("#question-form").find("radio").each(function(){
+            var data = {
+                SinQuestionId: this.id
+                ,answer: this.value
+				,UserCode:usercode
+				,PaperId:paperid
+            }
+            reqdata.push(data);
+        });
+        $.ajax({
+            url: '${ctx}/answer/answerPaper/savepaper'
+            ,data: JSON.stringify(reqdata)
+            ,dataType: 'json'
+            ,contentType: 'application/json'
+            ,type: 'post'
+            ,success: function (result) {
+                if (result.code == '0') {
+                    layer.alert(result.msg,{
+                        icon:1
+                    });
+                }else {
+                    layer.alert(result.msg,{
+                        icon:2
+                    });
+                }
+            }
 
+        });
+    });
 </script>
 
 

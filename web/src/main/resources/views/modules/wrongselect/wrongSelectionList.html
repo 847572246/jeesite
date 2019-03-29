@@ -115,6 +115,9 @@ $('#dataGrid').dataGrid({
 			return actions.join('');
 		}}
 	],
+    mergeCell: function(wrongIdSin,wrongIdMul) {
+        return mergeCell(wrongIdSin,wrongIdMul);
+    },
 	// 加载成功后执行事件
 	ajaxSuccess: function(data){
 		
