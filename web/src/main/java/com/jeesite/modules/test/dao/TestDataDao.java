@@ -9,8 +9,8 @@ import com.jeesite.modules.test.entity.TestData;
 
 /**
  * 测试数据DAO接口
- * @author ThinkGem
- * @version 2019-01-08
+ * @author xt
+ * @version 2019-04-01
  */
 @MyBatisDao
 public interface TestDataDao extends CrudDao<TestData> {

@@ -18,8 +18,8 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 
 /**
  * 测试数据Entity
- * @author ThinkGem
- * @version 2019-01-08
+ * @author xt
+ * @version 2019-04-01
  */
 @Table(name="test_data", alias="a", columns={
 		@Column(name="id", attrName="id", label="编号", isPK=true),

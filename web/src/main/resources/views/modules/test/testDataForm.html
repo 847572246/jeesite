@@ -1,9 +1,9 @@
-<% layout('/layouts/default.html', {title: '数据管理', libs: ['validate','fileupload','dataGrid']}){ %>
+<% layout('/layouts/default.html', {title: '测试数据管理', libs: ['validate','dataGrid']}){ %>
 <div class="main-content">
 	<div class="box box-main">
 		<div class="box-header with-border">
 			<div class="box-title">
-				<i class="fa fa-list-alt"></i> ${text(testData.isNewRecord ? '新增数据' : '编辑数据')}
+				<i class="fa fa-list-alt"></i> ${text(testData.isNewRecord ? '新增测试数据' : '编辑测试数据')}
 			</div>
 			<div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -19,7 +19,10 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('单行文本')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="testInput" maxlength="200" class="form-control"/>
+								<#form:treeselect id="testInput" title="${text('用户选择')}"
+								path="testInput" labelPath=""
+								url="${ctx}/sys/office/treeData?isLoadUser=true"
+								class="" allowClear="true"/>
 							</div>
 						</div>
 					</div>
@@ -79,7 +82,8 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('日期选择')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="testDate" class="form-control"/>
+								<#form:input path="testDate" readonly="true" maxlength="20" class="form-control Wdate"
+									dataFormat="date" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 							</div>
 						</div>
 					</div>
@@ -88,7 +92,8 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('日期时间')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="testDatetime" class="form-control"/>
+								<#form:input path="testDatetime" readonly="true" maxlength="20" class="form-control Wdate"
+									dataFormat="datetime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',isShowClear:false});"/>
 							</div>
 						</div>
 					</div>
@@ -99,7 +104,10 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('用户选择')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="testUserCode" maxlength="64" class="form-control"/>
+								<#form:treeselect id="testUserCode" title="${text('用户选择')}"
+									path="testUserCode" labelPath=""
+									url="${ctx}/sys/office/treeData?isLoadUser=true"
+									class="" allowClear="true"/>
 							</div>
 						</div>
 					</div>
@@ -108,7 +116,10 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('机构选择')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="testOfficeCode" maxlength="64" class="form-control"/>
+								<#form:treeselect id="testOfficeCode" title="${text('机构选择')}"
+									path="testOfficeCode" labelPath=""
+									url="${ctx}/sys/office/treeData"
+									class="" allowClear="true"/>
 							</div>
 						</div>
 					</div>
@@ -119,7 +130,10 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('区域选择')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="testAreaCode" maxlength="64" class="form-control"/>
+								<#form:treeselect id="testAreaCode" title="${text('区域选择')}"
+									path="testAreaCode" labelPath=""
+									url="${ctx}/sys/area/treeData"
+									class="" allowClear="true"/>
 							</div>
 						</div>
 					</div>
@@ -140,28 +154,6 @@
 								<span class="required hide">*</span> ${text('备注信息')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-10">
 								<#form:textarea path="remarks" rows="4" maxlength="500" class="form-control"/>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="form-group">
-							<label class="control-label col-sm-2">${text('图片上传')}：</label>
-							<div class="col-sm-10">
-								<#form:fileupload id="uploadImage" bizKey="${testData.id}" bizType="testData_image"
-									uploadType="image" class="" readonly="false"/>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="form-group">
-							<label class="control-label col-sm-2">${text('附件上传')}：</label>
-							<div class="col-sm-10">
-								<#form:fileupload id="uploadFile" bizKey="${testData.id}" bizType="testData_file"
-									uploadType="all" class="" readonly="false"/>
 							</div>
 						</div>
 					</div>

@@ -24,8 +24,8 @@ import com.jeesite.modules.test.service.TestDataService;
 
 /**
  * 测试数据Controller
- * @author ThinkGem
- * @version 2019-01-08
+ * @author xt
+ * @version 2019-04-01
  */
 @Controller
 @RequestMapping(value = "${adminPath}/test/testData")
@@ -75,49 +75,25 @@ public class TestDataController extends BaseController {
 	}
 
 	/**
-	 * 保存数据
+	 * 保存测试数据
 	 */
 	@RequiresPermissions("test:testData:edit")
 	@PostMapping(value = "save")
 	@ResponseBody
 	public String save(@Validated TestData testData) {
 		testDataService.save(testData);
-		return renderResult(Global.TRUE, text("保存数据成功！"));
+		return renderResult(Global.TRUE, text("保存测试数据成功！"));
 	}
 	
 	/**
-	 * 停用数据
-	 */
-	@RequiresPermissions("test:testData:edit")
-	@RequestMapping(value = "disable")
-	@ResponseBody
-	public String disable(TestData testData) {
-		testData.setStatus(TestData.STATUS_DISABLE);
-		testDataService.updateStatus(testData);
-		return renderResult(Global.TRUE, text("停用数据成功"));
-	}
-	
-	/**
-	 * 启用数据
-	 */
-	@RequiresPermissions("test:testData:edit")
-	@RequestMapping(value = "enable")
-	@ResponseBody
-	public String enable(TestData testData) {
-		testData.setStatus(TestData.STATUS_NORMAL);
-		testDataService.updateStatus(testData);
-		return renderResult(Global.TRUE, text("启用数据成功"));
-	}
-	
-	/**
-	 * 删除数据
+	 * 删除测试数据
 	 */
 	@RequiresPermissions("test:testData:edit")
 	@RequestMapping(value = "delete")
 	@ResponseBody
 	public String delete(TestData testData) {
 		testDataService.delete(testData);
-		return renderResult(Global.TRUE, text("删除数据成功！"));
+		return renderResult(Global.TRUE, text("删除测试数据成功！"));
 	}
 	
 }

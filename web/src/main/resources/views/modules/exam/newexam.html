@@ -92,8 +92,6 @@
 					<div class="test_content_nr">
 						<ul>
 							<li>
-								<input type="text" name="UserCode" value="${paperSelection.UserCode}">
-								<input type="text" name="PaperId" value="${paperSelection.PaperId}">
 								<div class="test_content_nr_tt">
 									<!--<i>1</i>--><font>${mul.title}</font><b class="icon iconfont">&#xe881;</b>
 								</div>
@@ -139,33 +137,36 @@
 <script>
     $('#btnSave').click(function () {
         var reqdata = new Array();
-        var usercode = '${paperSelection.UserCode}';
-        var paperid ='${paperSelection.PaperId}';
-        $("#question-form").find("radio").each(function(){
+        var paperId ='${paperSelection.PaperId}';
+        $("#question-form").find(":radio:checked").each(function(){
+            var sinQuestionId = this.id;
+            var answer = $(this).val();
             var data = {
-                SinQuestionId: this.id
-                ,answer: this.value
-				,UserCode:usercode
-				,PaperId:paperid
-            }
+                sinQuestionId: sinQuestionId,
+                answer:answer
+			};
+
             reqdata.push(data);
         });
+        $("#question-form").find(":checkbox:checked").each(function(){
+            var mulQuestionId = this.id;
+            var answer = $(this).val();
+            var data = {
+                mulQuestionId: mulQuestionId,
+                answer:answer
+            };
+
+            reqdata.push(data);
+        });
+        console.log(reqdata);
         $.ajax({
-            url: '${ctx}/answer/answerPaper/savepaper'
+            url: '${ctx}/answer/answerPaper/savepaper?paperId='+paperId
             ,data: JSON.stringify(reqdata)
             ,dataType: 'json'
             ,contentType: 'application/json'
             ,type: 'post'
             ,success: function (result) {
-                if (result.code == '0') {
-                    layer.alert(result.msg,{
-                        icon:1
-                    });
-                }else {
-                    layer.alert(result.msg,{
-                        icon:2
-                    });
-                }
+                return result;
             }
 
         });

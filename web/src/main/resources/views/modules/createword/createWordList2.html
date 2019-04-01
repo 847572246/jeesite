@@ -81,12 +81,11 @@
 <script>
 // 初始化DataGrid对象
 // 全局存储表格数据
-var table_data=new Array();
 var resultData = new Array();
 
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
-    showCheckbox: true,
+    /*showCheckbox: true,*/
 	columnModel: [
 
 		{header:'${text(' ')}',name:'checkbox' , width:80, align:"left", formatter: function(val, obj, row, act){
@@ -118,39 +117,42 @@ $('#dataGrid').dataGrid({
 
 	// 加载成功后执行事件
 	ajaxSuccess: function(data){
+		console.log('resultData===' + resultData);
+		console.log(data.list);
 
+        $('input:checkbox').each(function (index, item) {
+            for (var idx=0;idx<resultData.length; idx++) {
+                if ($(this).val() == resultData[idx]) {
+                    $(this).attr("checked", 'checked');
+                }
+            }
+        });
 	}
 
 });
 
-	function onClick(val) {
-        if(val.checked==true){
-            if(val.type=='one'){
-                resultData.push(val.data);
-            }else{
-                for(var i=0;i<table_data.length;i++){
-                    resultData.push(table_data[i]);
-                }
-            }
+	function onClick(obj) {
+        if(obj.checked==true){
+            resultData.push(obj.value);
         }else{
-            if(val.type=='one'){
-                for(var i=0;i<resultData.length;i++){
-                    if(resultData[i].id==val.data.id){
-                        resultData.remove(i);
-                    }
-                }
-            }else{
-                for(var i=0;i<resultData.length;i++){
-                    for(var j=0;j<table_data.length;j++){
-                        if(resultData[i].id==table_data[j].id){
-                            resultData.remove(i);
-                        }
-                    }
+            for(var i=0;i<resultData.length;i++){
+                if(resultData[i]==obj.value){
+                    resultData.remove(i);
                 }
             }
         }
-	    console.log(val);
-        console.log(table_data+"jhuihuihuihuij");
 	}
 
+Array.prototype.remove=function(dx)
+{
+    if(isNaN(dx)||dx>this.length){return false;}
+    for(var i=0,n=0;i<this.length;i++)
+    {
+        if(this[i]!=this[dx])
+        {
+            this[n++]=this[i]
+        }
+    }
+    this.length-=1
+}
 </script>

@@ -13,14 +13,13 @@ import com.jeesite.common.entity.Page;
 import com.jeesite.common.service.CrudService;
 import com.jeesite.modules.test.entity.TestData;
 import com.jeesite.modules.test.dao.TestDataDao;
-import com.jeesite.modules.file.utils.FileUploadUtils;
 import com.jeesite.modules.test.entity.TestDataChild;
 import com.jeesite.modules.test.dao.TestDataChildDao;
 
 /**
  * 测试数据Service
- * @author ThinkGem
- * @version 2019-01-08
+ * @author xt
+ * @version 2019-04-01
  */
 @Service
 @Transactional(readOnly=true)
@@ -64,10 +63,6 @@ public class TestDataService extends CrudService<TestDataDao, TestData> {
 	@Transactional(readOnly=false)
 	public void save(TestData testData) {
 		super.save(testData);
-		// 保存上传图片
-		FileUploadUtils.saveFileUpload(testData.getId(), "testData_image");
-		// 保存上传附件
-		FileUploadUtils.saveFileUpload(testData.getId(), "testData_file");
 		// 保存 TestData子表
 		for (TestDataChild testDataChild : testData.getTestDataChildList()){
 			if (!TestDataChild.STATUS_DELETE.equals(testDataChild.getStatus())){

@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.jeesite.modules.answer.entity.AnswerPaper;
 import com.jeesite.modules.answer.service.AnswerPaperService;
+import com.jeesite.modules.multiple.entity.MultipleSelection;
+import com.jeesite.modules.multiple.service.MultipleSelectionService;
+import com.jeesite.modules.single.entity.SingleSelection;
+import com.jeesite.modules.single.service.SingleSelectionService;
 import com.jeesite.modules.sys.entity.EmpUser;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +40,10 @@ public class ExaminationPaperController extends BaseController {
 	private ExaminationPaperService examinationPaperService;
 	@Autowired
 	private AnswerPaperService answerPaperService;
+	@Autowired
+	private SingleSelectionService singleSelectionService;
+	@Autowired
+	private MultipleSelectionService multipleSelectionService;
 	
 	/**
 	 * 获取数据
@@ -54,7 +62,29 @@ public class ExaminationPaperController extends BaseController {
 		model.addAttribute("examinationPaper", examinationPaper);
 		return "modules/examination/examinationPaperList";
 	}
-	
+	/**
+	 * 查询列表
+	 */
+	@RequiresPermissions("examination:examinationPaper:view")
+	@RequestMapping(value = {"listpaper", ""})
+	public String listpaper(SingleSelection singleSelection, MultipleSelection multipleSelection, Model model) {
+		//model.addAttribute("singleSelection", singleSelection);
+		model.addAttribute("multipleSelection", multipleSelection);
+		return "modules/examination/singleSelectionList";
+	}
+	/**
+	 * 查询列表数据
+	 */
+	@RequiresPermissions("single:singleSelection:view")
+	@RequestMapping(value = "listpaperData")
+	@ResponseBody
+	public Page<SingleSelection> listpaperData(MultipleSelection multipleSelection,SingleSelection singleSelection, HttpServletRequest request, HttpServletResponse response) {
+		singleSelection.setPage(new Page<>(request, response));
+		Page<SingleSelection> page1 = singleSelectionService.findPage(singleSelection);
+		multipleSelection.setPage(new Page<>(request, response));
+		Page<MultipleSelection> page2 = multipleSelectionService.findPage(multipleSelection);
+		return page1;
+	}
 	/**
 	 * 查询列表数据
 	 */

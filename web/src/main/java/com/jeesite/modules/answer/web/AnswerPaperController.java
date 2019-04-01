@@ -17,10 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
@@ -89,16 +86,20 @@ public class AnswerPaperController extends BaseController {
 	@RequiresPermissions("answer:answerPaper:view")
 	@PostMapping(value = "savepaper")
 	@ResponseBody
-	public String savepaper(@Validated middlePaperSelection middlepaperSelection) {
-	    PaperSelection paperSelection=new PaperSelection();
+	public String savepaper(@RequestBody List<middlePaperSelection> middlepaperSelections, HttpServletRequest request) {
         String user =  UserUtils.getUser().getUserCode();
-        for (int i=0;i<middlepaperSelection.getSinQuestionId().length();i++){
-            paperSelection.setUserCode(user);
-            paperSelection.setSinQuestionId(middlepaperSelection.getSinQuestionId());
-            paperSelection.setAnswer(middlepaperSelection.getAnswer());
-            paperSelection.setModelAnswers(middlepaperSelection.getModelAnswers());
-            paperSelectionService.save(paperSelection);
-        }
+        String paperId = request.getParameter("paperId");
+        	PaperSelection paperSelection=null;
+        	for (middlePaperSelection middlePaperSelection : middlepaperSelections) {
+				paperSelection = new PaperSelection();
+				paperSelection.setUserCode(user);
+				paperSelection.setSinQuestionId(middlePaperSelection.getSinQuestionId());
+				paperSelection.setMulQuestionId(middlePaperSelection.getMulQuestionId());
+				paperSelection.setAnswer(middlePaperSelection.getAnswer());
+				paperSelection.setModelAnswers(middlePaperSelection.getModelAnswers());
+				paperSelection.setPaperId(paperId);
+				paperSelectionService.save(paperSelection);
+			}
 		return renderResult(Global.TRUE, text("保存答题表成功！"));
 	}
 	/**
@@ -150,4 +151,5 @@ public class AnswerPaperController extends BaseController {
 		answerPaperService.delete(answerPaper);
 		return renderResult(Global.TRUE, text("删除试卷成功！"));
 	}
+
 }
