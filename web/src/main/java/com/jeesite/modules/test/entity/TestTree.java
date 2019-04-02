@@ -15,7 +15,7 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 /**
  * 测试树表Entity
  * @author ThinkGem
- * @version 2019-02-12
+ * @version 2019-04-02
  */
 @Table(name="test_tree", alias="a", columns={
 		@Column(name="tree_code", attrName="treeCode", label="节点编码", isPK=true),

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.jsoup.helper.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,10 +70,14 @@ public class WrongSelectionController extends BaseController {
 		list.add(multipleid);
 		String selectsinids = "";
 		try{
-			selectsinids = URLEncoder.encode(singleid+"","UTF-8");
-			selectsinids += URLEncoder.encode(multipleid+"","UTF-8");
+			if (singleid.size() > 0) {
+				selectsinids = singleid.toString().replaceAll("\\[", "").replaceAll("]", "");
+			}
+			if (multipleid.size() > 0) {
+				selectsinids += multipleid.toString().replaceAll("\\[", "").replaceAll("]", "");
+			}
 		}catch (Exception ex) {
-
+			ex.printStackTrace();
 		}
 		model.addAttribute("selectsinid", selectsinids);
 		model.addAttribute("selectmulid", multipleid);

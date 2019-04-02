@@ -1,7 +1,6 @@
 /**
  * Copyright (c) 2013-Now http://jeesite.com All rights reserved.
- *//*
-
+ */
 package com.jeesite.modules.test.web;
 
 import java.util.List;
@@ -27,13 +26,11 @@ import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.test.entity.TestTree;
 import com.jeesite.modules.test.service.TestTreeService;
 
-*/
 /**
  * 测试树表Controller
  * @author ThinkGem
- * @version 2019-02-12
- *//*
-
+ * @version 2019-04-02
+ */
 @Controller
 @RequestMapping(value = "${adminPath}/test/testTree")
 public class TestTreeController extends BaseController {
@@ -41,21 +38,17 @@ public class TestTreeController extends BaseController {
 	@Autowired
 	private TestTreeService testTreeService;
 	
-	*/
-/**
+	/**
 	 * 获取数据
-	 *//*
-
+	 */
 	@ModelAttribute
 	public TestTree get(String treeCode, boolean isNewRecord) {
 		return testTreeService.get(treeCode, isNewRecord);
 	}
 	
-	*/
-/**
+	/**
 	 * 查询列表
-	 *//*
-
+	 */
 	@RequiresPermissions("test:testTree:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(TestTree testTree, Model model) {
@@ -63,11 +56,9 @@ public class TestTreeController extends BaseController {
 		return "modules/test/testTreeList";
 	}
 	
-	*/
-/**
+	/**
 	 * 查询列表数据
-	 *//*
-
+	 */
 	@RequiresPermissions("test:testTree:view")
 	@RequestMapping(value = "listData")
 	@ResponseBody
@@ -88,11 +79,9 @@ public class TestTreeController extends BaseController {
 		return list;
 	}
 
-	*/
-/**
+	/**
 	 * 查看编辑表单
-	 *//*
-
+	 */
 	@RequiresPermissions("test:testTree:view")
 	@RequestMapping(value = "form")
 	public String form(TestTree testTree, Model model) {
@@ -102,11 +91,9 @@ public class TestTreeController extends BaseController {
 		return "modules/test/testTreeForm";
 	}
 	
-	*/
-/**
+	/**
 	 * 创建并初始化下一个节点信息，如：排序号、默认值
-	 *//*
-
+	 */
 	@RequiresPermissions("test:testTree:edit")
 	@RequestMapping(value = "createNextNode")
 	@ResponseBody
@@ -133,11 +120,9 @@ public class TestTreeController extends BaseController {
 		return testTree;
 	}
 
-	*/
-/**
+	/**
 	 * 保存数据
-	 *//*
-
+	 */
 	@RequiresPermissions("test:testTree:edit")
 	@PostMapping(value = "save")
 	@ResponseBody
@@ -146,11 +131,9 @@ public class TestTreeController extends BaseController {
 		return renderResult(Global.TRUE, text("保存数据成功！"));
 	}
 	
-	*/
-/**
+	/**
 	 * 停用数据
-	 *//*
-
+	 */
 	@RequiresPermissions("test:testTree:edit")
 	@RequestMapping(value = "disable")
 	@ResponseBody
@@ -167,11 +150,9 @@ public class TestTreeController extends BaseController {
 		return renderResult(Global.TRUE, text("停用数据成功"));
 	}
 	
-	*/
-/**
+	/**
 	 * 启用数据
-	 *//*
-
+	 */
 	@RequiresPermissions("test:testTree:edit")
 	@RequestMapping(value = "enable")
 	@ResponseBody
@@ -181,11 +162,9 @@ public class TestTreeController extends BaseController {
 		return renderResult(Global.TRUE, text("启用数据成功"));
 	}
 	
-	*/
-/**
+	/**
 	 * 删除数据
-	 *//*
-
+	 */
 	@RequiresPermissions("test:testTree:edit")
 	@RequestMapping(value = "delete")
 	@ResponseBody
@@ -194,14 +173,12 @@ public class TestTreeController extends BaseController {
 		return renderResult(Global.TRUE, text("删除数据成功！"));
 	}
 	
-	*/
-/**
+	/**
 	 * 获取树结构数据
 	 * @param excludeCode 排除的Code
 	 * @param isShowCode 是否显示编码（true or 1：显示在左侧；2：显示在右侧；false or null：不显示）
 	 * @return
-	 *//*
-
+	 */
 	@RequiresPermissions("test:testTree:view")
 	@RequestMapping(value = "treeData")
 	@ResponseBody
@@ -232,11 +209,9 @@ public class TestTreeController extends BaseController {
 		return mapList;
 	}
 
-	*/
-/**
+	/**
 	 * 修复表结构相关数据
-	 *//*
-
+	 */
 	@RequiresPermissions("test:testTree:edit")
 	@RequestMapping(value = "fixTreeData")
 	@ResponseBody
@@ -248,4 +223,4 @@ public class TestTreeController extends BaseController {
 		return renderResult(Global.TRUE, "数据修复成功");
 	}
 	
-}*/
+}

@@ -148,16 +148,29 @@
 
             reqdata.push(data);
         });
-        $("#question-form").find(":checkbox:checked").each(function(){
-            var mulQuestionId = this.id;
-            var answer = $(this).val();
-            var data = {
-                mulQuestionId: mulQuestionId,
-                answer:answer
-            };
 
-            reqdata.push(data);
+        var answer = '';
+        var mulQuestionId = '-1';
+        $("#question-form").find(":checkbox:checked").each(function(){
+            var _answer = $(this).val();
+            if (mulQuestionId == '-1' || mulQuestionId == this.id) {
+                answer += _answer;
+			}else {
+                var data = {
+                    mulQuestionId: mulQuestionId,
+                    answer:answer
+                };
+                reqdata.push(data);
+                answer=_answer;
+			}
+            mulQuestionId=this.id;
         });
+        var data = {
+            mulQuestionId: mulQuestionId,
+            answer:answer
+        };
+        reqdata.push(data);
+
         console.log(reqdata);
         $.ajax({
             url: '${ctx}/answer/answerPaper/savepaper?paperId='+paperId

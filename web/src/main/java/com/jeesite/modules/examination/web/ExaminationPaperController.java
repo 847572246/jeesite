@@ -73,18 +73,15 @@ public class ExaminationPaperController extends BaseController {
 		return "modules/examination/singleSelectionList";
 	}
 	/**
-	 * 查询列表数据
+	 * 查询列表试卷数据
 	 */
-	@RequiresPermissions("single:singleSelection:view")
+/*	@RequiresPermissions("examination:examinationPaper:view")
 	@RequestMapping(value = "listpaperData")
 	@ResponseBody
-	public Page<SingleSelection> listpaperData(MultipleSelection multipleSelection,SingleSelection singleSelection, HttpServletRequest request, HttpServletResponse response) {
-		singleSelection.setPage(new Page<>(request, response));
-		Page<SingleSelection> page1 = singleSelectionService.findPage(singleSelection);
-		multipleSelection.setPage(new Page<>(request, response));
-		Page<MultipleSelection> page2 = multipleSelectionService.findPage(multipleSelection);
-		return page1;
-	}
+	public String listpaperData(String[] sinquestionId,String[] mulquestionId) {
+
+		return "a";
+	}*/
 	/**
 	 * 查询列表数据
 	 */
@@ -93,7 +90,7 @@ public class ExaminationPaperController extends BaseController {
 	@ResponseBody
 	public Page<ExaminationPaper> listData(ExaminationPaper examinationPaper, HttpServletRequest request, HttpServletResponse response) {
 		examinationPaper.setPage(new Page<>(request, response));
-		Page<ExaminationPaper> page = examinationPaperService.findPage(examinationPaper); 
+		Page<ExaminationPaper> page = examinationPaperService.findPage(examinationPaper);
 		return page;
 	}
 

@@ -84,12 +84,21 @@
 <% } %>
 <script>
 // 初始化DataGrid对象
+// 全局存储表格数据
+var resultData = new Array();
+var test = new Array();
+var ids = '${selectsinids}';
+var flag = ids.split(",")
+for (var i=0;i<flag.length;i++){
+    test.push(flag[i]);
+}
+console.log(test)
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
 
 		{header:'${text(' ')}',name:'checkbox' , width:80, align:"left", formatter: function(val, obj, row, act){
-			var checkboxNoChecked =  '<input type="checkbox" name="sinid" id="sinid" value="'+row.id+'">';
+			/*var checkboxNoChecked =  '<input type="checkbox" name="sinid" id="sinid" value="'+row.id+'">';
 			var checkboxChecked =  '<input type="checkbox" name="sinid" id="sinid" value="'+row.id+'" checked>';
 			var compCheckbox;
 			var ids = '${selectsinids}';
@@ -99,7 +108,8 @@ $('#dataGrid').dataGrid({
                 compCheckbox = checkboxNoChecked
             }
 
-		    return compCheckbox;
+		    return compCheckbox;*/
+                return '<input type="checkbox" name="sinid" id="sinid" value="'+row.id+'" onclick="javascript:onClick(this)">';
 		}},
 		{header:'${text('title')}', name:'title', index:'a.title', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
 			return '<a href="${ctx}/single/singleSelection/form?id='+row.id+'" class="btnList/" data-title="${text('编辑单项选择题')}">'+(val||row.id)+'</a>';
@@ -124,10 +134,44 @@ $('#dataGrid').dataGrid({
 			return actions.join('');
 		}}
 	],
-	// 加载成功后执行事件
-	ajaxSuccess: function(data){
-        console.log(data);
-        console.log('${selectsinids}');
-	}
+    // 加载成功后执行事件
+    ajaxSuccess: function(data){
+        console.log('resultData===' + resultData);
+        console.log(data.list);
+
+        $('input:checkbox').each(function (index, item) {
+            for (var idx=0;idx<resultData.length; idx++) {
+                if ($(this).val() == resultData[idx].trim()) {
+                    $(this).attr("checked", 'checked');
+                }
+            }
+        });
+    }
+
 });
+
+function onClick(obj) {
+    if(obj.checked==true){
+        resultData.push(obj.value);
+    }else{
+        for(var i=0;i<resultData.length;i++){
+            if(resultData[i]==obj.value){
+                resultData.remove(i);
+            }
+        }
+    }
+}
+
+Array.prototype.remove=function(dx)
+{
+    if(isNaN(dx)||dx>this.length){return false;}
+    for(var i=0,n=0;i<this.length;i++)
+    {
+        if(this[i]!=this[dx])
+        {
+            this[n++]=this[i]
+        }
+    }
+    this.length-=1
+}
 </script>
