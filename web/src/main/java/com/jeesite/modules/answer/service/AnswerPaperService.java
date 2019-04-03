@@ -114,5 +114,8 @@ public class AnswerPaperService extends CrudService<AnswerPaperDao, AnswerPaper>
 		super.delete(answerPaper);
 	}
 
-
+	@Transactional(readOnly=false)
+	public void changpaperstatus(String answerPaperid) {
+		dao.changpaperstatus(answerPaperid);
+	}
 }

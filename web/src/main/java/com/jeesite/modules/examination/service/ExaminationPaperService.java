@@ -5,6 +5,7 @@ package com.jeesite.modules.examination.service;
 
 import java.util.List;
 
+import com.jeesite.modules.single.entity.SingleSelection;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -78,5 +79,9 @@ public class ExaminationPaperService extends CrudService<ExaminationPaperDao, Ex
 
     public int saveid(String[] ids, String examName) {
 	    return dao.saveid(ids,examName);
+    }
+
+    public List<SingleSelection> listpapersin(String[] sinquestionId) {
+		return dao.listpapersin(sinquestionId);
     }
 }

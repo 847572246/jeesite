@@ -1,16 +1,14 @@
-<% layout('/layouts/default.html', {title: '单项选择题', libs: ['dataGrid']}){ %>
+<% layout('/layouts/default.html', {title: '查看试卷', libs: ['dataGrid']}){ %>
 <div class="main-content">
 	<div class="box box-main">
 		<div class="box-header">
 			<div class="box-title">
-				<i class="fa fa-list-alt"></i> ${text('单项选择题')}
+				<i class="fa fa-list-alt"></i> ${text('单项选择题管理')}
 			</div>
 			<div class="box-tools pull-right">
-				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}">
-				<i class="fa fa-filter"></i> ${text('查询')}</a>
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
 				<% if(hasPermi('single:singleSelection:edit')){ %>
-					<a href="${ctx}/single/singleSelection/form" class="btn btn-default btnTool" title="${text('新增单项选择题')}">
-					<i class="fa fa-plus"></i> ${text('新增')}</a>
+					<a href="${ctx}/single/singleSelection/form" class="btn btn-default btnTool" title="${text('新增单项选择题')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
 				<% } %>
 			</div>
 		</div>
@@ -54,9 +52,15 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">${text('reason')}：</label>
+					<label class="control-label">${text('wrong_title')}：</label>
 					<div class="control-inline">
-						<#form:input path="reason" maxlength="255" class="form-control width-120"/>
+						<#form:input path="wrongTitle" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('wrong_reason')}：</label>
+					<div class="control-inline">
+						<#form:input path="wrongReason" maxlength="255" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -84,43 +88,19 @@
 <% } %>
 <script>
 // 初始化DataGrid对象
-// 全局存储表格数据
-var resultData = new Array();
-var test = new Array();
-var ids = '${selectsinids}';
-var flag = ids.split(",")
-for (var i=0;i<flag.length;i++){
-    test.push(flag[i].trim());
-}
-console.log(ids+"aaaaaa")
-console.log(test+"zzzzzzz")
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-
-		{header:'${text(' ')}',name:'checkbox' , width:80, align:"left", formatter: function(val, obj, row, act){
-			/*var checkboxNoChecked =  '<input type="checkbox" name="sinid" id="sinid" value="'+row.id+'">';
-			var checkboxChecked =  '<input type="checkbox" name="sinid" id="sinid" value="'+row.id+'" checked>';
-			var compCheckbox;
-			var ids = '${selectsinids}';
-			if (ids.indexOf(row.id) > 0) {
-                compCheckbox = checkboxChecked
-			}else {
-                compCheckbox = checkboxNoChecked
-            }
-
-		    return compCheckbox;*/
-                return '<input type="checkbox" name="sinid" id="sinid" value="'+row.id+'" onclick="javascript:onClick(this)">';
-		}},
 		{header:'${text('title')}', name:'title', index:'a.title', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
-			return '<a href="${ctx}/single/singleSelection/form?id='+row.id+'" class="btnList/" data-title="${text('编辑单项选择题')}">'+(val||row.id)+'</a>';
+			return '<a href="${ctx}/single/singleSelection/form?id='+row.id+'" class="btnList" data-title="${text('编辑单项选择题')}">'+(val||row.id)+'</a>';
 		}},
 		{header:'${text('a')}', name:'a', index:'a.a', width:150, align:"left"},
 		{header:'${text('b')}', name:'b', index:'a.b', width:150, align:"left"},
 		{header:'${text('c')}', name:'c', index:'a.c', width:150, align:"left"},
 		{header:'${text('d')}', name:'d', index:'a.d', width:150, align:"left"},
 		{header:'${text('answer')}', name:'answer', index:'a.answer', width:150, align:"left"},
-		{header:'${text('reason')}', name:'reason', index:'a.reason', width:150, align:"left"},
+		{header:'${text('错误原因号')}', name:'wrongReasonId', index:'a.wrong_reason_id', width:150, align:"left"},
+		{header:'${text('错误原因')}', name:'wrongReason', index:'a.wrong_reason', width:250, align:"left"},
 		{header:'${text('create_date')}', name:'createDate', index:'a.create_date', width:150, align:"center"},
 		{header:'${text('remarks')}', name:'remarks', index:'a.remarks', width:150, align:"left"},
 		{header:'${text('status')}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
@@ -135,44 +115,11 @@ $('#dataGrid').dataGrid({
 			return actions.join('');
 		}}
 	],
-    // 加载成功后执行事件
-    ajaxSuccess: function(data){
-        console.log('resultData===' + resultData);
-        console.log(data.list);
-
-        $('input:checkbox').each(function (index, item) {
-            for (var idx=0;idx<resultData.length; idx++) {
-                if ($(this).val() == resultData[idx]) {
-                    $(this).attr("checked", 'checked');
-                }
-            }
-        });
-    }
-
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
 });
-resultData=test;
-function onClick(obj) {
-    if(obj.checked==true){
-        resultData.push(obj.value);
-    }else{
-        for(var i=0;i<resultData.length;i++){
-            if(resultData[i]==obj.value){
-                resultData.remove(i);
-            }
-        }
-    }
-}
 
-Array.prototype.remove=function(dx)
-{
-    if(isNaN(dx)||dx>this.length){return false;}
-    for(var i=0,n=0;i<this.length;i++)
-    {
-        if(this[i]!=this[dx])
-        {
-            this[n++]=this[i]
-        }
-    }
-    this.length-=1
-}
+
 </script>

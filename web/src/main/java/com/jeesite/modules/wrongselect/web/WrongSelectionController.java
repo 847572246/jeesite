@@ -74,7 +74,7 @@ public class WrongSelectionController extends BaseController {
 				selectsinids = singleid.toString().replaceAll("\\[", "").replaceAll("]", "");
 			}
 			if (multipleid.size() > 0) {
-				selectsinids += multipleid.toString().replaceAll("\\[", "").replaceAll("]", "");
+				selectsinids +=","+ multipleid.toString().replaceAll("\\[", "").replaceAll("]", "");
 			}
 		}catch (Exception ex) {
 			ex.printStackTrace();

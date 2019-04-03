@@ -6,6 +6,9 @@ package com.jeesite.modules.examination.dao;
 import com.jeesite.common.dao.CrudDao;
 import com.jeesite.common.mybatis.annotation.MyBatisDao;
 import com.jeesite.modules.examination.entity.ExaminationPaper;
+import com.jeesite.modules.single.entity.SingleSelection;
+
+import java.util.List;
 
 /**
  * examination_paperDAO接口
@@ -16,4 +19,6 @@ import com.jeesite.modules.examination.entity.ExaminationPaper;
 public interface ExaminationPaperDao extends CrudDao<ExaminationPaper> {
 
     public int saveid(String[] ids, String examName);
+
+    public List<SingleSelection> listpapersin(String[] sinquestionId);
 }

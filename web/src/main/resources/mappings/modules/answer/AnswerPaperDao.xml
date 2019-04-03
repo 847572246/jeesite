@@ -31,4 +31,9 @@
 		from multiple_selection
 		where status=0 and instr(#{ids,jdbcType=VARCHAR}, id)
 	</select>
+	<select id="changpaperstatus" resultType="String">
+		update answer_paper
+		set paper_status= 1
+		where id=#{answerPaperid}
+	</select>
 </mapper>

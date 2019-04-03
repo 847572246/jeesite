@@ -27,6 +27,9 @@ import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.examination.entity.ExaminationPaper;
 import com.jeesite.modules.examination.service.ExaminationPaperService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * examination_paperController
  * @author xt
@@ -75,13 +78,13 @@ public class ExaminationPaperController extends BaseController {
 	/**
 	 * 查询列表试卷数据
 	 */
-/*	@RequiresPermissions("examination:examinationPaper:view")
+	@RequiresPermissions("examination:examinationPaper:view")
 	@RequestMapping(value = "listpaperData")
-	@ResponseBody
-	public String listpaperData(String[] sinquestionId,String[] mulquestionId) {
-
-		return "a";
-	}*/
+	public String listpaperData(@RequestParam(required  = false) String[] sinquestionId,@RequestParam(required  = false)  String[] mulquestionId,Model model) {
+		List<SingleSelection> singleSelection=new ArrayList<SingleSelection>();
+		singleSelection=examinationPaperService.listpapersin(sinquestionId);
+		return "modules/examination/paperList";
+	}
 	/**
 	 * 查询列表数据
 	 */

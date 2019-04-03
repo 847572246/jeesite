@@ -22,4 +22,5 @@ public interface AnswerPaperDao extends CrudDao<AnswerPaper> {
     public String findexamsingleid(String examid);
     public List<MultipleSelection> findexammultiple(String ids);
     public String findexammultipleid(String examid);
+    void changpaperstatus(String answerPaperid);
 }

@@ -86,9 +86,10 @@ public class AnswerPaperController extends BaseController {
 	@RequiresPermissions("answer:answerPaper:view")
 	@PostMapping(value = "savepaper")
 	@ResponseBody
-	public String savepaper(@RequestBody List<middlePaperSelection> middlepaperSelections, HttpServletRequest request) {
+	public String savepaper(@RequestBody List<middlePaperSelection> middlepaperSelections, HttpServletRequest request,String answerPaperid) {
         String user =  UserUtils.getUser().getUserCode();
         String paperId = request.getParameter("paperId");
+		answerPaperService.changpaperstatus(answerPaperid);
         	PaperSelection paperSelection=null;
         	for (middlePaperSelection middlePaperSelection : middlepaperSelections) {
 				paperSelection = new PaperSelection();
@@ -107,11 +108,13 @@ public class AnswerPaperController extends BaseController {
 	 */
 	@RequiresPermissions("answer:answerPaper:view")
 	@RequestMapping(value = "exam")
-	public String exam( Model model,String examid) {
+	public String exam( Model model,String examid,String answerid) {
 		PaperSelection paperSelection=new PaperSelection();
 		String user =  UserUtils.getUser().getUserCode();
 		paperSelection.setUserCode(user);
 		paperSelection.setPaperId(examid);
+		AnswerPaper answerPaper=new AnswerPaper();
+		answerPaper.setId(answerid);
 		String sinids=answerPaperService.findexamsingleid(examid);
 		String mulids=answerPaperService.findexammultipleid(examid);
 		List<SingleSelection> singleSelection=answerPaperService.findexamsingle(sinids);
@@ -119,6 +122,7 @@ public class AnswerPaperController extends BaseController {
 		model.addAttribute("single", singleSelection);
 		model.addAttribute("multiple", multipleSelection);
 		model.addAttribute("paperSelection", paperSelection);
+		model.addAttribute("answerPaper", answerPaper);
 		return "modules/exam/newexam";
 	}
 	/**

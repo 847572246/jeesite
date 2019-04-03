@@ -137,6 +137,8 @@
 <script>
     $('#btnSave').click(function () {
         var reqdata = new Array();
+        var answerPaperid='${answerPaper.id}'
+		console.log(answerPaperid);
         var paperId ='${paperSelection.PaperId}';
         $("#question-form").find(":radio:checked").each(function(){
             var sinQuestionId = this.id;
@@ -170,10 +172,10 @@
             answer:answer
         };
         reqdata.push(data);
-
-        console.log(reqdata);
+/*
+        console.log(reqdata);*/
         $.ajax({
-            url: '${ctx}/answer/answerPaper/savepaper?paperId='+paperId
+            url: '${ctx}/answer/answerPaper/savepaper?paperId='+paperId+'&answerPaperid='+answerPaperid
             ,data: JSON.stringify(reqdata)
             ,dataType: 'json'
             ,contentType: 'application/json'
