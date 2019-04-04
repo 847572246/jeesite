@@ -36,4 +36,19 @@
 		set paper_status= 1
 		where id=#{answerPaperid}
 	</select>
+	<select id="findanswersingle" resultType="String">
+		select sin_question_id
+		from answer_paper
+		where status=0 and id=#{id}
+	</select>
+	<select id="findanswermultiple" resultType="String">
+		select mul_question_id
+		from answer_paper
+		where status=0 and id=#{id}
+	</select>
+	<select id="findanswer" resultType="ExaminationPaper">
+		select *
+		from examination_paper
+		where status=0 and id=#{id}
+	</select>
 </mapper>

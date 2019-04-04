@@ -22,4 +22,9 @@
 		from multiple_selection 
 		where status=0 and id=#{id}
 	</select>
+	<select id="getmultipleanswer" resultType="String">
+		select answer
+		from multiple_selection
+		where status=0 and id=#{id}
+	</select>
 </mapper>

@@ -80,10 +80,12 @@ public class ExaminationPaperController extends BaseController {
 	 */
 	@RequiresPermissions("examination:examinationPaper:view")
 	@RequestMapping(value = "listpaperData")
-	public String listpaperData(@RequestParam(required  = false) String[] sinquestionId,@RequestParam(required  = false)  String[] mulquestionId,Model model) {
-		List<SingleSelection> singleSelection=new ArrayList<SingleSelection>();
-		singleSelection=examinationPaperService.listpapersin(sinquestionId);
-		return "modules/examination/paperList";
+	public String listpaperData(@RequestParam(required  = false) String sinquestionId,@RequestParam(required  = false)  String mulquestionId,Model model) {
+		List<SingleSelection> single=examinationPaperService.listpapersin(sinquestionId);
+		List<MultipleSelection> multiple=examinationPaperService.listpapermul(mulquestionId);
+		model.addAttribute("single",single);
+		model.addAttribute("multiple",multiple);
+		return "modules/examination/newexam";
 	}
 	/**
 	 * 查询列表数据

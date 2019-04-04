@@ -6,11 +6,15 @@ package com.jeesite.modules.answer.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeesite.modules.examination.entity.ExaminationPaper;
+import com.jeesite.modules.examination.service.ExaminationPaperService;
 import com.jeesite.modules.multiple.entity.MultipleSelection;
+import com.jeesite.modules.multiple.service.MultipleSelectionService;
 import com.jeesite.modules.paper.entity.PaperSelection;
 import com.jeesite.modules.paper.entity.middlePaperSelection;
 import com.jeesite.modules.paper.service.PaperSelectionService;
 import com.jeesite.modules.single.entity.SingleSelection;
+import com.jeesite.modules.single.service.SingleSelectionService;
 import com.jeesite.modules.sys.utils.UserUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +45,12 @@ public class AnswerPaperController extends BaseController {
 	private AnswerPaperService answerPaperService;
 	@Autowired
 	private PaperSelectionService paperSelectionService;
+	@Autowired
+	private SingleSelectionService singleSelectionService;
+	@Autowired
+	private MultipleSelectionService multipleSelectionService;
+	@Autowired
+	private ExaminationPaperService examinationPaperService;
 	/**
 	 * 获取数据
 	 */
@@ -81,6 +91,33 @@ public class AnswerPaperController extends BaseController {
 		return "modules/answer/answerPaperForm";
 	}
 	/**
+	 * 查询已答列表试卷数据
+	 */
+	@RequiresPermissions("examination:examinationPaper:view")
+	@RequestMapping(value = "listAnswerData")
+	public String listpaperData(String examid,Model model) {
+		String sinquestionId = " ";
+		String mulquestionId = " ";
+		List<ExaminationPaper> examinationPaper = answerPaperService.findanswer(examid);
+		//String sinquestionId=answerPaperService.findanswersingle(paperid);
+		//String mulquestionId=answerPaperService.findanswermultiple(paperid);
+		for (int i=0;i<examinationPaper.size();i++){
+			if (examinationPaper.get(i).getSinquestionId()!=null){
+				sinquestionId+=examinationPaper.get(i).getSinquestionId();
+			}
+			if (examinationPaper.get(i).getMulquestionId()!=null){
+				mulquestionId+=examinationPaper.get(i).getMulquestionId();
+			}
+
+		}
+		examinationPaper.get(0).getMulquestionId();
+		List<SingleSelection> single=examinationPaperService.listpapersin(sinquestionId);
+		List<MultipleSelection> multiple=examinationPaperService.listpapermul(mulquestionId);
+		model.addAttribute("single",single);
+		model.addAttribute("multiple",multiple);
+		return "modules/examination/answerExam";
+	}
+	/**
 	 * 保存答题表
 	 */
 	@RequiresPermissions("answer:answerPaper:view")
@@ -89,6 +126,8 @@ public class AnswerPaperController extends BaseController {
 	public String savepaper(@RequestBody List<middlePaperSelection> middlepaperSelections, HttpServletRequest request,String answerPaperid) {
         String user =  UserUtils.getUser().getUserCode();
         String paperId = request.getParameter("paperId");
+        String sinanswer;
+		String mulanswer;
 		answerPaperService.changpaperstatus(answerPaperid);
         	PaperSelection paperSelection=null;
         	for (middlePaperSelection middlePaperSelection : middlepaperSelections) {
@@ -96,9 +135,28 @@ public class AnswerPaperController extends BaseController {
 				paperSelection.setUserCode(user);
 				paperSelection.setSinQuestionId(middlePaperSelection.getSinQuestionId());
 				paperSelection.setMulQuestionId(middlePaperSelection.getMulQuestionId());
+				if (middlePaperSelection.getSinQuestionId()!=null){
+					sinanswer=singleSelectionService.getsingleanswer(middlePaperSelection.getSinQuestionId());
+					paperSelection.setModelAnswers(sinanswer);
+					if (sinanswer.equals(middlePaperSelection.getAnswer())){
+						paperSelection.setCorrect("1");
+					}
+					else {
+						paperSelection.setCorrect("0");
+					}
+				}
+				if (middlePaperSelection.getMulQuestionId()!=null){
+					mulanswer=multipleSelectionService.getmultipleanswer(middlePaperSelection.getMulQuestionId());
+					paperSelection.setModelAnswers(mulanswer);
+					if (mulanswer.equals(middlePaperSelection.getAnswer())){
+						paperSelection.setCorrect("1");
+					}
+					else {
+						paperSelection.setCorrect("0");
+					}
+				}
 				paperSelection.setAnswer(middlePaperSelection.getAnswer());
-				paperSelection.setModelAnswers(middlePaperSelection.getModelAnswers());
-				paperSelection.setPaperId(paperId);
+				paperSelection.setPaperId(answerPaperid);
 				paperSelectionService.save(paperSelection);
 			}
 		return renderResult(Global.TRUE, text("保存答题表成功！"));

@@ -1,0 +1,118 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://java.sun.com/jsf/composite">
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>在线答题考试系统</title>
+
+	<link href="${ctxStatic}/common/main.css?${_version}" rel="stylesheet" type="text/css" />
+	<link href="${ctxStatic}/common/iconfont.css?${_version}" rel="stylesheet" type="text/css" />
+	<link href="${ctxStatic}/common/test.css?${_version}" rel="stylesheet" type="text/css" />
+	<script src="${ctxStatic}/common/jquery.min.js?${_version}" type="text/javascript"></script>
+	<style>
+		.hasBeenAnswer {
+			background: #5d9cec;
+			color:#fff;
+		}
+	</style>
+
+</head>
+<script src="${ctxStatic}/checkbox/js/jquery.min.js?${_version}" type="text/javascript"></script>
+<script src="${ctxStatic}/common/jquery.easy-pie-chart.js?${_version}"></script>
+<script src="${ctxStatic}/common/daan.js?${_version}"></script>
+<script type="text/javascript" src="${ctxStatic}/common/myLayer.js?${_version}"></script>
+<body>
+<div class="main">
+	<!--nr start-->
+	<div class="test_main">
+		<div class="nr_left">
+			<div class="test">
+				<form th:action="${ctx}/answer/answerPaper/savepaper" method="post" id="question-form">
+
+					<div class="test_content">
+						<div class="test_content_title">
+							<h2>单选题</h2>
+						</div>
+					</div>
+					<%
+					for(sin in single){
+					%>
+					<div class="test_content_nr">
+						<ul>
+							<li>
+								<div class="test_content_nr_tt">
+									<font>${sin.title}</font>
+								</div>
+								<div class="test_content_nr_main" name="answer">
+									<ul>
+										<li class="option">
+											A.${sin.A}
+										</li>
+										<li class="option">
+											B.${sin.B}
+										</li>
+										<li class="option">
+											C.${sin.C}
+										</li>
+										<li class="option">
+											D.${sin.D}
+										</li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<% } %>
+					<!-------------------------------------------------------------------------------------->
+					<div class="test_content">
+						<div class="test_content_title">
+							<h2>多选题</h2>
+						</div>
+					</div>
+					<%
+					for(mul in multiple){
+					%>
+					<div class="test_content_nr">
+						<ul>
+							<li>
+								<div class="test_content_nr_tt">
+									<font>${mul.title}</font>
+								</div>
+								<div class="test_content_nr_main">
+									<ul>
+											<li class="option">
+												A.${mul.A}
+											</li>
+											<li class="option">
+												B.${mul.B}
+											</li>
+											<li class="option">
+												C.${mul.C}
+											</li>
+
+											<li class="option">
+												D.${mul.D}
+											</li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<% } %>
+				</form>
+			</div>
+
+		</div>
+
+	</div>
+	<div class="foot"></div>
+</div>
+
+<script>
+
+</script>
+
+
+</body>
+</html>

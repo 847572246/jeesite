@@ -21,6 +21,8 @@
 <script src="${ctxStatic}/checkbox/js/jquery.min.js?${_version}" type="text/javascript"></script>
 <script src="${ctxStatic}/common/jquery.easy-pie-chart.js?${_version}"></script>
 <script src="${ctxStatic}/common/daan.js?${_version}"></script>
+<!--<script src="${ctxStatic}/common/examdanxuan.js?${_version}"></script>
+<script src="${ctxStatic}/common/examduoxuan.js?${_version}"></script>-->
 <script type="text/javascript" src="${ctxStatic}/common/myLayer.js?${_version}"></script>
 <body>
 <div class="main">
@@ -31,9 +33,9 @@
 				<!--${ctx}/answer/answerPaper/savepaper-->
 				<form th:action="${ctx}/answer/answerPaper/savepaper" method="post" id="question-form">
 
-					<div class="test_title">
+					<!--<div class="test_title">
 						<font><input type="button" id="btnSave" name="test_jiaojuan" value="交卷"></font>
-					</div>
+					</div>-->
 					<!-------------------------------------------------------------------------------------->
 					<div class="test_content">
 						<div class="test_content_title">
@@ -47,31 +49,22 @@
 						<ul>
 							<li>
 								<div class="test_content_nr_tt">
-									<!--<i>1</i>--><font>${sin.title}</font>
+									<font>${sin.title}</font>
 								</div>
-
 								<div class="test_content_nr_main" name="answer">
 									<ul>
-										<label>
 										<li class="option">
-											<input type="radio" class="radioOrCheck" name="${sin.id}" value="A" id="${sin.id}"/>A.${sin.A}
+											A.${sin.A}
 										</li>
-										</label>
-										<label>
 										<li class="option">
-											<input type="radio" class="radioOrCheck" name="${sin.id}" value="B" id="${sin.id}"/>B.${sin.B}
+											B.${sin.B}
 										</li>
-										</label>
-										<label>
 										<li class="option">
-											<input type="radio" class="radioOrCheck" name="${sin.id}" value="C" id="${sin.id}"/>C.${sin.C}
+											C.${sin.C}
 										</li>
-										</label>
-										<label>
 										<li class="option">
-											<input type="radio" class="radioOrCheck" name="${sin.id}" value="D" id="${sin.id}"/>D.${sin.D}
+											D.${sin.D}
 										</li>
-										</label>
 									</ul>
 								</div>
 							</li>
@@ -91,31 +84,23 @@
 						<ul>
 							<li>
 								<div class="test_content_nr_tt">
-									<!--<i>1</i>--><font>${mul.title}</font>
+									<font>${mul.title}</font>
 								</div>
 								<div class="test_content_nr_main">
 									<ul>
+											<li class="option">
+												A.${mul.A}
+											</li>
+											<li class="option">
+												B.${mul.B}
+											</li>
+											<li class="option">
+												C.${mul.C}
+											</li>
 
-										<label>
 											<li class="option">
-												<input type="checkbox" class="radioOrCheck" name="${mul.id}" value="A" id="${mul.id}"/>A.${mul.A}
+												D.${mul.D}
 											</li>
-										</label>
-										<label>
-											<li class="option">
-												<input type="checkbox" class="radioOrCheck" name="${mul.id}" value="B" id="${mul.id}"/>B.${mul.B}
-											</li>
-										</label>
-										<label>
-											<li class="option">
-												<input type="checkbox" class="radioOrCheck" name="${mul.id}" value="C" id="${mul.id}"/>C.${mul.C}
-											</li>
-										</label>
-										<label>
-											<li class="option">
-												<input type="checkbox" class="radioOrCheck" name="${mul.id}" value="D" id="${mul.id}"/>D.${mul.D}
-											</li>
-										</label>
 									</ul>
 								</div>
 							</li>
@@ -133,57 +118,7 @@
 </div>
 
 <script>
-    $('#btnSave').click(function () {
-        var reqdata = new Array();
-        var answerPaperid='${answerPaper.id}'
-		console.log(answerPaperid);
-        var paperId ='${paperSelection.PaperId}';
-        $("#question-form").find(":radio:checked").each(function(){
-            var sinQuestionId = this.id;
-            var answer = $(this).val();
-            var data = {
-                sinQuestionId: sinQuestionId,
-                answer:answer
-			};
 
-            reqdata.push(data);
-        });
-
-        var answer = '';
-        var mulQuestionId = '-1';
-        $("#question-form").find(":checkbox:checked").each(function(){
-            var _answer = $(this).val();
-            if (mulQuestionId == '-1' || mulQuestionId == this.id) {
-                answer += _answer;
-			}else {
-                var data = {
-                    mulQuestionId: mulQuestionId,
-                    answer:answer
-                };
-                reqdata.push(data);
-                answer=_answer;
-			}
-            mulQuestionId=this.id;
-        });
-        var data = {
-            mulQuestionId: mulQuestionId,
-            answer:answer
-        };
-        reqdata.push(data);
-/*
-        console.log(reqdata);*/
-        $.ajax({
-            url: '${ctx}/answer/answerPaper/savepaper?paperId='+paperId+'&answerPaperid='+answerPaperid
-            ,data: JSON.stringify(reqdata)
-            ,dataType: 'json'
-            ,contentType: 'application/json'
-            ,type: 'post'
-            ,success: function (result) {
-                return result;
-            }
-
-        });
-    });
 </script>
 
 

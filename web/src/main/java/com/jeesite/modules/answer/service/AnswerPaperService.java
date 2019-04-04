@@ -118,4 +118,15 @@ public class AnswerPaperService extends CrudService<AnswerPaperDao, AnswerPaper>
 	public void changpaperstatus(String answerPaperid) {
 		dao.changpaperstatus(answerPaperid);
 	}
+
+    public String findanswersingle(String paperid) {
+		return dao.findanswersingle(paperid);
+    }
+    public String findanswermultiple(String paperid) {
+		return dao.findanswermultiple(paperid);
+    }
+
+	public List<ExaminationPaper> findanswer(String paperid) {
+		return dao.findanswer(paperid);
+	}
 }

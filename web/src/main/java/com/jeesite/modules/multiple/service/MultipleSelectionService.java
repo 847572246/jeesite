@@ -81,5 +81,8 @@ public class MultipleSelectionService extends CrudService<MultipleSelectionDao, 
 	public void delete(MultipleSelection multipleSelection) {
 		super.delete(multipleSelection);
 	}
-	
+
+    public String  getmultipleanswer(String mulQuestionId) {
+		return dao.getmultipleanswer(mulQuestionId);
+    }
 }

@@ -27,4 +27,9 @@
 		from examination_paper
 		where status=0 and id=#{id}
 	</select>
+	<select id="getsingleanswer" resultType="String">
+		select answer
+		from single_selection
+		where status=0 and id=#{id}
+	</select>
 </mapper>

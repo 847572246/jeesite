@@ -79,7 +79,9 @@
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'${text('试卷名称')}', name:'examName', index:'a.exam_name', width:150, align:"left"},
+		{header:'${text('试卷名称')}', name:'examName', index:'a.exam_name', width:150, align:"left", formatter: function(val, obj, row, act){
+                return js.getDictLabel(${@DictUtils.getDictListJson('sys_search_status')}, val, '${text('未知')}', true);
+		}},
 		{header:'${text('用户昵称')}', name:'userName', index:'a.user_name', width:150, align:"left"},
 		{header:'${text('备注')}', name:'remarks', index:'a.remarks', width:150, align:"left"},
 		{header:'${text('状态')}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){

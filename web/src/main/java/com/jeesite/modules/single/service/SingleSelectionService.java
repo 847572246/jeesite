@@ -93,4 +93,8 @@ public class SingleSelectionService extends CrudService<SingleSelectionDao, Sing
 	public String[] getexamsingle(String examid) {
 		return dao.getexamsingle(examid);
 	}
+
+    public String getsingleanswer(String sinQuestionId) {
+		return dao.getsingleanswer(sinQuestionId);
+    }
 }

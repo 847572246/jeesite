@@ -21,4 +21,5 @@ public interface SingleSelectionDao extends CrudDao<SingleSelection> {
 	public List<SingleSelection> getsingle();
 	public SingleSelection findsingle(String sinids);
 	public String[] getexamsingle(String examid);
+    public String getsingleanswer(String sinQuestionId);
 }

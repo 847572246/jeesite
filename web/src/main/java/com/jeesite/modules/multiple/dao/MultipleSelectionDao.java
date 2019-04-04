@@ -18,4 +18,6 @@ import com.jeesite.modules.multiple.entity.MultipleSelection;
 public interface MultipleSelectionDao extends CrudDao<MultipleSelection> {
 	public List<MultipleSelection> getmultiple();
 	public MultipleSelection findmultiple(String mulids);
+
+    public String getmultipleanswer(String mulQuestionId);
 }

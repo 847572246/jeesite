@@ -6,6 +6,7 @@ package com.jeesite.modules.answer.dao;
 import com.jeesite.common.dao.CrudDao;
 import com.jeesite.common.mybatis.annotation.MyBatisDao;
 import com.jeesite.modules.answer.entity.AnswerPaper;
+import com.jeesite.modules.examination.entity.ExaminationPaper;
 import com.jeesite.modules.multiple.entity.MultipleSelection;
 import com.jeesite.modules.single.entity.SingleSelection;
 
@@ -23,4 +24,8 @@ public interface AnswerPaperDao extends CrudDao<AnswerPaper> {
     public List<MultipleSelection> findexammultiple(String ids);
     public String findexammultipleid(String examid);
     void changpaperstatus(String answerPaperid);
+    public String findanswersingle(String paperid);
+    public String findanswermultiple(String paperid);
+
+    public List<ExaminationPaper> findanswer(String paperid);
 }
