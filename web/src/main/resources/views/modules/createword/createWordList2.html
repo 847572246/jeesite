@@ -84,7 +84,6 @@
 var resultData = new Array();
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
-    /*showCheckbox: true,*/
 	columnModel: [
 
 		{header:'${text(' ')}',name:'checkbox' , width:80, align:"left", formatter: function(val, obj, row, act){
@@ -129,7 +128,7 @@ $('#dataGrid').dataGrid({
 	}
 
 });
-resultData.push("1107822696441622528","1095121542272516096");
+
 
 	function onClick(obj) {
         if(obj.checked==true){

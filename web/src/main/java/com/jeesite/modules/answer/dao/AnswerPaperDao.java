@@ -8,6 +8,7 @@ import com.jeesite.common.mybatis.annotation.MyBatisDao;
 import com.jeesite.modules.answer.entity.AnswerPaper;
 import com.jeesite.modules.examination.entity.ExaminationPaper;
 import com.jeesite.modules.multiple.entity.MultipleSelection;
+import com.jeesite.modules.paper.entity.PaperSelection;
 import com.jeesite.modules.single.entity.SingleSelection;
 
 import java.util.List;
@@ -27,5 +28,5 @@ public interface AnswerPaperDao extends CrudDao<AnswerPaper> {
     public String findanswersingle(String paperid);
     public String findanswermultiple(String paperid);
 
-    public List<ExaminationPaper> findanswer(String paperid);
+    public List<PaperSelection> findanswer(String paperid);
 }

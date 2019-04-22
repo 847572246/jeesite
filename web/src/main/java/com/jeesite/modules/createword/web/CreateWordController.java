@@ -132,7 +132,7 @@ public class CreateWordController extends BaseController {
 		Map<String, Object> root = new HashMap<String, Object>();
 		root.put("single", list);
 		root.put("multiple", list1);
-		FreeMarkertUtil.analysisTemplate("C:/create/", "exam.ftl", "C:/create/use.doc" + Math.random() * 100 + ".doc",
+		FreeMarkertUtil.analysisTemplate("C:/Users/xt/Desktop/create", "exam.ftl", "C:/Users/xt/Desktop/create/use.doc" + Math.random() * 100 + ".doc",
 				root);
 		return "生成成功";
 	}

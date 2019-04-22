@@ -6,13 +6,14 @@ package com.jeesite.modules.answer.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jeesite.modules.examination.entity.ExaminationPaper;
 import com.jeesite.modules.examination.service.ExaminationPaperService;
+import com.jeesite.modules.multiple.entity.AnswerMultiple;
 import com.jeesite.modules.multiple.entity.MultipleSelection;
 import com.jeesite.modules.multiple.service.MultipleSelectionService;
 import com.jeesite.modules.paper.entity.PaperSelection;
 import com.jeesite.modules.paper.entity.middlePaperSelection;
 import com.jeesite.modules.paper.service.PaperSelectionService;
+import com.jeesite.modules.single.entity.AnswerSingle;
 import com.jeesite.modules.single.entity.SingleSelection;
 import com.jeesite.modules.single.service.SingleSelectionService;
 import com.jeesite.modules.sys.utils.UserUtils;
@@ -93,29 +94,37 @@ public class AnswerPaperController extends BaseController {
 	/**
 	 * 查询已答列表试卷数据
 	 */
-	@RequiresPermissions("examination:examinationPaper:view")
+	@RequiresPermissions("answer:answerPaper:view")
 	@RequestMapping(value = "listAnswerData")
-	public String listpaperData(String examid,Model model) {
-		String sinquestionId = " ";
-		String mulquestionId = " ";
-		List<ExaminationPaper> examinationPaper = answerPaperService.findanswer(examid);
-		//String sinquestionId=answerPaperService.findanswersingle(paperid);
-		//String mulquestionId=answerPaperService.findanswermultiple(paperid);
-		for (int i=0;i<examinationPaper.size();i++){
-			if (examinationPaper.get(i).getSinquestionId()!=null){
-				sinquestionId+=examinationPaper.get(i).getSinquestionId();
+	public String listpaperData(String id,Model model) {
+		String sinquestionId = "";
+		String mulquestionId = "";
+		List<AnswerSingle> answerSingles=new ArrayList<AnswerSingle>();
+		List<AnswerMultiple> answerMultiples=new ArrayList<AnswerMultiple>();
+		List<PaperSelection> paperSelections =answerPaperService.findanswer(id);
+		for (int i=0;i<paperSelections.size();i++){
+			if (paperSelections.get(i).getSinQuestionId()!=null){
+				sinquestionId+=paperSelections.get(i).getSinQuestionId();
 			}
-			if (examinationPaper.get(i).getMulquestionId()!=null){
-				mulquestionId+=examinationPaper.get(i).getMulquestionId();
+			if (paperSelections.get(i).getMulQuestionId()!=null){
+				mulquestionId+=paperSelections.get(i).getMulQuestionId();
 			}
-
 		}
-		examinationPaper.get(0).getMulquestionId();
-		List<SingleSelection> single=examinationPaperService.listpapersin(sinquestionId);
-		List<MultipleSelection> multiple=examinationPaperService.listpapermul(mulquestionId);
+		List<AnswerSingle> single=examinationPaperService.listanswersin(sinquestionId);
+		List<AnswerMultiple> multiple=examinationPaperService.listanswermul(mulquestionId);
+		for (int i=0;i<single.size();i++){
+			for (int j=0;j<paperSelections.size();j++){
+				if(single.get(i).getId().equals(paperSelections.get(j).getSinQuestionId())){
+					single.get(i).setAnswer(paperSelections.get(j).getAnswer());
+					single.get(i).setModelAnswers(paperSelections.get(j).getModelAnswers());
+					single.get(i).setCorrect(paperSelections.get(j).getCorrect());
+				}
+			}
+		}
 		model.addAttribute("single",single);
 		model.addAttribute("multiple",multiple);
-		return "modules/examination/answerExam";
+		model.addAttribute("paperSelections",paperSelections);
+		return "modules/examination/answer";
 	}
 	/**
 	 * 保存答题表
@@ -159,7 +168,8 @@ public class AnswerPaperController extends BaseController {
 				paperSelection.setPaperId(answerPaperid);
 				paperSelectionService.save(paperSelection);
 			}
-		return renderResult(Global.TRUE, text("保存答题表成功！"));
+		return "保存答题表成功！";
+        	//return renderResult(Global.TRUE, text("保存答题表成功！"));
 	}
 	/**
 	 * 跳转答题页面

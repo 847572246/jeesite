@@ -11,5 +11,14 @@
 		</where>
 		ORDER BY ${sqlMap.order.toSql()}
 	</select> -->
-	
+	<select id="findpapersin" resultType="String">
+		select sin_question_id
+		from paper_selection
+		where status=0 and paper_id=#{paper_id}
+	</select>
+	<select id="findpapermul" resultType="String">
+		select mul_question_id
+		from paper_selection
+		where status=0 and paper_id=#{paper_id}
+	</select>
 </mapper>

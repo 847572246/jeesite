@@ -5,7 +5,9 @@ package com.jeesite.modules.examination.service;
 
 import java.util.List;
 
+import com.jeesite.modules.multiple.entity.AnswerMultiple;
 import com.jeesite.modules.multiple.entity.MultipleSelection;
+import com.jeesite.modules.single.entity.AnswerSingle;
 import com.jeesite.modules.single.entity.SingleSelection;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,7 +87,13 @@ public class ExaminationPaperService extends CrudService<ExaminationPaperDao, Ex
     public List<SingleSelection> listpapersin(String sinquestionId) {
 		return dao.listpapersin(sinquestionId);
     }
+	public List<AnswerSingle> listanswersin(String sinquestionId) {
+		return dao.listanswersin(sinquestionId);
+	}
 	public List<MultipleSelection> listpapermul(String mulquestionId) {
 		return dao.listpapermul(mulquestionId);
+	}
+	public List<AnswerMultiple> listanswermul(String mulquestionId) {
+		return dao.listanswermul(mulquestionId);
 	}
 }

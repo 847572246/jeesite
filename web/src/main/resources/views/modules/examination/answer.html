@@ -1,0 +1,149 @@
+﻿<!DOCTYPE HTML>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>在线答题考试系统</title>
+	<link href="${ctxStatic}/common/main.css?${_version}" rel="stylesheet" type="text/css" />
+	<link href="${ctxStatic}/common/iconfont.css?${_version}" rel="stylesheet" type="text/css" />
+	<link href="${ctxStatic}/common/test.css?${_version}" rel="stylesheet" type="text/css" />
+	<script src="${ctxStatic}/common/jquery.min.js?${_version}" type="text/javascript"></script>
+	<style>
+		.hasBeenAnswer {
+			background: #5d9cec;
+			color:#fff;
+		}
+	</style>
+
+</head>
+<script src="${ctxStatic}/checkbox/js/jquery.min.js?${_version}" type="text/javascript"></script>
+<script src="${ctxStatic}/common/jquery.easy-pie-chart.js?${_version}"></script>
+<script src="${ctxStatic}/common/daan.js?${_version}"></script>
+<!--<script src="${ctxStatic}/common/examdanxuan.js?${_version}"></script>
+<script src="${ctxStatic}/common/examduoxuan.js?${_version}"></script>-->
+<script type="text/javascript" src="${ctxStatic}/common/myLayer.js?${_version}"></script>
+<body>
+<div class="main">
+	<!--nr start-->
+	<div class="test_main">
+		<div class="nr_left">
+			<div class="test">
+				<!--${ctx}/answer/answerPaper/savepaper-->
+				<form th:action="${ctx}/answer/answerPaper/savepaper" method="post" id="question-form">
+
+					<!--<div class="test_title">
+						<font><input type="button" id="btnSave" name="test_jiaojuan" value="交卷"></font>
+					</div>-->
+					<!-------------------------------------------------------------------------------------->
+					<div class="test_content">
+						<div class="test_content_title">
+							<h2>单选题</h2>
+						</div>
+					</div>
+					<%
+					for(sin in single){
+					%>
+					<div class="test_content_nr">
+						<ul>
+							<li>
+								<div class="test_content_nr_tt">
+									<font>${sin.title}</font>
+								</div>
+								<div class="test_content_nr_main" name="answer">
+									<ul>
+										<label>
+											<li class="option">
+												<input type="radio" class="radioOrCheck" name="${sin.id}" value="A" id="${sin.id}"/>A.${sin.A}
+											</li>
+										</label>
+										<label>
+											<li class="option">
+												<input type="radio" class="radioOrCheck" name="${sin.id}" value="B" id="${sin.id}"/>B.${sin.B}
+											</li>
+										</label>
+										<label>
+											<li class="option">
+												<input type="radio" class="radioOrCheck" name="${sin.id}" value="C" id="${sin.id}"/>C.${sin.C}
+											</li>
+										</label>
+										<label>
+											<li class="option">
+												<input type="radio" class="radioOrCheck" name="${sin.id}" value="D" id="${sin.id}"/>D.${sin.D}
+											</li>
+										</label>
+										<!--<p th:if="${sin.correct}=='0'>dsggsdfgsdfgsg</p>-->
+											<div th:if="${sin.correct == '0'}">
+											<font color="red">${sin.answer}</font>
+											<font color="red">${sin.modelAnswers}</font>
+											</div>
+											<div th:else="${sin.correct == '1' }">
+											<font>${sin.answer}</font>
+											<font>${sin.modelAnswers}</font>
+											</div>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<% } %>
+					<!-------------------------------------------------------------------------------------->
+					<div class="test_content">
+						<div class="test_content_title">
+							<h2>多选题</h2>
+						</div>
+					</div>
+					<%
+					for(mul in multiple){
+					%>
+					<div class="test_content_nr">
+						<ul>
+							<li>
+								<div class="test_content_nr_tt">
+									<!--<i>1</i>--><font>${mul.title}</font>
+								</div>
+								<div class="test_content_nr_main">
+									<ul>
+
+										<label>
+											<li class="option">
+												<input type="checkbox" class="radioOrCheck" name="${mul.id}" value="A" id="${mul.id}"/>A.${mul.A}
+											</li>
+										</label>
+										<label>
+											<li class="option">
+												<input type="checkbox" class="radioOrCheck" name="${mul.id}" value="B" id="${mul.id}"/>B.${mul.B}
+											</li>
+										</label>
+										<label>
+											<li class="option">
+												<input type="checkbox" class="radioOrCheck" name="${mul.id}" value="C" id="${mul.id}"/>C.${mul.C}
+											</li>
+										</label>
+										<label>
+											<li class="option">
+												<input type="checkbox" class="radioOrCheck" name="${mul.id}" value="D" id="${mul.id}"/>D.${mul.D}
+											</li>
+										</label>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<% } %>
+				</form>
+			</div>
+
+		</div>
+
+	</div>
+	<!--nr end-->
+	<div class="foot"></div>
+</div>
+
+<script>
+
+</script>
+
+
+</body>
+</html>

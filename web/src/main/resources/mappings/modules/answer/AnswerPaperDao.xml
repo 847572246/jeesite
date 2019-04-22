@@ -46,9 +46,9 @@
 		from answer_paper
 		where status=0 and id=#{id}
 	</select>
-	<select id="findanswer" resultType="ExaminationPaper">
+	<select id="findanswer" resultType="PaperSelection">
 		select *
-		from examination_paper
-		where status=0 and id=#{id}
+		from paper_selection
+		where status=0 and paper_id=#{id}
 	</select>
 </mapper>

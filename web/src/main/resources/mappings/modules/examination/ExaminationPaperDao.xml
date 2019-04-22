@@ -25,4 +25,14 @@
 		from multiple_selection
 		where instr(#{ids,jdbcType=VARCHAR}, id)
 	</select>
+	<select id="listanswersin" resultType="AnswerSingle">
+		select *
+		from single_selection
+		where instr(#{ids,jdbcType=VARCHAR}, id)
+	</select>
+	<select id="listanswermul" resultType="AnswerMultiple">
+		select *
+		from multiple_selection
+		where instr(#{ids,jdbcType=VARCHAR}, id)
+	</select>
 </mapper>

@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.jeesite.modules.examination.entity.ExaminationPaper;
 import com.jeesite.modules.multiple.entity.MultipleSelection;
+import com.jeesite.modules.paper.entity.PaperSelection;
 import com.jeesite.modules.single.entity.SingleSelection;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -126,7 +127,7 @@ public class AnswerPaperService extends CrudService<AnswerPaperDao, AnswerPaper>
 		return dao.findanswermultiple(paperid);
     }
 
-	public List<ExaminationPaper> findanswer(String paperid) {
+	public List<PaperSelection> findanswer(String paperid) {
 		return dao.findanswer(paperid);
 	}
 }
