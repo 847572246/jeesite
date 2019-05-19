@@ -18,8 +18,6 @@
 </head>
 <script src="${ctxStatic}/common/jquery.easy-pie-chart.js?${_version}"></script>
 <script src="${ctxStatic}/common/daan.js?${_version}"></script>
-<!--<script src="${ctxStatic}/common/examdanxuan.js?${_version}"></script>
-<script src="${ctxStatic}/common/examduoxuan.js?${_version}"></script>-->
 <script type="text/javascript" src="${ctxStatic}/common/myLayer.js?${_version}"></script>
 <body>
 
@@ -28,7 +26,6 @@
 	<div class="test_main">
 		<div class="nr_left">
 			<div class="test">
-				<!--${ctx}/answer/answerPaper/savepaper-->
 				<#form:form action="${ctx}/wrongselect/wrongSelection/pluralsave" method="post" id="confirm-form">
 
 					<!-------------------------------------------------------------------------------------->
@@ -78,14 +75,16 @@
 										<%if(sin.correct == "0"){%>
 										<font color="red">你的选择是:${sin.answer}</font></br>
 										<font color="red">正确答案是:${sin.modelAnswers}</font></br>
-										<font color="red">请确认错误原因:</font>${sin.wrongReason}
-										<!--<input path="wrongReason" id="${sin.id}wrongreason" maxlength="100" class="form-control" onclick="wrongreasonList(id,"${sin.id}wrongid")">
-										<input path="wrongReasonId" id="${sin.id}wrongid" maxlength="255" class="form-control"/>-->
-										<#form:input id="${sin.id}" path="userName" name="userName" value="${userName}" maxlength="100" class="form-control required " style="display:none"/>
-										<#form:input id="${sin.id}" path="userCode" name="userCode" value="${paperSelections[0].userCode}" maxlength="100" class="form-control required " style="display:none"/>
-										<#form:input id="${sin.id}" path="wrongIdSin" name="wrongIdSin" value="${sin.id}" maxlength="100" class="form-control required " style="display:none"/>
-										<#form:input id="${sin.id}" path="wrongSelect" name="wrongSelect" value="${sin.title}" maxlength="100" class="form-control required " style="display:none"/>
-										<#form:input id="${sin.id}" path="wrongReasonId" name="wrongReasonId" value="${sin.wrongReasonId}" maxlength="100" class="form-control required " style="display:none"/>
+										<font color="red">请添加错误原因:</font>
+
+										<#form:input path="userName" name="userName" value="${userName}" maxlength="100" class="form-control required "/>
+										<#form:input path="userCode" name="userCode" value="${paperSelections[0].userCode}" maxlength="100" class="form-control required "/>
+										<#form:input path="wrongIdSin" name="wrongIdSin" value="${sin.id}" maxlength="100" class="form-control required "/>
+										<#form:input path="wrongSelect" name="wrongSelect" value="${sin.title}" maxlength="100" class="form-control required "/>
+										<#form:listselect id="sinwrongReason" title="错误原因"  path="wrongReason"
+										url="${ctx}/wrongselect/wrongSelection/confirmWrongreason" allowClear="false"
+										checkbox="false" itemCode="id" itemName="wrongReason"/>
+
 										<%}%>
 										<%if(sin.correct == "1"){%>
 											<font>你的选择是:${sin.answer}</font></br>
@@ -145,14 +144,15 @@
 										<%if(mul.correct == "0"){%>
 										<font color="red">你的选择是:${mul.answer}</font></br>
 										<font color="red">正确答案是:${mul.modelAnswers}</font></br>
-										<font color="red">请确认错误原因:</font>${mul.wrongReason}
-                                        <#form:input id="${mul.id}" path="userName" name="userName" value="${userName}" maxlength="100" class="form-control required " style="display:none"/>
-                                        <#form:input id="${mul.id}" path="userCode" name="userCode" value="${paperSelections[0].userCode}" maxlength="100" class="form-control required " style="display:none"/>
-                                        <#form:input id="${mul.id}" path="wrongIdMul" name="wrongIdMul" value="${mul.id}" maxlength="100" class="form-control required " style="display:none"/>
-                                        <#form:input id="${mul.id}" path="wrongSelect" name="wrongSelect" value="${mul.title}" maxlength="100" class="form-control required " style="display:none"/>
-										<#form:input id="${mul.id}" path="wrongReasonId" name="wrongReasonId" value="${mul.wrongReasonId}" maxlength="100" class="form-control required " style="display:none"/>
-										<!--<#form:input  path="wrongSelect" name="wrongSelect" value="${mul.title}" maxlength="100" class="form-control required "/>-->
-										<%}%>
+										<font color="red">请添加错误原因:</font>
+										<#form:input path="userName" name="userName" value="${userName}" maxlength="100" class="form-control required "/>
+										<#form:input path="userCode" name="userCode" value="${paperSelections[0].userCode}" maxlength="100" class="form-control required "/>
+										<#form:input path="wrongIdMul" name="wrongIdMul" value="${mul.id}" maxlength="100" class="form-control required "/>
+										<#form:input path="wrongSelect" name="wrongSelect" value="${mul.title}" maxlength="100" class="form-control required "/>
+                                        <#form:listselect id="mulwrongreason${mul.id}" title="错误原因"  path="wrongReasonId"
+                                        url="${ctx}/wrongselect/wrongSelection/confirmWrongreason" allowClear="false"
+                                        checkbox="false" itemCode="id" itemName="wrongReason"/>
+                                        <%}%>
 										<%if(mul.correct == "1"){%>
 										<font>你的选择是:${mul.answer}</font></br>
 										<font>正确答案是:${mul.modelAnswers}</font>
@@ -164,11 +164,12 @@
 					</div>
 					<% } %>
 					<!--nr end-->
-				<%if(paperstatus == "1"){%>
 					<div class="foot">
+						<!--<div class="test_title">
+							<font><input type="button" id="btnSave" name="test_jiaojuan" value="交卷"></font>
+						</div>-->
 						<button type="button" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp;
 					</div>
-				<% } %>
 				</#form:form>
 			</div>
 
@@ -183,85 +184,55 @@
 	function confirmpaper() {
 		var userCode='${paperSelections[0].userCode}';
 	}
-	//var paperId='${paperSelections[0].paperId}';
 	$('#btnSubmit').click(function () {
-		var paperId='${paperSelections[0].paperId}';
 		var reqdata = new Array();
-		var userName;
-		var userCode;
-		var wrongIdSin;
-		var wrongSelect;
-		var wrongReasonId;
-		var wrongIdMul;
-		var QuestionId = '-1';
-		var mulQuestionId = '-1';
-		var i=1;
 		$("#confirm-form").find(":text").each(function(){
-			var value = $(this).val();
-			if ((QuestionId == '-1' || QuestionId == this.id)&&this.name=='userName') {
-				userName=value;
-			}
-			else if ((QuestionId == '-1' || QuestionId == this.id)&&this.name=='userCode') {
-				userCode=value;
-			}
-			else if ((QuestionId == '-1' || QuestionId == this.id)&&this.name=='wrongIdSin') {
-				wrongIdSin=value;
-			}
-			else if ((QuestionId == '-1' || QuestionId == this.id)&&this.name=='wrongIdMul') {
-				wrongIdMul=value;
-
-			}
-			else if ((QuestionId == '-1' || QuestionId == this.id)&&this.name=='wrongSelect') {
-				wrongSelect=value;
-			}
-			else if ((QuestionId == '-1' || QuestionId == this.id)&&this.name=='wrongReasonId') {
-				wrongReasonId=value;
-			}
-			else if (QuestionId != '-1' || QuestionId != this.id){
-				var mid=wrongReasonId.split(",")
-				for (var i=0;i<mid.length;i++){
-					var data = {
-						userName: userName,
-						userCode: userCode,
-						wrongIdSin: wrongIdSin,
-						wrongIdMul: wrongIdMul,
-						wrongSelect: wrongSelect,
-						wrongReasonId: mid[i],
-					};
-					reqdata.push(data);
-				}
-
-				wrongIdSin="";
-				wrongIdMul="";
-			}
-
-			QuestionId=this.id;
-		});
-		var mid=wrongReasonId.split(",")
-		for (var i=0;i<mid.length;i++){
+			var wrongIdSin = this.id;
+			var answer = $(this).val();
+			console.log(wrongIdSin+'111');
+            console.log(answer+'222');
 			var data = {
-				userName: userName,
-				userCode: userCode,
-				wrongIdSin: wrongIdSin,
-				wrongIdMul: wrongIdMul,
-				wrongSelect: wrongSelect,
-				wrongReasonId: mid[i],
+                wrongIdSin: wrongIdSin,
+				answer:answer
 			};
 			reqdata.push(data);
-		}
-		// console.log(reqdata);
-		$.ajax({
-			url: '${ctx}/wrongselect/wrongSelection/pluralsave?paperId='+paperId+''
+		});
+		console.log(reqdata);
+/*
+		var answer = '';
+		var mulQuestionId = '-1';
+		$("#confirm-form").find(":checkbox:checked").each(function(){
+			var _answer = $(this).val();
+			if (mulQuestionId == '-1' || mulQuestionId == this.id) {
+				answer += _answer;
+			}else {
+				var data = {
+					mulQuestionId: mulQuestionId,
+					answer:answer
+				};
+				reqdata.push(data);
+				answer=_answer;
+			}
+			mulQuestionId=this.id;
+		});
+		var data = {
+			mulQuestionId: mulQuestionId,
+			answer:answer
+		};
+		reqdata.push(data);*/
+		/*
+                console.log(reqdata);*/
+		/*$.ajax({
+			url: '${ctx}/answer/answerPaper/savepaper?paperId='+paperId+'&answerPaperid='+answerPaperid
 			,data: JSON.stringify(reqdata)
-			,dataType: 'text'
+			,dataType: 'json'
 			,contentType: 'application/json'
 			,type: 'post'
 			,success: function (result) {
-				alert(result);
+				return result;
 			}
 
-		});
-
+		});*/
 	});
 </script>
 

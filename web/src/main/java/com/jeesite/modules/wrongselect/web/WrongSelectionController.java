@@ -7,21 +7,22 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeesite.common.codec.EncodeUtils;
+import com.jeesite.common.mapper.JsonMapper;
+import com.jeesite.modules.answer.service.AnswerPaperService;
+import com.jeesite.modules.paper.entity.middlePaperSelection;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.jsoup.helper.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
@@ -46,6 +47,8 @@ public class WrongSelectionController extends BaseController {
 
 	@Autowired
 	private WrongSelectionService wrongSelectionService;
+	@Autowired
+	private AnswerPaperService answerPaperService;
 	
 	/**
 	 * 获取数据
@@ -133,6 +136,20 @@ public class WrongSelectionController extends BaseController {
 		model.addAttribute("wrongReason", wrongReason);
 		return "modules/wrongselect/wrongReasonList";
 	}
+	/**
+	 * 显示确认错误原因列表
+	 */
+	@RequiresPermissions("user")
+	@RequestMapping(value = "confirmWrongreason")
+	public String confirmreason(WrongSelection wrongSelection, String selectData, Model model) {
+		String selectDataJson = EncodeUtils.decodeUrl(selectData);
+		if (JsonMapper.fromJson(selectDataJson, Map.class) != null){
+			model.addAttribute("selectData", selectDataJson);
+		}
+		model.addAttribute("wrongSelection", wrongSelection);
+		return "modules/wrongselect/confirmWrong";
+	}
+
 
 	/**
 	 * 查询单选题列表
@@ -197,9 +214,33 @@ public class WrongSelectionController extends BaseController {
 	@ResponseBody
 	public String save(@Validated WrongSelection wrongSelection) {
 		wrongSelectionService.save(wrongSelection);
-		return renderResult(Global.TRUE, text("保存错题库成功！"));
+		return renderResult(Global.TRUE, text("保存错题成功！"));
 	}
-	
+	/**
+	 * 在试卷确认中保存错题库
+	 */
+	@RequiresPermissions("wrongselect:wrongSelection:edit")
+	@PostMapping(value = "pluralsave")
+	@ResponseBody
+	public String pluralsave(@RequestBody List<WrongSelection>  wrongSelections, HttpServletRequest request) {
+		for (WrongSelection WrongSelection : wrongSelections) {
+				wrongSelectionService.save(WrongSelection);
+		}
+		String paperId = request.getParameter("paperId");
+		answerPaperService.changpaperstatustwo(paperId);
+		return "保存成功";
+	}
+	/**
+	 * 确认答题表(添加错误原因)
+	 */
+	@RequiresPermissions("wrongselect:wrongSelection:edit")
+	@PostMapping(value = "confirmpaper")
+	@ResponseBody
+	public String confirmpaper(@RequestBody List<middlePaperSelection> middlepaperSelections, HttpServletRequest request, String answerPaperid) {
+
+		return "保存错题库成功！";
+		//return renderResult(Global.TRUE, text("保存错题库成功！"));
+	}
 	/**
 	 * 删除错题库
 	 */

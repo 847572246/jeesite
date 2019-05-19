@@ -56,7 +56,7 @@ public class WrongSelectionService extends CrudService<WrongSelectionDao, WrongS
 	public void save(WrongSelection wrongSelection) {
 		super.save(wrongSelection);
 	}
-	
+
 	/**
 	 * 更新状态
 	 * @param wrongSelection

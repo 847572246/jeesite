@@ -54,6 +54,17 @@ public class AnswerPaperService extends CrudService<AnswerPaperDao, AnswerPaper>
 	public String findexamsingleid(String examid){
 		return dao.findexamsingleid(examid);
 	}
+	/*
+	根据usercode获取username
+	 */
+	public String findusername(String usercode){
+		return dao.findusername(usercode);
+	}
+	/*根据试卷号查找答卷状态*/
+	public String findpaperstatus(String id){
+		return dao.findpaperstatus(id);
+	}
+
 	/**
 	 *按试卷id查找多选题
 	 */
@@ -116,13 +127,19 @@ public class AnswerPaperService extends CrudService<AnswerPaperDao, AnswerPaper>
 	}
 
 	@Transactional(readOnly=false)
-	public void changpaperstatus(String answerPaperid) {
-		dao.changpaperstatus(answerPaperid);
+	public void changpaperstatusone(String answerPaperid) {
+		dao.changpaperstatusone(answerPaperid);
+	}
+
+	@Transactional(readOnly=false)
+	public void changpaperstatustwo(String answerPaperid) {
+		dao.changpaperstatustwo(answerPaperid);
 	}
 
     public String findanswersingle(String paperid) {
 		return dao.findanswersingle(paperid);
     }
+
     public String findanswermultiple(String paperid) {
 		return dao.findanswermultiple(paperid);
     }

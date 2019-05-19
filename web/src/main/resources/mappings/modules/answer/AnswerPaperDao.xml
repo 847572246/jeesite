@@ -31,9 +31,16 @@
 		from multiple_selection
 		where status=0 and instr(#{ids,jdbcType=VARCHAR}, id)
 	</select>
-	<select id="changpaperstatus" resultType="String">
+	<!--将试卷状态改为已答-->
+	<select id="changpaperstatusone" resultType="String">
 		update answer_paper
 		set paper_status= 1
+		where id=#{answerPaperid}
+	</select>
+	<!--将试卷状态改为已确认-->
+	<select id="changpaperstatustwo" resultType="String">
+		update answer_paper
+		set paper_status= 2
 		where id=#{answerPaperid}
 	</select>
 	<select id="findanswersingle" resultType="String">
@@ -50,5 +57,16 @@
 		select *
 		from paper_selection
 		where status=0 and paper_id=#{id}
+	</select>
+	<select id="findusername" resultType="String">
+		select user_name
+		from js_sys_user
+		where status=0 and user_code=#{usercode}
+	</select>
+	<!--根据试卷号查找答卷状态-->
+	<select id="findpaperstatus" resultType="String">
+		select paper_status
+		from answer_paper
+		where status=0 and id=#{id}
 	</select>
 </mapper>

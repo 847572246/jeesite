@@ -6,6 +6,7 @@ package com.jeesite.modules.answer.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeesite.common.lang.StringUtils;
 import com.jeesite.modules.examination.service.ExaminationPaperService;
 import com.jeesite.modules.multiple.entity.AnswerMultiple;
 import com.jeesite.modules.multiple.entity.MultipleSelection;
@@ -30,8 +31,8 @@ import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.answer.entity.AnswerPaper;
 import com.jeesite.modules.answer.service.AnswerPaperService;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * answer_paperController
@@ -118,18 +119,87 @@ public class AnswerPaperController extends BaseController {
 					single.get(i).setAnswer(paperSelections.get(j).getAnswer());
 					single.get(i).setModelAnswers(paperSelections.get(j).getModelAnswers());
 					single.get(i).setCorrect(paperSelections.get(j).getCorrect());
+                    if (paperSelections.get(j).getAnswer().equals("A")){
+                        single.get(i).setWrongReasonId(single.get(i).getAwrongReasonId());
+                        single.get(i).setWrongReason(single.get(i).getAwrongReason());
+                    }
+                    if (paperSelections.get(j).getAnswer().equals("B")){
+                        single.get(i).setWrongReasonId(single.get(i).getBwrongReasonId());
+                        single.get(i).setWrongReason(single.get(i).getBwrongReason());
+                    }
+                    if (paperSelections.get(j).getAnswer().equals("C")){
+                        single.get(i).setWrongReasonId(single.get(i).getCwrongReasonId());
+                        single.get(i).setWrongReason(single.get(i).getCwrongReason());
+                    }
+                    if (paperSelections.get(j).getAnswer().equals("D")){
+                        single.get(i).setWrongReasonId(single.get(i).getDwrongReasonId());
+                        single.get(i).setWrongReason(single.get(i).getDwrongReason());
+                    }
 				}
 			}
 		}
+		for (int i=0;i<multiple.size();i++){
+
+			for (int j=0;j<paperSelections.size();j++){
+
+				if(multiple.get(i).getId().equals(paperSelections.get(j).getMulQuestionId())){
+					String reasonid="";
+					String reason="";
+					multiple.get(i).setAnswer(paperSelections.get(j).getAnswer());
+					multiple.get(i).setModelAnswers(paperSelections.get(j).getModelAnswers());
+					multiple.get(i).setCorrect(paperSelections.get(j).getCorrect());
+                    if (paperSelections.get(j).getAnswer().indexOf("A")!=-1){
+                        reasonid+=multiple.get(i).getAwrongReasonId();
+                    }
+                    if (paperSelections.get(j).getAnswer().indexOf("B")!=-1){
+                        if (!reasonid.equals(null)&&!reasonid.equals("")){
+							reasonid+=",";
+							reason+=",";
+                        }
+						reasonid+=multiple.get(i).getBwrongReasonId();
+						reason+=multiple.get(i).getBwrongReason();
+                    }
+                    if (paperSelections.get(j).getAnswer().indexOf("C")!=-1){
+                        if (!reasonid.equals(null)&&!reasonid.equals("")){
+							reasonid+=",";
+							reason+=",";
+                        }
+						reasonid+=multiple.get(i).getCwrongReasonId();
+						reason+=multiple.get(i).getCwrongReason();
+                    }
+                    if (paperSelections.get(j).getAnswer().indexOf("D")!=-1){
+                        if (!reasonid.equals(null)&&!reasonid.equals("")){
+							reasonid+=",";
+							reason+=",";
+                        }
+						reasonid+=multiple.get(i).getDwrongReasonId();
+						reason+=multiple.get(i).getDwrongReason();
+                    }
+					String [] result=reasonid.split(",");
+					LinkedHashSet<String> set = new LinkedHashSet<String>(result.length);
+                    set.addAll(Arrays.asList(result));
+					reasonid = StringUtils.join(set.toArray(), ",");
+					multiple.get(i).setWrongReasonId(reasonid);
+					multiple.get(i).setWrongReason(reason);
+					reasonid="";
+				}
+
+			}
+
+		}
+		String userName = answerPaperService.findusername(paperSelections.get(0).getUserCode());
+		String paperstatus=answerPaperService.findpaperstatus(paperSelections.get(0).getPaperId());
 		model.addAttribute("single",single);
 		model.addAttribute("multiple",multiple);
 		model.addAttribute("paperSelections",paperSelections);
+		model.addAttribute("userName",userName);
+		model.addAttribute("paperstatus",paperstatus);
 		return "modules/examination/answer";
 	}
 	/**
 	 * 保存答题表
 	 */
-	@RequiresPermissions("answer:answerPaper:view")
+	@RequiresPermissions("answer:answerPaper:edit")
 	@PostMapping(value = "savepaper")
 	@ResponseBody
 	public String savepaper(@RequestBody List<middlePaperSelection> middlepaperSelections, HttpServletRequest request,String answerPaperid) {
@@ -137,7 +207,7 @@ public class AnswerPaperController extends BaseController {
         String paperId = request.getParameter("paperId");
         String sinanswer;
 		String mulanswer;
-		answerPaperService.changpaperstatus(answerPaperid);
+		answerPaperService.changpaperstatusone(answerPaperid);
         	PaperSelection paperSelection=null;
         	for (middlePaperSelection middlePaperSelection : middlepaperSelections) {
 				paperSelection = new PaperSelection();
@@ -171,6 +241,7 @@ public class AnswerPaperController extends BaseController {
 		return "保存答题表成功！";
         	//return renderResult(Global.TRUE, text("保存答题表成功！"));
 	}
+
 	/**
 	 * 跳转答题页面
 	 */

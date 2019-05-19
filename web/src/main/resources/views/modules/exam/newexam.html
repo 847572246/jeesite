@@ -136,7 +136,7 @@
     $('#btnSave').click(function () {
         var reqdata = new Array();
         var answerPaperid='${answerPaper.id}'
-		console.log(answerPaperid);
+		/*console.log(answerPaperid);*/
         var paperId ='${paperSelection.PaperId}';
         $("#question-form").find(":radio:checked").each(function(){
             var sinQuestionId = this.id;
@@ -175,7 +175,7 @@
         $.ajax({
             url: '${ctx}/answer/answerPaper/savepaper?paperId='+paperId+'&answerPaperid='+answerPaperid
             ,data: JSON.stringify(reqdata)
-            ,dataType: 'json'
+            ,dataType: 'text'
             ,contentType: 'application/json'
             ,type: 'post'
             ,success: function (result) {
