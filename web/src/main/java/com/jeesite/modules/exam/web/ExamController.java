@@ -70,10 +70,9 @@ public class ExamController extends BaseController {
 		model.addAttribute("multiple", multiple);
 		return "modules/exam/multipleList";
 	}
-	/*@RequiresPermissions("exam:single:view")*/
+	@RequiresPermissions("exam:single:view")
 	@RequestMapping(value = {"start", ""})
 	public String start(SingleSelection single, Model model) {
-		
 		return "modules/exam/ti";
 	}
 

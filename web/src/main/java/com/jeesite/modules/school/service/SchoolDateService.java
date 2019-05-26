@@ -16,7 +16,7 @@ import com.jeesite.modules.school.dao.SchoolDateDao;
 /**
  * school_dateService
  * @author xt
- * @version 2018-12-21
+ * @version 2019-05-23
  */
 @Service
 @Transactional(readOnly=true)
@@ -24,35 +24,39 @@ public class SchoolDateService extends CrudService<SchoolDateDao, SchoolDate> {
 	public List<String> chinese(String schyear, String usercode) {
 		 return dao.chinese(schyear,usercode);
 	}
-	
+
+	public List<SchoolDate> all(String schyear, String usercode) {
+		return dao.all(schyear,usercode);
+	}
+
 	public List<String> math(String schyear, String usercode) {
 		 return dao.math(schyear,usercode);
 	}
-	
+
 	public List<String> english(String schyear, String usercode) {
 		 return dao.english(schyear,usercode);
 	}
-	
+
 	public List<String> chemical(String schyear, String usercode) {
 		 return dao.chemical(schyear,usercode);
 	}
-	
+
 	public List<String> physical(String schyear, String usercode) {
 		 return dao.physical(schyear,usercode);
 	}
-	
+
 	public List<String> biological(String schyear, String usercode) {
 		 return dao.biological(schyear,usercode);
 	}
-	
+
 	public List<String> history(String schyear, String usercode) {
 		 return dao.history(schyear,usercode);
 	}
-	
+
 	public List<String> geographic(String schyear, String usercode) {
 		 return dao.geographic(schyear,usercode);
 	}
-	
+
 	public List<String> political(String schyear, String usercode) {
 		 return dao.political(schyear,usercode);
 	}

@@ -39,10 +39,16 @@
 								<label class="control-label col-sm-4" title="">
 									<span class="required hide">*</span> ${text('错误原因')}：<i class="fa icon-question hide"></i></label>
 								<div class="col-sm-8">
-									<#form:input path="awrongReason" id="awrongreason" maxlength="255" class="form-control" onclick="wrongrea()"/>
+									<#form:input path="awrongReason" id="awrongreason" maxlength="255" class="form-control" onclick="wrongreasona()"/>
 								</div>
 							</div>
 						</div>
+
+						<iframe border="0" id="contenta" name="contenta"
+								src="${ctx}/single/singleSelection/wrongreasona"
+								frameborder="0" style="height: 400px  ;display:none  " height="60%" width="65%" align="middle">
+						</iframe>
+
 						<div class="col-xs-6" style="display:none;">
 							<div class="form-group"><!--
 								<label class="control-label col-sm-4" title="">
@@ -68,10 +74,14 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('错误原因')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="bwrongReason" id="bwrongreason" maxlength="255" class="form-control" onclick="wrongrea()"/>
+								<#form:input path="bwrongReason" id="bwrongreason" maxlength="255" class="form-control" onclick="wrongreasonb()"/>
 							</div>
 						</div>
 					</div>
+					<iframe border="0" id="contentb" name="contentb"
+							src="${ctx}/single/singleSelection/wrongreasonb"
+							frameborder="0" style="height: 400px  ;display:none  " height="60%" width="65%" align="middle">
+					</iframe>
 					<div class="col-xs-6">
 						<div class="form-group" style="display:none;">
 							<!--<label class="control-label col-sm-4" title="">
@@ -97,10 +107,16 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('错误原因')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="cwrongReason" id="cwrongreason" maxlength="255" class="form-control" onclick="wrongrea()"/>
+								<#form:input path="cwrongReason" id="cwrongreason" maxlength="255" class="form-control" onclick="wrongreasonc()"/>
 							</div>
 						</div>
 					</div>
+
+					<iframe border="0" id="contentc" name="contentc"
+							src="${ctx}/single/singleSelection/wrongreasonc"
+							frameborder="0" style="height: 400px  ;display:none  " height="60%" width="65%" align="middle">
+					</iframe>
+
 					<div class="col-xs-6" style="display:none;">
 						<div class="form-group">
 							<!--<label class="control-label col-sm-4" title="">
@@ -126,10 +142,14 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('错误原因')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="dwrongReason" id="dwrongreason" maxlength="255" class="form-control" onclick="wrongrea()"/>
+								<#form:input path="dwrongReason" id="dwrongreason" maxlength="255" class="form-control" onclick="wrongreasond()"/>
 							</div>
 						</div>
 					</div>
+					<iframe border="0" id="contentd" name="contentd"
+							src="${ctx}/single/singleSelection/wrongreasond"
+							frameborder="0" style="height: 400px  ;display:none  " height="60%" width="65%" align="middle">
+					</iframe>
 					<div class="col-xs-6" style="display:none;">
 						<div class="form-group">
 							<!--<label class="control-label col-sm-4" title="">
@@ -139,6 +159,8 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="row">
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
@@ -159,12 +181,16 @@
 							</div>
 						</div>
 					</div>
+					<iframe border="0" id="content" name="content"
+							src="${ctx}/single/singleSelection/wrongreason?type=''"
+							frameborder="0" style="height: 400px  ;display:none  " height="60%" width="65%" align="middle">
+					</iframe>
 					<div class="col-xs-6">
 						<div class="form-group">
-							<label class="control-label col-sm-4" title="">
-								<span class="required hide">*</span> ${text('错误原因号')}：<i class="fa icon-question hide"></i></label>
+							<!--<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('错误原因号')}：<i class="fa icon-question hide"></i></label>-->
 							<div class="col-sm-8">
-								<#form:input path="wrongReasonId" id="wrongid" maxlength="255" class="form-control"/>
+								<#form:input path="wrongReasonId" id="wrongid" maxlength="255" class="form-control" type="hidden"/>
 							</div>
 						</div>
 					</div>
@@ -205,10 +231,12 @@
 		</#form:form>
 	</div>
 </div>
-<iframe border="0" id="content3" name="content3"
-		src="http://localhost:8080/jeesite-demo/a/single/singleSelection/wrongreason"
-		frameborder="0" style="height: 400px  ;display:none  " height="60%" width="65%">
-</iframe>
+<div>
+<!--<iframe border="0" id="content3" name="content3"
+		src="${ctx}/single/singleSelection/wrongreason?id='id'"
+		frameborder="0" style="height: 400px  ;display:none  " height="60%" width="65%" align="middle">
+</iframe>-->
+</div>
 <% } %>
 <script>
 $("#inputForm").validate({
@@ -223,9 +251,19 @@ $("#inputForm").validate({
 		}, "json");
     }
 });
-</script>
-<script>
+function wrongreasona(){
+	document.getElementById("contenta").style.display = "block";
+}
+function wrongreasonb(){
+	document.getElementById("contentb").style.display = "block";
+}
+function wrongreasonc(){
+	document.getElementById("contentc").style.display = "block";
+}
+function wrongreasond(){
+	document.getElementById("contentd").style.display = "block";
+}
 function wrongrea(){
-	document.getElementById("content3").style.display = "block";
+	document.getElementById("content").style.display = "block";
 }
 </script>

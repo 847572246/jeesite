@@ -16,111 +16,93 @@
 			<#form:form id="searchForm" model="${schoolDate}" action="${ctx}/school/schoolDate/listData" method="post" class="form-inline hide"
 					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
 				<div class="form-group">
+					<label class="control-label">${text('user_code')}：</label>
+					<div class="control-inline">
+						<#form:input path="userCode" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('学年')}：</label>
+					<div class="control-inline">
+						<#form:input path="schoolYear" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('考试名称')}：</label>
+					<div class="control-inline">
+						<#form:input path="examName" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('状态')}：</label>
+					<div class="control-inline width-120">
+						<#form:select path="status" dictType="sys_search_status" blankOption="true" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
 					<label class="control-label">${text('remarks')}：</label>
 					<div class="control-inline">
 						<#form:input path="remarks" maxlength="255" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">${text('status')}：</label>
-					<div class="control-inline width-120">
-						<#form:select path="status" dictType="sys_search_status" blankOption="true" class="form-control"/>
+					<label class="control-label">${text('语文')}：</label>
+					<div class="control-inline">
+						<#form:input path="chineseScore" maxlength="3" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">${text('math_grade')}：</label>
+					<label class="control-label">${text('数学')}：</label>
 					<div class="control-inline">
-						<#form:input path="mathGrade" maxlength="255" class="form-control width-120"/>
+						<#form:input path="mathScore" maxlength="3" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">${text('english_grade')}：</label>
+					<label class="control-label">${text('英语')}：</label>
 					<div class="control-inline">
-						<#form:input path="englishGrade" maxlength="255" class="form-control width-120"/>
+						<#form:input path="englishScore" maxlength="3" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">${text('chemical_grade')}：</label>
+					<label class="control-label">${text('化学')}：</label>
 					<div class="control-inline">
-						<#form:input path="chemicalGrade" maxlength="255" class="form-control width-120"/>
+						<#form:input path="chemicalScore" maxlength="3" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">${text('physical_grade')}：</label>
+					<label class="control-label">${text('物理')}：</label>
 					<div class="control-inline">
-						<#form:input path="physicalGrade" maxlength="255" class="form-control width-120"/>
+						<#form:input path="physicalScore" maxlength="3" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">${text('biological_grade')}：</label>
+					<label class="control-label">${text('生物')}：</label>
 					<div class="control-inline">
-						<#form:input path="biologicalGrade" maxlength="255" class="form-control width-120"/>
+						<#form:input path="biologicalScore" maxlength="3" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">${text('history_grade')}：</label>
+					<label class="control-label">${text('历史')}：</label>
 					<div class="control-inline">
-						<#form:input path="historyGrade" maxlength="255" class="form-control width-120"/>
+						<#form:input path="historyScore" maxlength="3" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">${text('geographic_grade')}：</label>
+					<label class="control-label">${text('地理')}：</label>
 					<div class="control-inline">
-						<#form:input path="geographicGrade" maxlength="255" class="form-control width-120"/>
+						<#form:input path="geographicScore" maxlength="3" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">${text('political_grade')}：</label>
+					<label class="control-label">${text('政治')}：</label>
 					<div class="control-inline">
-						<#form:input path="politicalGrade" maxlength="255" class="form-control width-120"/>
+						<#form:input path="politicalScore" maxlength="3" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">${text('stuid')}：</label>
+					<label class="control-label">${text('order_flag')}：</label>
 					<div class="control-inline">
-						<#form:input path="stuid" maxlength="255" class="form-control width-120"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label">${text('chinese_grade')}：</label>
-					<div class="control-inline">
-						<#form:input path="chineseGrade" maxlength="255" class="form-control width-120"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label">${text('chemical_grade')}：</label>
-					<div class="control-inline">
-						<#form:input path="chemicalGrade" maxlength="255" class="form-control width-120"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label">${text('physical_grade')}：</label>
-					<div class="control-inline">
-						<#form:input path="physicalGrade" maxlength="255" class="form-control width-120"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label">${text('biological_grade')}：</label>
-					<div class="control-inline">
-						<#form:input path="biologicalGrade" maxlength="255" class="form-control width-120"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label">${text('history_grade')}：</label>
-					<div class="control-inline">
-						<#form:input path="historyGrade" maxlength="255" class="form-control width-120"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label">${text('geographic_grade')}：</label>
-					<div class="control-inline">
-						<#form:input path="geographicGrade" maxlength="255" class="form-control width-120"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label">${text('political_grade')}：</label>
-					<div class="control-inline">
-						<#form:input path="politicalGrade" maxlength="255" class="form-control width-120"/>
+						<#form:input path="orderFlag" maxlength="5" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -139,30 +121,28 @@
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'${text('create_date')}', name:'createDate', index:'a.create_date', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+		{header:'${text('考试名称')}', name:'examName', index:'a.exam_name', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
 			return '<a href="${ctx}/school/schoolDate/form?id='+row.id+'" class="btnList" data-title="${text('编辑school_date')}">'+(val||row.id)+'</a>';
 		}},
-		{header:'${text('remarks')}', name:'remarks', index:'a.remarks', width:150, align:"left"},
-		{header:'${text('status')}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
+		{header:'${text('学年')}', name:'schoolYear', index:'a.school_year', width:150, align:"left"},
+		/*{header:'${text('考试名称')}', name:'examName', index:'a.exam_name', width:150, align:"left"},*/
+		{header:'${text('user_code')}', name:'userCode', index:'a.user_code', width:150, align:"left"},
+		{header:'${text('状态')}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
 			return js.getDictLabel(${@DictUtils.getDictListJson('sys_search_status')}, val, '${text('未知')}', true);
 		}},
-		{header:'${text('math_grade')}', name:'mathGrade', index:'a.math_grade', width:150, align:"center"},
-		{header:'${text('english_grade')}', name:'englishGrade', index:'a.english_grade', width:150, align:"center"},
-		{header:'${text('chemical_grade')}', name:'chemicalGrade', index:'a.chemical_grade', width:150, align:"center"},
-		{header:'${text('physical_grade')}', name:'physicalGrade', index:'a.physical_grade', width:150, align:"center"},
-		{header:'${text('biological_grade')}', name:'biologicalGrade', index:'a.biological_grade', width:150, align:"center"},
-		{header:'${text('history_grade')}', name:'historyGrade', index:'a.history_grade', width:150, align:"center"},
-		{header:'${text('geographic_grade')}', name:'geographicGrade', index:'a.geographic_grade', width:150, align:"center"},
-		{header:'${text('political_grade')}', name:'politicalGrade', index:'a.political_grade', width:150, align:"center"},
-		{header:'${text('stuid')}', name:'stuid', index:'a.stuid', width:150, align:"left"},
-		{header:'${text('chinese_grade')}', name:'chineseGrade', index:'a.chinese_grade', width:150, align:"center"},
-		{header:'${text('chemical_grade')}', name:'chemicalGrade', index:'a.chemical_grade', width:150, align:"center"},
-		{header:'${text('physical_grade')}', name:'physicalGrade', index:'a.physical_grade', width:150, align:"center"},
-		{header:'${text('biological_grade')}', name:'biologicalGrade', index:'a.biological_grade', width:150, align:"center"},
-		{header:'${text('history_grade')}', name:'historyGrade', index:'a.history_grade', width:150, align:"center"},
-		{header:'${text('geographic_grade')}', name:'geographicGrade', index:'a.geographic_grade', width:150, align:"center"},
-		{header:'${text('political_grade')}', name:'politicalGrade', index:'a.political_grade', width:150, align:"center"},
-		{header:'${text('操作')}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+		{header:'${text('create_date')}', name:'createDate', index:'a.create_date', width:150, align:"center"},
+		{header:'${text('remarks')}', name:'remarks', index:'a.remarks', width:150, align:"left"},
+		/*{header:'${text('语文')}', name:'chineseScore', index:'a.chinese_score', width:150, align:"center"},
+		{header:'${text('数学')}', name:'mathScore', index:'a.math_score', width:150, align:"center"},
+		{header:'${text('英语')}', name:'englishScore', index:'a.english_score', width:150, align:"center"},
+		{header:'${text('化学')}', name:'chemicalScore', index:'a.chemical_score', width:150, align:"center"},
+		{header:'${text('物理')}', name:'physicalScore', index:'a.physical_score', width:150, align:"center"},
+		{header:'${text('生物')}', name:'biologicalScore', index:'a.biological_score', width:150, align:"center"},
+		{header:'${text('历史')}', name:'historyScore', index:'a.history_score', width:150, align:"center"},
+		{header:'${text('地理')}', name:'geographicScore', index:'a.geographic_score', width:150, align:"center"},
+		{header:'${text('政治')}', name:'politicalScore', index:'a.political_score', width:150, align:"center"},
+		{header:'${text('order_flag')}', name:'orderFlag', index:'a.order_flag', width:150, align:"center"},
+*/		{header:'${text('操作')}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
 			<% if(hasPermi('school:schoolDate:edit')){ %>
 				actions.push('<a href="${ctx}/school/schoolDate/form?id='+row.id+'" class="btnList" title="${text('编辑school_date')}"><i class="fa fa-pencil"></i></a>&nbsp;');

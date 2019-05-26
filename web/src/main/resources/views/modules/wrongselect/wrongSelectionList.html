@@ -95,8 +95,8 @@ $('#dataGrid').dataGrid({
 			return '<a href="${ctx}/wrongselect/wrongSelection/form?id='+row.id+'" class="btnList" data-title="${text('编辑错题库')}">'+(val||row.id)+'</a>';
 		}},
 		{header:'${text('用户编码')}', name:'userCode', index:'a.user_code', width:150, align:"left"},
-		{header:'${text('单选题号')}', name:'wrongIdSin', index:'a.wrong_id_sin', width:150, align:"left"},
-		{header:'${text('多选题号')}', name:'wrongIdMul', index:'a.wrong_id_mul', width:150, align:"left"},
+		/*{header:'${text('单选题号')}', name:'wrongIdSin', index:'a.wrong_id_sin', width:150, align:"left"},
+		{header:'${text('多选题号')}', name:'wrongIdMul', index:'a.wrong_id_mul', width:150, align:"left"},*/
 		{header:'${text('错题题目')}', name:'wrongSelect', index:'a.wrong_select', width:150, align:"left"},
 		{header:'${text('错误原因号')}', name:'wrongReasonId', index:'a.wrong_reason_id', width:150, align:"left"},
 		{header:'${text('错误原因')}', name:'wrongReason', index:'a.wrong_reason', width:150, align:"left"},

@@ -85,10 +85,6 @@ public class SingleSelectionController extends BaseController {
 	@ResponseBody
 	public List<SingleSelection> getsingle() {
 		List<SingleSelection> single=singleSelectionService.getsingle();
-		/*for (int i = 0; i < single.size(); i++) {
-			System.out.println(single.get(i));
-		}*/
-		
 		return single;
 	}
 	
@@ -124,6 +120,46 @@ public class SingleSelectionController extends BaseController {
 		return "modules/single/singleSelectionForm";
 	}
 	
+	/**
+	 * 查询错误原因列表
+	 */
+	@RequiresPermissions("single:singleSelection:edit")
+	@RequestMapping(value = {"wrongreasona", ""})
+	public String lista(WrongReason wrongReason, Model model) {
+		model.addAttribute("wrongReason", wrongReason);
+		return "modules/single/wrongReasonLista";
+	}
+
+	/**
+	 * 查询错误原因列表
+	 */
+	@RequiresPermissions("single:singleSelection:edit")
+	@RequestMapping(value = {"wrongreasonb", ""})
+	public String listb(WrongReason wrongReason, Model model) {
+		model.addAttribute("wrongReason", wrongReason);
+		return "modules/single/wrongReasonListb";
+	}
+
+	/**
+	 * 查询错误原因列表
+	 */
+	@RequiresPermissions("single:singleSelection:edit")
+	@RequestMapping(value = {"wrongreasonc", ""})
+	public String listc(WrongReason wrongReason, Model model) {
+		model.addAttribute("wrongReason", wrongReason);
+		return "modules/single/wrongReasonListc";
+	}
+
+	/**
+	 * 查询错误原因列表
+	 */
+	@RequiresPermissions("single:singleSelection:edit")
+	@RequestMapping(value = {"wrongreasond", ""})
+	public String listd(WrongReason wrongReason, Model model) {
+		model.addAttribute("wrongReason", wrongReason);
+		return "modules/single/wrongReasonListd";
+	}
+
 	/**
 	 * 查询错误原因列表
 	 */

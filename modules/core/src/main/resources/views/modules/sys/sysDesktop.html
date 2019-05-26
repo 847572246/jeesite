@@ -109,7 +109,7 @@
 								function schyear(uid){
 								var str="";
 								$.ajax({
-									url:'http://localhost:8080/jeesite-demo/a/school/schoolDate/school_year',
+									url:'${ctx}/school/schoolDate/school_year',
 									type:'post',
 									async:false,
 									data: {usercode:uid},
@@ -130,7 +130,7 @@
 									function school(p,uid){
 									    
 								 $.ajax({
-								url:'http://localhost:8080/jeesite-demo/a/school/schoolDate/schooldata/list',
+								url:'${ctx}/school/schoolDate/schooldata/list',
 								type:'post',
 								async:false,
 								data: {schyear: p,usercode:uid},
@@ -147,7 +147,7 @@
 									        data:['语文','数学','英语','化学','物理','生物','历史','地理','政治'],
 									       bottom:0
 									    },
-									    
+
 									    toolbox: {
 									        show : true,
 									        feature : {
@@ -183,7 +183,7 @@
 									            smooth:false,
 									            itemStyle: {normal: {areaStyle: {type: 'default'}}},
 									            data:ch[1]
-									            
+
 									        },
 									        {
 									            name:'数学',

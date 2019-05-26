@@ -112,6 +112,48 @@ public class MultipleSelectionController extends BaseController {
 		model.addAttribute("wrongReason", wrongReason);
 		return "modules/multiple/wrongReasonList";
 	}
+
+	/**
+	 * 查询错误原因列表
+	 */
+	@RequiresPermissions("multiple:multipleSelection:edit")
+	@RequestMapping(value = {"wrongreasona", ""})
+	public String lista(WrongReason wrongReason, Model model) {
+		model.addAttribute("wrongReason", wrongReason);
+		return "modules/multiple/wrongReasonLista";
+	}
+
+	/**
+	 * 查询错误原因列表
+	 */
+	@RequiresPermissions("multiple:multipleSelection:edit")
+	@RequestMapping(value = {"wrongreasonb", ""})
+	public String listb(WrongReason wrongReason, Model model) {
+		model.addAttribute("wrongReason", wrongReason);
+		return "modules/multiple/wrongReasonListb";
+	}
+
+
+	/**
+	 * 查询错误原因列表
+	 */
+	@RequiresPermissions("multiple:multipleSelection:edit")
+	@RequestMapping(value = {"wrongreasonc", ""})
+	public String listc(WrongReason wrongReason, Model model) {
+		model.addAttribute("wrongReason", wrongReason);
+		return "modules/multiple/wrongReasonListc";
+	}
+
+
+	/**
+	 * 查询错误原因列表
+	 */
+	@RequiresPermissions("multiple:multipleSelection:edit")
+	@RequestMapping(value = {"wrongreasond", ""})
+	public String listd(WrongReason wrongReason, Model model) {
+		model.addAttribute("wrongReason", wrongReason);
+		return "modules/multiple/wrongReasonListd";
+	}
 	
 	/**
 	 * 保存多项选择题

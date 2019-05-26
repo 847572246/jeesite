@@ -3,8 +3,6 @@
  */
 package com.jeesite.modules.school.entity;
 
-import java.util.List;
-
 import org.hibernate.validator.constraints.Length;
 
 import com.jeesite.common.entity.DataEntity;
@@ -15,46 +13,42 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 /**
  * school_dateEntity
  * @author xt
- * @version 2018-12-21
+ * @version 2019-05-23
  */
 @Table(name="school_date", alias="a", columns={
 		@Column(name="id", attrName="id", label="id", isPK=true),
+		@Column(name="user_code", attrName="userCode", label="user_code"),
+		@Column(name="school_year", attrName="schoolYear", label="学年"),
+		@Column(name="exam_name", attrName="examName", label="考试名称", queryType=QueryType.LIKE),
 		@Column(includeEntity=DataEntity.class),
-		@Column(name="math_grade", attrName="mathGrade", label="math_grade"),
-		@Column(name="english_grade", attrName="englishGrade", label="english_grade"),
-		@Column(name="chemical_grade", attrName="chemicalGrade", label="chemical_grade"),
-		@Column(name="physical_grade", attrName="physicalGrade", label="physical_grade"),
-		@Column(name="biological_grade", attrName="biologicalGrade", label="biological_grade"),
-		@Column(name="history_grade", attrName="historyGrade", label="history_grade"),
-		@Column(name="geographic_grade", attrName="geographicGrade", label="geographic_grade"),
-		@Column(name="political_grade", attrName="politicalGrade", label="political_grade"),
-		@Column(name="stuid", attrName="stuid", label="stuid"),
-		@Column(name="chinese_grade", attrName="chineseGrade", label="chinese_grade"),
-		@Column(name="chemical_grade", attrName="chemicalGrade", label="chemical_grade"),
-		@Column(name="physical_grade", attrName="physicalGrade", label="physical_grade"),
-		@Column(name="biological_grade", attrName="biologicalGrade", label="biological_grade"),
-		@Column(name="history_grade", attrName="historyGrade", label="history_grade"),
-		@Column(name="geographic_grade", attrName="geographicGrade", label="geographic_grade"),
-		@Column(name="political_grade", attrName="politicalGrade", label="political_grade"),
+		@Column(name="chinese_score", attrName="chineseScore", label="语文"),
+		@Column(name="math_score", attrName="mathScore", label="数学"),
+		@Column(name="english_score", attrName="englishScore", label="英语"),
+		@Column(name="chemical_score", attrName="chemicalScore", label="化学"),
+		@Column(name="physical_score", attrName="physicalScore", label="物理"),
+		@Column(name="biological_score", attrName="biologicalScore", label="生物"),
+		@Column(name="history_score", attrName="historyScore", label="历史"),
+		@Column(name="geographic_score", attrName="geographicScore", label="地理"),
+		@Column(name="political_score", attrName="politicalScore", label="政治"),
+		@Column(name="order_flag", attrName="orderFlag", label="order_flag"),
 	}, orderBy="a.update_date DESC"
 )
 public class SchoolDate extends DataEntity<SchoolDate> {
 	
-	private static final double serialVersionUID = 1L;
-	private String stuid;		// stuid
-	private String examname;
-	private double mathGrade;		// math_grade
-	private double englishGrade;		// english_grade
-	private double chineseGrade;		// chinese_grade
-	private double chemicalGrade;		// chemical_grade
-	private double physicalGrade;		// physical_grade
-	private double biologicalGrade;		// biological_grade
-	private double historyGrade;		// history_grade
-	private double geographicGrade;		// geographic_grade
-	private double politicalGrade;		// political_grade
-	/*private List<String> math;
-	private List<String> math;*/
-	
+	private static final long serialVersionUID = 1L;
+	private String userCode;		// user_code
+	private String schoolYear;		// 学年
+	private String examName;		// 考试名称
+	private String chineseScore;		// 语文
+	private String mathScore;		// 数学
+	private String englishScore;		// 英语
+	private String chemicalScore;		// 化学
+	private String physicalScore;		// 物理
+	private String biologicalScore;		// 生物
+	private String historyScore;		// 历史
+	private String geographicScore;		// 地理
+	private String politicalScore;		// 政治
+	private String orderFlag;		// order_flag
 	
 	public SchoolDate() {
 		this(null);
@@ -64,141 +58,111 @@ public class SchoolDate extends DataEntity<SchoolDate> {
 		super(id);
 	}
 	
-	public double getMathGrade() {
-		return mathGrade;
+	@Length(min=0, max=255, message="user_code长度不能超过 255 个字符")
+	public String getUserCode() {
+		return userCode;
 	}
 
-	public void setMathGrade(double mathGrade) {
-		this.mathGrade = mathGrade;
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
 	}
 	
-	public double getEnglishGrade() {
-		return englishGrade;
+	@Length(min=0, max=255, message="学年长度不能超过 255 个字符")
+	public String getSchoolYear() {
+		return schoolYear;
 	}
 
-	public void setEnglishGrade(double englishGrade) {
-		this.englishGrade = englishGrade;
+	public void setSchoolYear(String schoolYear) {
+		this.schoolYear = schoolYear;
 	}
 	
-	public double getChemicalGrade1() {
-		return chemicalGrade;
+	@Length(min=0, max=255, message="考试名称长度不能超过 255 个字符")
+	public String getExamName() {
+		return examName;
 	}
 
-	public void setChemicalGrade1(double chemicalGrade) {
-		this.chemicalGrade = chemicalGrade;
+	public void setExamName(String examName) {
+		this.examName = examName;
 	}
 	
-	public double getPhysicalGrade1() {
-		return physicalGrade;
+	public String getChineseScore() {
+		return chineseScore;
 	}
 
-	public void setPhysicalGrade(double physicalGrade) {
-		this.physicalGrade = physicalGrade;
+	public void setChineseScore(String chineseScore) {
+		this.chineseScore = chineseScore;
 	}
 	
-	public double getBiologicalGrade() {
-		return biologicalGrade;
+	public String getMathScore() {
+		return mathScore;
 	}
 
-	public void setBiologicalGrade(double biologicalGrade) {
-		this.biologicalGrade = biologicalGrade;
+	public void setMathScore(String mathScore) {
+		this.mathScore = mathScore;
 	}
 	
-	public double getHistoryGrade() {
-		return historyGrade;
+	public String getEnglishScore() {
+		return englishScore;
 	}
 
-	public void setHistoryGrade(double historyGrade) {
-		this.historyGrade = historyGrade;
+	public void setEnglishScore(String englishScore) {
+		this.englishScore = englishScore;
 	}
 	
-	public double getGeographicGrade() {
-		return geographicGrade;
+	public String getChemicalScore() {
+		return chemicalScore;
 	}
 
-	public void setGeographicGrade(double geographicGrade) {
-		this.geographicGrade = geographicGrade;
+	public void setChemicalScore(String chemicalScore) {
+		this.chemicalScore = chemicalScore;
 	}
 	
-	public double getPoliticalGrade() {
-		return politicalGrade;
+	public String getPhysicalScore() {
+		return physicalScore;
 	}
 
-	public void setPoliticalGrade(double politicalGrade) {
-		this.politicalGrade = politicalGrade;
+	public void setPhysicalScore(String physicalScore) {
+		this.physicalScore = physicalScore;
 	}
 	
-	@Length(min=0, max=255, message="stuid长度不能超过 255 个字符")
-	public String getStuid() {
-		return stuid;
+	public String getBiologicalScore() {
+		return biologicalScore;
 	}
 
-	public void setStuid(String stuid) {
-		this.stuid = stuid;
+	public void setBiologicalScore(String biologicalScore) {
+		this.biologicalScore = biologicalScore;
 	}
 	
-	public double getChineseGrade() {
-		return chineseGrade;
+	public String getHistoryScore() {
+		return historyScore;
 	}
 
-	public void setChineseGrade(double chineseGrade) {
-		this.chineseGrade = chineseGrade;
+	public void setHistoryScore(String historyScore) {
+		this.historyScore = historyScore;
 	}
 	
-	public double getChemicalGrade() {
-		return chemicalGrade;
+	public String getGeographicScore() {
+		return geographicScore;
 	}
 
-	public void setChemicalGrade(double chemicalGrade) {
-		this.chemicalGrade = chemicalGrade;
+	public void setGeographicScore(String geographicScore) {
+		this.geographicScore = geographicScore;
 	}
 	
-	public double getPhysicalGrade() {
-		return physicalGrade;
+	public String getPoliticalScore() {
+		return politicalScore;
 	}
 
-	public void setPhysicalGrade1(double physicalGrade) {
-		this.physicalGrade = physicalGrade;
+	public void setPoliticalScore(String politicalScore) {
+		this.politicalScore = politicalScore;
 	}
 	
-	public double getBiologicalGrade1() {
-		return biologicalGrade;
+	public String getOrderFlag() {
+		return orderFlag;
 	}
 
-	public void setBiologicalGrade1(double biologicalGrade) {
-		this.biologicalGrade = biologicalGrade;
-	}
-	
-	public double getHistoryGrade1() {
-		return historyGrade;
-	}
-
-	public void setHistoryGrade1(double historyGrade) {
-		this.historyGrade = historyGrade;
-	}
-	
-	public double getGeographicGrade1() {
-		return geographicGrade;
-	}
-
-	public void setGeographicGrade1(double geographicGrade) {
-		this.geographicGrade = geographicGrade;
-	}
-	
-	public double getPoliticalGrade1() {
-		return politicalGrade;
-	}
-
-	public void setPoliticalGrade1(double politicalGrade) {
-		this.politicalGrade = politicalGrade;
-	}
-
-	public String getExamname() {
-		return examname;
-	}
-
-	public void setExamname(String examname) {
-		this.examname = examname;
+	public void setOrderFlag(String orderFlag) {
+		this.orderFlag = orderFlag;
 	}
 	
 }

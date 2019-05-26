@@ -3,19 +3,20 @@
  */
 package com.jeesite.modules.school.dao;
 
-import java.util.List;
-
 import com.jeesite.common.dao.CrudDao;
 import com.jeesite.common.mybatis.annotation.MyBatisDao;
 import com.jeesite.modules.school.entity.SchoolDate;
 
+import java.util.List;
+
 /**
  * school_dateDAO接口
  * @author xt
- * @version 2018-12-21
+ * @version 2019-05-23
  */
 @MyBatisDao
 public interface SchoolDateDao extends CrudDao<SchoolDate> {
+	public List<SchoolDate> all(String schyear, String usercode) ;
 	public List<String> chinese(String schyear, String usercode) ;
 	public List<String> math(String schyear, String usercode) ;
 	public List<String> english(String schyear, String usercode) ;

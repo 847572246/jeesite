@@ -35,7 +35,7 @@ import com.jeesite.modules.sys.utils.UserUtils;
 /**
  * school_dateController
  * @author xt
- * @version 2018-12-21
+ * @version 2019-05-23
  */
 @Controller
 @RequestMapping(value = "${adminPath}/school/schoolDate")
@@ -67,12 +67,37 @@ public class SchoolDateController extends BaseController {
 	 * @param usercode
 	 * @return
 	 */
-	
+
 	@PostMapping(ApiConst.SCHOOL_SCORE_LIST)
 	@ResponseBody
-	public List<List<String>> schoolData(@RequestParam String schyear,@RequestParam String usercode){
+	public List<List<String>> schoolData(@RequestParam String schyear,@RequestParam String usercode, Model model){
 		List<List<String>> list = new ArrayList<List<String>>();
-		List<String> chinese=schoolDateService.chinese(schyear,usercode);	
+		List<String> chinese=new ArrayList<String>();
+		List<String> math=new ArrayList<String>();
+		List<String> english=new ArrayList<String>();
+		List<String> chemical=new ArrayList<String>();
+		List<String> physical=new ArrayList<String>();
+		List<String> biological=new ArrayList<String>();
+		List<String> history=new ArrayList<String>();
+		List<String> geographic=new ArrayList<String>();
+		List<String> political=new ArrayList<String>();
+		List<String> examname=new ArrayList<String>();
+		List<SchoolDate> all=schoolDateService.all(schyear,usercode);
+		for (int i=0;i<all.size();i++){
+			chinese.add(all.get(i).getChineseScore());
+			math.add(all.get(i).getMathScore());
+			english.add(all.get(i).getEnglishScore());
+			chemical.add(all.get(i).getChemicalScore());
+			physical.add(all.get(i).getPhysicalScore());
+			biological.add(all.get(i).getBiologicalScore());
+			history.add(all.get(i).getHistoryScore());
+			geographic.add(all.get(i).getGeographicScore());
+			political.add(all.get(i).getPhysicalScore());
+			examname.add(all.get(i).getExamName());
+		}
+
+
+		/*List<String> chinese=schoolDateService.chinese(schyear,usercode);
 		List<String> math=schoolDateService.math(schyear,usercode);
 		List<String> english=schoolDateService.english(schyear,usercode);
 		List<String> chemical=schoolDateService.chemical(schyear,usercode);
@@ -81,7 +106,7 @@ public class SchoolDateController extends BaseController {
 		List<String> history=schoolDateService.history(schyear,usercode);
 		List<String> geographic=schoolDateService.geographic(schyear,usercode);
 		List<String> political=schoolDateService.political(schyear,usercode);
-		List<String> examname=schoolDateService.examname(schyear,usercode);
+		List<String> examname=schoolDateService.examname(schyear,usercode);*/
 		list.add(examname);
 		list.add(chinese);
 		list.add(math);
@@ -140,7 +165,7 @@ public class SchoolDateController extends BaseController {
 		Page<SchoolDate> page = schoolDateService.findPage(schoolDate); 
 		return page;
 	}
-	
+
 	/**
 	 * 查看编辑表单
 	 */

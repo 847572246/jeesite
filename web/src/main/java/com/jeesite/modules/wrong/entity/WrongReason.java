@@ -3,6 +3,7 @@
  */
 package com.jeesite.modules.wrong.entity;
 
+import com.jeesite.common.entity.TreeEntity;
 import org.hibernate.validator.constraints.Length;
 
 import com.jeesite.common.entity.DataEntity;

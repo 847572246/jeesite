@@ -3,13 +3,13 @@
 	<div class="box box-main">
 		<div class="box-header with-border">
 			<div class="box-title">
-				<i class="fa fa-list-alt"></i> ${text(school_grade.isNewRecord ? '新增代码生成表' : '编辑代码生成表')}
+				<i class="fa fa-list-alt"></i> ${text(school_score.isNewRecord ? '新增代码生成表' : '编辑代码生成表')}
 			</div>
 			<div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 			</div>
 		</div>
-		<#form:form id="inputForm" model="${school_grade}" action="${ctx}/gen/school_grade/save" method="post" class="form-horizontal">
+		<#form:form id="inputForm" model="${school_school_score}" action="${ctx}/gen/school_grade/save" method="post" class="form-horizontal">
 			<div class="box-body">
 				<div class="form-unit">${text('基本信息')}</div>
 				<#form:hidden path="id"/>

@@ -44,7 +44,7 @@ $(document).ready(function() {
 		  console.log(singlecount);
 		  console.log(multiplecount);
 		  $.ajax({
-				url:'http://localhost:8080/jeesite-demo/a/wrongselect/wrongSelection/selectselection',
+				url:'${ctx}/wrongselect/wrongSelection/selectselection',
 				type:'post',
 				async:false,			
 				data: {wrongreasonid:ids,singlecount:singlecount,multiplecount:multiplecount},

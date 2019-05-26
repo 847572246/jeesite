@@ -82,7 +82,7 @@ layui.use('layer', function(){ //独立版的layer无需执行这一句
   
 });
 $.ajax({
-	url:'http://localhost:8080/jeesite-demo/a/single/singleSelection/list',
+	url:'${ctx}/single/singleSelection/list',
 	type:'post',
 	async:false,
 	success:function(sy){
