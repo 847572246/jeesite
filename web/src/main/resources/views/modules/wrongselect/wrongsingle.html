@@ -12,6 +12,7 @@
 					<a href="${ctx}/single/singleSelection/form" class="btn btn-default btnTool" title="${text('新增单项选择题')}">
 					<i class="fa fa-plus"></i> ${text('新增')}</a>
 				<% } %>
+				<a href="#" class="btn btn-default" id="fa-close (alias)" title="${text('关闭')}" onclick="closewrongrea()"> ${text('关闭')}</a>
 			</div>
 		</div>
 		<div class="box-body">
@@ -113,7 +114,10 @@ $('#dataGrid').dataGrid({
 	ajaxSuccess: function(data){
 		
 	}
-});
+});function closewrongrea() {
+	window.parent.document.getElementById("content1").style.display = "none";
+}
+
 function select(e,id){
 	window.parent.document.getElementById("sintitle").value=e;
 	window.parent.document.getElementById("sinid").value=id;

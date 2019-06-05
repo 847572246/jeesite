@@ -7,9 +7,9 @@
 			</div>
 			<div class="box-tools pull-right">
 				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
-				<% if(hasPermi('answer:answerPaper:edit')){ %>
+				<!--<% if(hasPermi('answer:answerPaper:edit')){ %>
 					<a href="${ctx}/answer/answerPaper/form" class="btn btn-default btnTool" title="${text('新增试卷')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
-				<% } %>
+				<% } %>-->
 			</div>
 		</div>
 		<div class="box-body">
@@ -21,12 +21,14 @@
 						<#form:input path="examName" maxlength="255" class="form-control width-120"/>
 					</div>
 				</div>
+			<% if(hasPermi('answer:answerPaper:edit')){ %>
 				<div class="form-group">
 					<label class="control-label">${text('用户昵称')}：</label>
 					<div class="control-inline">
-						<#form:input path="userName" maxlength="100" class="form-control width-120"/>
+						<#form:input path="userName" maxlength="100" class="form-control width-120" value="${userName}"/>
 					</div>
 				</div>
+			<% } %>
 				<!--<div class="form-group">
 					<label class="control-label">${text('回答')}：</label>
 					<div class="control-inline">
@@ -75,6 +77,7 @@
 </div>
 <% } %>
 <script>
+	$(btnSearch).click()
 // 初始化DataGrid对象
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
@@ -103,7 +106,7 @@ $('#dataGrid').dataGrid({
                 actions.push( '<button><a href="${ctx}/answer/answerPaper/exam?examid='+row.examId+'&answerid='+row.id+'">开始考试</button>');
 				 }
 				if(row.paperStatus==1){
-					actions.push( '<button><a href="${ctx}/answer/answerPaper/confirmWrong?id='+row.id+'">确认错题</button>');
+					actions.push( '<button><a href="${ctx}/answer/answerPaper/listAnswerData?id='+row.id+'">确认错题</button>');
 				}
                 if(row.paperStatus==2){
                     actions.push( '<button><a href="${ctx}/answer/answerPaper/listAnswerData?id='+row.id+'">查看试卷</button>');

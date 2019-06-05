@@ -56,9 +56,9 @@
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'${text(' ')}',name:'checkbox' , width:80, align:"left", formatter: function(val, obj, row, act){
+		/*{header:'${text(' ')}',name:'checkbox' , width:80, align:"left", formatter: function(val, obj, row, act){
 			return '<input type="checkbox" name="sinid" id="sinid" value="'+row.id+'">';
-		}},
+		}},*/
 		{header:'${text('id')}', name:'id', index:'a.id', width:150, align:"left"},
 		{header:'${text('wrong_title')}', name:'wrongTitle', index:'a.wrong_title', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
 			return '<a href="${ctx}/wrong/wrongReason/form?id='+row.id+'" class="btnList" data-title="${text('编辑wrong_reason')}">'+(val||row.id)+'</a>';

@@ -17,16 +17,22 @@
             .find("input[name='mulid']:checked").each(function () {
             mulids.push($(this).val());
         });
-        $.ajax({
-            url:'${ctx}/createword/create/create',
-            type:'post',
-            async:false,
-            data: {sinids:sinids,mulids:mulids},
-            traditional: true,
-            success: function (data) { //返回json结果
-                alert(data);
-            }
-        });
+		var examName=document.getElementById("ptitle").value;
+		if (examName!=null&&examName!=""){
+			$.ajax({
+				url:'${ctx}/createword/create/create',
+				type:'post',
+				async:false,
+				data: {sinids:sinids,mulids:mulids},
+				traditional: true,
+				success: function (data) { //返回json结果
+					alert(data);
+				}
+			});
+		}else{
+			alert("请填写试卷名称");
+		}
+
     };
 function save_paper()
 {
@@ -41,17 +47,22 @@ function save_paper()
         .find("input[name='mulid']:checked").each(function () {
         mulids.push($(this).val());
     });
-    var examName=document.getElementById("ptitle").value;
-    $.ajax({
-        url:'${ctx}/examination/examinationPaper/saveid',
-        type:'post',
-        async:false,
-        data: {sinids:sinids,mulids:mulids,examName:examName},
-        traditional: true,
-        success: function (data) { //返回json结果
-            alert(data);
-        }
-    });
+	var examName=document.getElementById("ptitle").value;
+	if (examName!=null&&examName!=""){
+		$.ajax({
+			url:'${ctx}/examination/examinationPaper/saveid',
+			type:'post',
+			async:false,
+			data: {sinids:sinids,mulids:mulids,examName:examName},
+			traditional: true,
+			success: function (data) { //返回json结果
+				alert(data);
+			}
+		});
+	}else{
+		alert("请填写试卷名称");
+	}
+
 };
 </script>
 </head>
@@ -59,7 +70,7 @@ function save_paper()
 <form>
 <div>
     <div>请输入试卷名称</div>
-    <input path="examName" maxlength="255" id="ptitle" class="form-control required" required/>
+    <input path="examName" maxlength="255" id="ptitle" class="form-control required"/>
 </div>
 <div>
     <input path="questionId" maxlength="255" class="form-control required" id="qid" style="display:none"/>

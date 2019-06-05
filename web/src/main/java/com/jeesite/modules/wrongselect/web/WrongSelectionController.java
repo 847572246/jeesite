@@ -170,7 +170,7 @@ public class WrongSelectionController extends BaseController {
 		return "modules/wrongselect/wrongmultiple";
 	}
 	/**
-	 * 
+	 * 显示用户列表
 	 * @param empUser
 	 * @param model
 	 * @return
@@ -219,7 +219,7 @@ public class WrongSelectionController extends BaseController {
 	/**
 	 * 在试卷确认中保存错题库
 	 */
-	@RequiresPermissions("wrongselect:wrongSelection:edit")
+	/*@RequiresPermissions("wrongselect:wrongSelection:edit")*/
 	@PostMapping(value = "pluralsave")
 	@ResponseBody
 	public String pluralsave(@RequestBody List<WrongSelection>  wrongSelections, HttpServletRequest request) {

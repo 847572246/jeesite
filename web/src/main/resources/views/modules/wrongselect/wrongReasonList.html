@@ -10,6 +10,7 @@
 				<% if(hasPermi('wrong:wrongReason:edit')){ %>
 					<a href="${ctx}/wrong/wrongReason/form" class="btn btn-default btnTool" title="${text('新增wrong_reason')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
 				<% } %>
+				<a href="#" class="btn btn-default" id="fa-close (alias)" title="${text('关闭')}" onclick="closewrongrea()"> ${text('关闭')}</a>
 			</div>
 		</div>
 		<div class="box-body">
@@ -78,6 +79,9 @@ $('#dataGrid').dataGrid({
 		
 	}
 });
+function closewrongrea() {
+	window.parent.document.getElementById("content3").style.display = "none";
+}
 function select(e,id){
 	window.parent.document.getElementById("wrongreason").value=e;
 	window.parent.document.getElementById("wrongid").value=id;

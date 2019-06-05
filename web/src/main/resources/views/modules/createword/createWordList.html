@@ -17,16 +17,23 @@ function create_paper()
         .find("input[name='mulid']:checked").each(function () {
             mulids.push($(this).val());
         });
-        $.ajax({
-			url:'${ctx}/createword/create/create',
-			type:'post',
-			async:false,
-			data: {sinids:sinids,mulids:mulids},
-			traditional: true,
-			success: function (data) { //返回json结果
-				alert(data);
-			}
-		});
+        var examName=document.getElementById("ptitle").value;
+       if (examName!=null&&examName!=""){
+           $.ajax({
+               url:'${ctx}/createword/create/create',
+               type:'post',
+               async:false,
+               data: {sinids:sinids,mulids:mulids},
+               traditional: true,
+               success: function (data) { //返回json结果
+                   alert(data);
+               }
+           });
+       }else {
+           alert("请填写试卷名称");
+       }
+
+
 };
 function save_paper()
 {
@@ -42,16 +49,21 @@ function save_paper()
         mulids.push($(this).val());
     });
     var examName=document.getElementById("ptitle").value;
-    $.ajax({
-        url:'${ctx}/examination/examinationPaper/saveid',
-        type:'post',
-        async:false,
-        data: {sinids:sinids,mulids:mulids,examName:examName},
-        traditional: true,
-        success: function (data) { //返回json结果
-            alert(data);
-        }
-    });
+    if (examName!=null&&examName!=""){
+        $.ajax({
+            url:'${ctx}/examination/examinationPaper/saveid',
+            type:'post',
+            async:false,
+            data: {sinids:sinids,mulids:mulids,examName:examName},
+            traditional: true,
+            success: function (data) { //返回json结果
+                alert(data);
+            }
+        });
+    }else {
+        alert("请填写试卷名称");
+    }
+
 };
 </script>
 </head>

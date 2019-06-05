@@ -39,7 +39,7 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="test_area_name", attrName="testAreaName", label="区域名称", isQuery=false),
 	}, joinTable={
 		@JoinTable(type=Type.LEFT_JOIN, entity=User.class, attrName="testUser", alias="u12",
-			on="u12.user_code = a.test_user_code", columns={
+				on="u12.user_code = a.test_user_code", columns={
 				@Column(name="user_code", label="用户编码", isPK=true),
 				@Column(name="user_name", label="用户名称", isQuery=false),
 		}),

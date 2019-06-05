@@ -67,7 +67,9 @@ public class AnswerPaperController extends BaseController {
 	@RequiresPermissions("answer:answerPaper:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(AnswerPaper answerPaper, Model model) {
+		String userName =  UserUtils.getUser().getUserCode();
 		model.addAttribute("answerPaper", answerPaper);
+		model.addAttribute("userName", userName);
 		return "modules/answer/answerPaperList";
 	}
 	
@@ -103,6 +105,7 @@ public class AnswerPaperController extends BaseController {
 		List<AnswerSingle> answerSingles=new ArrayList<AnswerSingle>();
 		List<AnswerMultiple> answerMultiples=new ArrayList<AnswerMultiple>();
 		List<PaperSelection> paperSelections =answerPaperService.findanswer(id);
+		/*提取paperSelections的实体id*/
 		for (int i=0;i<paperSelections.size();i++){
 			if (paperSelections.get(i).getSinQuestionId()!=null){
 				sinquestionId+=paperSelections.get(i).getSinQuestionId();
@@ -113,6 +116,7 @@ public class AnswerPaperController extends BaseController {
 		}
 		List<AnswerSingle> single=examinationPaperService.listanswersin(sinquestionId);
 		List<AnswerMultiple> multiple=examinationPaperService.listanswermul(mulquestionId);
+		/*根据试题id获取题库中的每个选项的错误原因*/
 		for (int i=0;i<single.size();i++){
 			for (int j=0;j<paperSelections.size();j++){
 				if(single.get(i).getId().equals(paperSelections.get(j).getSinQuestionId())){
@@ -138,10 +142,9 @@ public class AnswerPaperController extends BaseController {
 				}
 			}
 		}
+		/*根据试题id获取题库中的每个选项的错误原因*/
 		for (int i=0;i<multiple.size();i++){
-
 			for (int j=0;j<paperSelections.size();j++){
-
 				if(multiple.get(i).getId().equals(paperSelections.get(j).getMulQuestionId())){
 					String reasonid="";
 					String reason="";
@@ -150,6 +153,7 @@ public class AnswerPaperController extends BaseController {
 					multiple.get(i).setCorrect(paperSelections.get(j).getCorrect());
                     if (paperSelections.get(j).getAnswer().indexOf("A")!=-1){
                         reasonid+=multiple.get(i).getAwrongReasonId();
+						reason+=multiple.get(i).getAwrongReason();
                     }
                     if (paperSelections.get(j).getAnswer().indexOf("B")!=-1){
                         if (!reasonid.equals(null)&&!reasonid.equals("")){
@@ -183,9 +187,7 @@ public class AnswerPaperController extends BaseController {
 					multiple.get(i).setWrongReason(reason);
 					reasonid="";
 				}
-
 			}
-
 		}
 		String userName = answerPaperService.findusername(paperSelections.get(0).getUserCode());
 		String paperstatus=answerPaperService.findpaperstatus(paperSelections.get(0).getPaperId());
@@ -199,7 +201,7 @@ public class AnswerPaperController extends BaseController {
 	/**
 	 * 保存答题表
 	 */
-	@RequiresPermissions("answer:answerPaper:edit")
+	/*@RequiresPermissions("answer:answerPaper:edit")*/
 	@PostMapping(value = "savepaper")
 	@ResponseBody
 	public String savepaper(@RequestBody List<middlePaperSelection> middlepaperSelections, HttpServletRequest request,String answerPaperid) {

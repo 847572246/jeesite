@@ -11,6 +11,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeesite.modules.sys.entity.EmpUser;
+import com.jeesite.modules.sys.entity.Post;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -95,18 +97,6 @@ public class SchoolDateController extends BaseController {
 			political.add(all.get(i).getPhysicalScore());
 			examname.add(all.get(i).getExamName());
 		}
-
-
-		/*List<String> chinese=schoolDateService.chinese(schyear,usercode);
-		List<String> math=schoolDateService.math(schyear,usercode);
-		List<String> english=schoolDateService.english(schyear,usercode);
-		List<String> chemical=schoolDateService.chemical(schyear,usercode);
-		List<String> physical=schoolDateService.physical(schyear,usercode);
-		List<String> biological=schoolDateService.biological(schyear,usercode);
-		List<String> history=schoolDateService.history(schyear,usercode);
-		List<String> geographic=schoolDateService.geographic(schyear,usercode);
-		List<String> political=schoolDateService.political(schyear,usercode);
-		List<String> examname=schoolDateService.examname(schyear,usercode);*/
 		list.add(examname);
 		list.add(chinese);
 		list.add(math);
@@ -118,6 +108,19 @@ public class SchoolDateController extends BaseController {
 		list.add(geographic);
 		list.add(political);
 		return list;
+	}
+	/**
+	 * 显示用户列表
+	 * @param empUser
+	 * @param model
+	 * @return
+	 */
+	@RequiresPermissions("school:schoolDate:view")
+	@RequestMapping(value = "listuser")
+	public String list(EmpUser empUser, Model model) {
+		// 获取岗位列表
+		Post post = new Post();
+		return "modules/school/empUserList";
 	}
 	/**
 	 * 获取学年

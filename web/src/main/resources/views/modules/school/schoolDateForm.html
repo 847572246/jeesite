@@ -19,16 +19,20 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('user_code')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="userCode" maxlength="255" class="form-control"/>
+								<#form:input path="userCode" id="userCode" maxlength="255" class="form-control required" onclick="user()"/>
 							</div>
 						</div>
 					</div>
+					<iframe border="0" id="content" name="content"
+							src="${ctx}/school/schoolDate/listuser"
+							frameborder="0" style="height: 400px  ;display:none  " height="60%" width="65%">
+					</iframe>
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('学年')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="schoolYear" maxlength="255" class="form-control"/>
+								<#form:input path="schoolYear" maxlength="255" class="form-control required"/>
 							</div>
 						</div>
 					</div>
@@ -39,7 +43,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('考试名称')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<#form:input path="examName" maxlength="255" class="form-control"/>
+								<#form:input path="examName" maxlength="255" class="form-control required"/>
 							</div>
 						</div>
 					</div>
@@ -134,15 +138,6 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-6">
-						<div class="form-group">
-							<label class="control-label col-sm-4" title="">
-								<span class="required hide">*</span> ${text('order_flag')}：<i class="fa icon-question hide"></i></label>
-							<div class="col-sm-8">
-								<#form:input path="orderFlag" maxlength="5" class="form-control digits"/>
-							</div>
-						</div>
-					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
@@ -183,4 +178,7 @@ $("#inputForm").validate({
 		}, "json");
     }
 });
+function user(){
+	document.getElementById("content").style.display = "block";
+}
 </script>

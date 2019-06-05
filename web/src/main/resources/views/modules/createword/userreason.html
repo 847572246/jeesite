@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE HTML>
+<% layout('/layouts/default.html', {title: '测试数据管理', libs: ['validate','dataGrid']}){ %>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 <head xmlns:th="http://java.sun.com/jsf/composite">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -56,14 +57,7 @@ $(document).ready(function() {
 				} 			
 			});
 	}
-function AppendLink() {
-    var div = document.getElementById("divMain");
-    var linkTmp = document.createElement("a");
-    linkTmp.href = "${ctx}/wrongselect/wrongSelection/listwrongreason";
-    linkTmp.innerText = "百度";
-    //链接要使用innertText,不能使用value
-    div.appendChild(linkTmp);
-}
+
 	</script>
 <style type="text/css">
 
@@ -172,6 +166,9 @@ a.checkbox-deselect {
 <body>
 
 <div id="" align="center">
+	<div align="left">
+		<button type="button" class="btn btn-info btn-sm" onclick="history.go(-1);"></i> 返回</button>
+	</div>
 
 	<form action="${ctx}/wrongselect/wrongSelection/selectselection" method="post" enctype="multipart/form-data">
 		<fieldset>
@@ -194,14 +191,15 @@ a.checkbox-deselect {
 				</ul>
 					<%}%>
 			<div style="clear: both;"></div>
+
 			<button  class="sendit" type="submit" >确认</button>
-            <input type="submit" value="提交"><!--onsubmit="submitselect()"-->
-            <div id="sub"></div>
+			<div id="sub"></div>
 		</fieldset>
 	</form>
 </div>
 
 <div id="divMain"></div>
-<input type="button" value="添加链接" onclick="AppendLink()" />
+
 </body>
 </html>
+<% } %>

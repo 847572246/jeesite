@@ -30,7 +30,6 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="history_score", attrName="historyScore", label="历史"),
 		@Column(name="geographic_score", attrName="geographicScore", label="地理"),
 		@Column(name="political_score", attrName="politicalScore", label="政治"),
-		@Column(name="order_flag", attrName="orderFlag", label="order_flag"),
 	}, orderBy="a.update_date DESC"
 )
 public class SchoolDate extends DataEntity<SchoolDate> {
@@ -48,7 +47,6 @@ public class SchoolDate extends DataEntity<SchoolDate> {
 	private String historyScore;		// 历史
 	private String geographicScore;		// 地理
 	private String politicalScore;		// 政治
-	private String orderFlag;		// order_flag
 	
 	public SchoolDate() {
 		this(null);
@@ -156,13 +154,6 @@ public class SchoolDate extends DataEntity<SchoolDate> {
 	public void setPoliticalScore(String politicalScore) {
 		this.politicalScore = politicalScore;
 	}
-	
-	public String getOrderFlag() {
-		return orderFlag;
-	}
 
-	public void setOrderFlag(String orderFlag) {
-		this.orderFlag = orderFlag;
-	}
 	
 }

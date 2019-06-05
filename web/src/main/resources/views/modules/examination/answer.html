@@ -86,6 +86,7 @@
 										<#form:input id="${sin.id}" path="wrongIdSin" name="wrongIdSin" value="${sin.id}" maxlength="100" class="form-control required " style="display:none"/>
 										<#form:input id="${sin.id}" path="wrongSelect" name="wrongSelect" value="${sin.title}" maxlength="100" class="form-control required " style="display:none"/>
 										<#form:input id="${sin.id}" path="wrongReasonId" name="wrongReasonId" value="${sin.wrongReasonId}" maxlength="100" class="form-control required " style="display:none"/>
+										<#form:input id="${sin.id}" path="wrongReason" name="wrongReason" value="${sin.wrongReason}" maxlength="100" class="form-control required " style="display:none"/>
 										<%}%>
 										<%if(sin.correct == "1"){%>
 											<font>你的选择是:${sin.answer}</font></br>
@@ -151,6 +152,7 @@
                                         <#form:input id="${mul.id}" path="wrongIdMul" name="wrongIdMul" value="${mul.id}" maxlength="100" class="form-control required " style="display:none"/>
                                         <#form:input id="${mul.id}" path="wrongSelect" name="wrongSelect" value="${mul.title}" maxlength="100" class="form-control required " style="display:none"/>
 										<#form:input id="${mul.id}" path="wrongReasonId" name="wrongReasonId" value="${mul.wrongReasonId}" maxlength="100" class="form-control required " style="display:none"/>
+										<#form:input id="${mul.id}" path="wrongReason" name="wrongReason" value="${mul.wrongReason}" maxlength="100" class="form-control required " style="display:none"/>
 										<!--<#form:input  path="wrongSelect" name="wrongSelect" value="${mul.title}" maxlength="100" class="form-control required "/>-->
 										<%}%>
 										<%if(mul.correct == "1"){%>
@@ -164,11 +166,12 @@
 					</div>
 					<% } %>
 					<!--nr end-->
+				<div class="foot">
 				<%if(paperstatus == "1"){%>
-					<div class="foot">
-						<button type="button" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp;
-					</div>
+						<button type="button" class="btn btn-sm btn-primary" id="btnSubmit" onclick="history.go(-1);"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp;
 				<% } %>
+					<button type="button" class="btn btn-info btn-sm" onclick="history.go(-1);"><!--<i class="fa fa-reply-all">--></i> 返回</button>
+				</div>
 				</#form:form>
 			</div>
 
@@ -180,11 +183,11 @@
 </div>
 <% } %>
 <script>
-	function confirmpaper() {
-		var userCode='${paperSelections[0].userCode}';
-	}
-	//var paperId='${paperSelections[0].paperId}';
+
+
+
 	$('#btnSubmit').click(function () {
+		/*var userCode='${paperSelections[0].userCode}';*/
 		var paperId='${paperSelections[0].paperId}';
 		var reqdata = new Array();
 		var userName;
@@ -192,6 +195,7 @@
 		var wrongIdSin;
 		var wrongSelect;
 		var wrongReasonId;
+		var wrongReason;
 		var wrongIdMul;
 		var QuestionId = '-1';
 		var mulQuestionId = '-1';
@@ -217,8 +221,12 @@
 			else if ((QuestionId == '-1' || QuestionId == this.id)&&this.name=='wrongReasonId') {
 				wrongReasonId=value;
 			}
+			else if ((QuestionId == '-1' || QuestionId == this.id)&&this.name=='wrongReason') {
+				wrongReason=value;
+			}
 			else if (QuestionId != '-1' || QuestionId != this.id){
 				var mid=wrongReasonId.split(",")
+				var midname=wrongReason.split(",")
 				for (var i=0;i<mid.length;i++){
 					var data = {
 						userName: userName,
@@ -227,6 +235,7 @@
 						wrongIdMul: wrongIdMul,
 						wrongSelect: wrongSelect,
 						wrongReasonId: mid[i],
+						wrongReason: midname[i],
 					};
 					reqdata.push(data);
 				}
@@ -238,6 +247,7 @@
 			QuestionId=this.id;
 		});
 		var mid=wrongReasonId.split(",")
+		var midname=wrongReason.split(",")
 		for (var i=0;i<mid.length;i++){
 			var data = {
 				userName: userName,
@@ -246,10 +256,11 @@
 				wrongIdMul: wrongIdMul,
 				wrongSelect: wrongSelect,
 				wrongReasonId: mid[i],
+				wrongReason: midname[i],
 			};
 			reqdata.push(data);
 		}
-		// console.log(reqdata);
+		 //console.log(reqdata);
 		$.ajax({
 			url: '${ctx}/wrongselect/wrongSelection/pluralsave?paperId='+paperId+''
 			,data: JSON.stringify(reqdata)
@@ -258,6 +269,7 @@
 			,type: 'post'
 			,success: function (result) {
 				alert(result);
+				history.go(-1);
 			}
 
 		});
